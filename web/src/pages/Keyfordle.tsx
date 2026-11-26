@@ -451,7 +451,7 @@ const Keyfordle = () => {
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">Keyfordle</h1>
+          <h1 className="text-4xl font-bold text-primary mb-2">Keyfordle</h1>
           <p className="text-gray-600 dark:text-gray-400">
             Guess the KeyForge card of the day! You have {MAX_GUESSES} tries.
           </p>
@@ -478,11 +478,11 @@ const Keyfordle = () => {
               }}
               placeholder="Search for a card..."
               disabled={gameState.gameFinished}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
             />
             {searching && (
               <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                <div className="animate-spin h-5 w-5 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+                <div className="animate-spin h-5 w-5 border-2 border-primary border-t-transparent rounded-full"></div>
               </div>
             )}
           </div>
@@ -549,7 +549,7 @@ const Keyfordle = () => {
             <button
               onClick={handleSubmitGuess}
               disabled={!selectedCard || gameState.gameFinished}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium py-2 px-4 rounded-lg transition-colors"
+              className="flex-1 bg-primary hover:bg-primary-dark disabled:bg-gray-400 disabled:cursor-not-allowed text-gray-900 font-medium py-2 px-4 rounded-lg transition-colors"
             >
               Submit Guess
             </button>
@@ -582,7 +582,7 @@ const Keyfordle = () => {
                 <div className="text-sm text-gray-600 dark:text-gray-400">Losses</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                <div className="text-2xl font-bold text-primary">
                   {globalStats.win_rate.toFixed(1)}%
                 </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Win Rate</div>
