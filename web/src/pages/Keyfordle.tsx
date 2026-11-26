@@ -703,17 +703,25 @@ const Keyfordle = () => {
 
                             return (
                               // Every tile has the same width, so letter N
-                              // sits in the same column in every guess.
+                              // sits in the same column in every guess. The
+                              // hover label is CSS, not a title attribute,
+                              // so it shows at once.
                               <span
                                 key={letterIndex}
-                                title={`Character ${letterIndex + 1}${letter === " " ? " (space)" : ""}`}
-                                className={`inline-block w-5 py-0.5 text-center font-mono rounded text-white font-bold cursor-default ${bgColor} transition-colors duration-300`}
+                                aria-label={`${letter === " " ? "space" : letter}, character ${letterIndex + 1}`}
+                                className={`group relative inline-block w-5 py-0.5 text-center font-mono rounded text-white font-bold cursor-default ${bgColor} transition-colors duration-300`}
                                 style={{
                                   animationDelay: `${letterIndex * 50}ms`,
                                   animation: isFlipped ? "flip 0.6s ease-in-out" : "none",
                                 }}
                               >
                                 {letter === " " ? "\u00A0" : letter}
+                                <span
+                                  aria-hidden="true"
+                                  className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 hidden -translate-x-1/2 rounded bg-gray-950 px-1 text-[10px] leading-4 text-white group-hover:block"
+                                >
+                                  {letterIndex + 1}
+                                </span>
                               </span>
                             );
                           })}
