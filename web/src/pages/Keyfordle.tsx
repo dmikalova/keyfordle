@@ -22,6 +22,11 @@ interface GameState {
   gameWon: boolean;
   gameFinished: boolean;
   playerRank?: number;
+  // The player kept guessing after MAX_GUESSES misses. The loss is already
+  // recorded; later guesses only help the player find the card.
+  continued?: boolean;
+  // The player chose to see the answer after running out of guesses.
+  revealed?: boolean;
 }
 
 const Keyfordle = () => {
@@ -256,7 +261,7 @@ const Keyfordle = () => {
     const result = compareCards(selectedCard, gameState.targetCard);
     const newGuesses = [...gameState.guesses, result];
     const gameWon = selectedCard.name === gameState.targetCard.name;
-    const gameFinished = gameWon || newGuesses.length >= MAX_GUESSES;
+    const gameFinished = gameWon || (!gameState.continued && newGuesses.length >= MAX_GUESSES);
     const wasFinished = gameState.gameFinished;
 
     const newState: GameState = {
@@ -303,6 +308,33 @@ const Keyfordle = () => {
     setSearchQuery("");
   };
 
+  // Saves a state change that is not a guess: continuing or revealing.
+  const updateGameState = (changes: Partial<GameState>) => {
+    const newState = { ...gameState, ...changes };
+    setGameState(newState);
+
+    try {
+      if (newState.date) {
+        localStorage.setItem(`keyfordle_${newState.date}`, JSON.stringify(newState));
+      }
+    } catch (error) {
+      console.error("Error saving game state:", error);
+    }
+  };
+
+  const handleContinue = () => updateGameState({ continued: true, gameFinished: false });
+
+  const handleReveal = () => updateGameState({ gameFinished: true, revealed: true });
+
+  // The player missed MAX_GUESSES times and has not seen the answer yet.
+  const outOfGuesses =
+    !gameState.gameWon && !gameState.revealed && gameState.guesses.length >= MAX_GUESSES;
+
+  // A continuing player gets one empty row below their guesses.
+  const rowCount = gameState.continued
+    ? Math.max(MAX_GUESSES, gameState.guesses.length + (gameState.gameFinished ? 0 : 1))
+    : MAX_GUESSES;
+
   const generateShareMessage = (): string => {
     if (!gameState.targetCard || !gameState.date) return "";
 
@@ -313,10 +345,17 @@ const Keyfordle = () => {
     });
     const guessCount = gameState.guesses.length;
     const resultEmoji = gameState.gameWon ? "🎉" : "😔";
-    const resultText = gameState.gameWon ? "Solved" : "Failed";
+    const overTime = guessCount > MAX_GUESSES;
+    const resultText = gameState.gameWon
+      ? overTime
+        ? "Solved after continuing"
+        : "Solved"
+      : "Failed";
 
     let message = `Keyfordle ${dateStr} ${resultText} ${resultEmoji}\n`;
-    message += `${guessCount}/${MAX_GUESSES} guesses\n`;
+    message += overTime
+      ? `${guessCount} guesses (${MAX_GUESSES} allowed)\n`
+      : `${guessCount}/${MAX_GUESSES} guesses\n`;
 
     // Add rank information if available
     if (gameState.playerRank) {
@@ -328,7 +367,7 @@ const Keyfordle = () => {
 
     // Add emoji grid for each guess
     gameState.guesses.forEach((guess) => {
-      // Attributes in order: House, Type, Rarity, Expansion, Amber, Power, Armor (matching frontend display)
+      // Attributes in order: House, Type, Rarity, Set, Amber, Power, Armor (matching frontend display)
       // Using ⬛ (black square) to represent red/wrong matches since there's no standard red square emoji
       const houseEmoji = guess.houseMatch === "exact" ? "🟩" : "⬛";
       const typeEmoji = guess.typeMatch === "exact" ? "🟩" : "⬛";
@@ -518,7 +557,7 @@ const Keyfordle = () => {
                     )}
                     {card.expansion && (
                       <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
-                        {EXPANSIONS[card.expansion] || `Exp ${card.expansion}`}
+                        {EXPANSIONS[card.expansion] || `Set ${card.expansion}`}
                       </span>
                     )}
                   </div>
@@ -598,59 +637,61 @@ const Keyfordle = () => {
         )}
 
         {/* Game Result Message */}
-        {gameState.gameFinished && gameState.targetCard && (
-          <div
-            className={`mb-6 p-4 rounded-lg text-center ${
-              gameState.gameWon
-                ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200"
-                : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200"
-            }`}
-          >
-            {gameState.gameWon ? (
-              <div>
-                <p className="font-bold text-lg">Congratulations! You found it!</p>
-                <p className="mt-1">
-                  The card was: <strong>{gameState.targetCard.name}</strong>
-                </p>
-                <p className="mt-2 text-sm">
-                  Guessed in {gameState.guesses.length}/{MAX_GUESSES} tries
-                </p>
-              </div>
-            ) : (
-              <div>
-                <p className="font-bold text-lg">Better luck tomorrow!</p>
-                <p className="mt-1">
-                  The card was: <strong>{gameState.targetCard.name}</strong>
-                </p>
-                <p className="mt-2 text-sm">
-                  You used {gameState.guesses.length}/{MAX_GUESSES} guesses
-                </p>
-              </div>
-            )}
-
-            {/* Share Button */}
-            <button
-              onClick={handleCopyShare}
-              className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+        {gameState.gameFinished &&
+          gameState.targetCard &&
+          (gameState.gameWon || gameState.revealed) && (
+            <div
+              className={`mb-6 p-4 rounded-lg text-center ${
+                gameState.gameWon
+                  ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200"
+                  : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200"
+              }`}
             >
-              {copied ? (
-                <>
-                  <CheckCircle className="h-4 w-4 text-green-600" />
-                  Copied!
-                </>
+              {gameState.gameWon ? (
+                <div>
+                  <p className="font-bold text-lg">Congratulations! You found it!</p>
+                  <p className="mt-1">
+                    The card was: <strong>{gameState.targetCard.name}</strong>
+                  </p>
+                  <p className="mt-2 text-sm">
+                    {gameState.guesses.length > MAX_GUESSES
+                      ? `Guessed in ${gameState.guesses.length} tries, after continuing past ${MAX_GUESSES}`
+                      : `Guessed in ${gameState.guesses.length}/${MAX_GUESSES} tries`}
+                  </p>
+                </div>
               ) : (
-                <>
-                  <Copy className="h-4 w-4" />
-                  Share Result
-                </>
+                <div>
+                  <p className="font-bold text-lg">Better luck tomorrow!</p>
+                  <p className="mt-1">
+                    The card was: <strong>{gameState.targetCard.name}</strong>
+                  </p>
+                  <p className="mt-2 text-sm">You used {gameState.guesses.length} guesses</p>
+                </div>
               )}
-            </button>
-          </div>
-        )}
+
+              {/* Share Button */}
+              <button
+                onClick={handleCopyShare}
+                className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+              >
+                {copied ? (
+                  <>
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-4 w-4" />
+                    Share Result
+                  </>
+                )}
+              </button>
+            </div>
+          )}
 
         {/* Guess Grid */}
         <div className="space-y-3">
-          {Array.from({ length: MAX_GUESSES }).map((_, index) => {
+          {Array.from({ length: rowCount }).map((_, index) => {
             const guess = gameState.guesses[index] || null;
             const isFlipped = flippedIndexes.has(index);
             // Use the same image field logic - CardSerializer returns 'image' field with the correct URL
@@ -805,7 +846,7 @@ const Keyfordle = () => {
                       </div>
                     </div>
 
-                    {/* Expansion */}
+                    {/* Set */}
                     <div
                       className={`px-2 py-2 rounded-lg border-2 text-center font-medium transition-all duration-500 flex-1 min-w-[70px] ${getCellColor(
                         guess,
@@ -816,7 +857,7 @@ const Keyfordle = () => {
                       <div
                         className={`text-xs mb-1 ${isFlipped && guess ? "text-white/80" : "text-gray-500 dark:text-gray-400"}`}
                       >
-                        Exp
+                        Set
                       </div>
                       <div className="flex items-center justify-center gap-1 text-xs">
                         {guess && guess.card.expansion
@@ -921,57 +962,87 @@ const Keyfordle = () => {
           })}
         </div>
 
+        {/* Out of guesses: keep going or see the answer */}
+        {outOfGuesses && (
+          <div className="mt-3 p-3 rounded-lg bg-gray-800 border border-gray-700 flex flex-wrap items-center justify-center gap-3 text-sm">
+            <span className="text-gray-300">
+              {gameState.continued
+                ? "Still guessing. Your result counts as a miss."
+                : `Out of guesses after ${MAX_GUESSES} tries.`}
+            </span>
+            {!gameState.continued && (
+              <button
+                onClick={handleContinue}
+                className="px-4 py-1.5 rounded-lg bg-primary hover:bg-primary-dark text-gray-900 font-medium transition-colors"
+              >
+                Continue?
+              </button>
+            )}
+            <button
+              onClick={handleReveal}
+              className="px-4 py-1.5 rounded-lg border border-gray-600 text-white hover:bg-gray-700 transition-colors"
+            >
+              Show answer
+            </button>
+          </div>
+        )}
+
         {/* Legend */}
         <div className="mt-8 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-          <h3 className="font-bold text-gray-900 dark:text-white mb-2">How to Play</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-            The colored squares show how your <strong>guessed card</strong> compares to the target
-            card:
+          <h3 className="font-bold text-white mb-2">How to play</h3>
+          <p className="text-sm text-gray-300 mb-3">
+            Find today&apos;s card in {MAX_GUESSES} guesses. Each guess shows how{" "}
+            <strong>your card</strong> compares to today&apos;s card.
           </p>
-          <ul className="space-y-1 text-sm text-gray-700 dark:text-gray-300">
-            <li>
-              <span className="inline-block w-4 h-4 bg-green-500 rounded mr-2"></span>
-              <strong>Green:</strong> Your card matches exactly (House, Type, Rarity, Amber, Power,
-              Armor, Expansion)
-            </li>
-            <li>
-              <span className="inline-block w-4 h-4 bg-yellow-500 rounded mr-2"></span>
-              <strong>Yellow:</strong> Your card is less rare than the target (for Rarity)
-            </li>
-            <li>
-              <span className="inline-block w-4 h-4 bg-blue-500 rounded mr-2"></span>
-              <strong>Blue:</strong> Your card is more rare (Rarity), higher/lower (Amber, Power,
-              Armor), or earlier/later (Expansion) than the target
-            </li>
-            <li>
-              <span className="inline-block w-4 h-4 bg-red-500 rounded mr-2"></span>
-              <strong>Red:</strong> Your card doesn't match the target
-            </li>
-            <li className="mt-2">
-              <strong>Card Name:</strong> Letters in your guessed card's name show Green (correct
-              position), Yellow (in target name but wrong position), or Red (not in target name)
-            </li>
-            <li className="mt-2">
-              <strong>Arrows</strong> (Rarity, Expansion, Amber, Power, Armor) describe{" "}
-              <strong>your card</strong>, not the target:
+          <ul className="space-y-2 text-sm text-gray-300">
+            <li className="flex items-start gap-2">
+              <span className="inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded bg-green-500 text-white">
+                <Check className="h-3 w-3" />
+              </span>
+              <span>Same as today&apos;s card.</span>
             </li>
             <li className="flex items-start gap-2">
-              <ArrowUp className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <span className="inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded bg-blue-500 text-white">
+                <ArrowUp className="h-3 w-3" />
+              </span>
               <span>
-                Your card is rarer, from a later expansion, or higher. The target is less rare,
-                earlier, or lower.
+                Close. Your card is higher, rarer, or from a newer set. Today&apos;s card is lower,
+                less rare, or older.
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <ArrowDown className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <span className="inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded bg-blue-500 text-white">
+                <ArrowDown className="h-3 w-3" />
+              </span>
               <span>
-                Your card is less rare, from an earlier expansion, or lower. The target is rarer,
-                later, or higher.
+                Close. Your card is lower, less rare, or from an older set. Today&apos;s card is
+                higher, rarer, or newer. Rarity shows this one in yellow.
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <Check className="h-4 w-4 mt-0.5 flex-shrink-0" />
-              <span>Your card matches the target.</span>
+              <span className="inline-block h-5 w-5 flex-shrink-0 rounded bg-red-500" />
+              <span>Different from today&apos;s card.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="inline-flex flex-shrink-0 gap-0.5">
+                <span className="w-5 rounded bg-green-500 text-center font-mono font-bold text-white">
+                  A
+                </span>
+                <span className="w-5 rounded bg-yellow-500 text-center font-mono font-bold text-white">
+                  B
+                </span>
+                <span className="w-5 rounded bg-red-500 text-center font-mono font-bold text-white">
+                  C
+                </span>
+              </span>
+              <span>
+                Name letters: green is in the right spot, yellow is elsewhere in the name, red is
+                not in the name.
+              </span>
+            </li>
+            <li>
+              Out of guesses? Choose <strong>Continue?</strong> to keep guessing. The day still
+              counts as a miss.
             </li>
           </ul>
         </div>
