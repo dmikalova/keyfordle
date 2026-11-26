@@ -24,8 +24,9 @@ import (
 // this many guesses.
 const MaxGuesses = 6
 
-// Search limits. Upstream's default was 20; the page asks for 10. The cap keeps
-// one request from returning the whole pool.
+// Search limits. Upstream's default was 20; the page asks for the cap, so its
+// dropdown can fill the window. The cap keeps one request from returning the
+// whole pool.
 const (
 	defaultSearchLimit = 20
 	maxSearchLimit     = 50

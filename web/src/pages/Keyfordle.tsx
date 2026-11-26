@@ -52,6 +52,15 @@ const Keyfordle = () => {
   const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  // The dropdown fills the window below the search box. It is measured each
+  // time results arrive, so it follows scrolling and resizing between searches.
+  const [dropdownMaxHeight, setDropdownMaxHeight] = useState(240);
+  useEffect(() => {
+    const input = searchInputRef.current;
+    if (!input || searchResults.length === 0) return;
+    const below = window.innerHeight - input.getBoundingClientRect().bottom - 16;
+    setDropdownMaxHeight(Math.max(240, below));
+  }, [searchResults]);
   const [globalStats, setGlobalStats] = useState<{
     games_played: number;
     wins: number;
@@ -215,7 +224,7 @@ const Keyfordle = () => {
     setSearching(true);
     try {
       const response = await api.get(
-        `/api/decks/public/card_search/?search=${encodeURIComponent(query)}&limit=10`,
+        `/api/decks/public/card_search/?search=${encodeURIComponent(query)}&limit=50`,
       );
       setSearchResults(response.data.results || []);
     } catch (error) {
@@ -325,6 +334,11 @@ const Keyfordle = () => {
   const handleContinue = () => updateGameState({ continued: true, gameFinished: false });
 
   const handleReveal = () => updateGameState({ gameFinished: true, revealed: true });
+
+  // Search results without the cards already guessed.
+  const visibleResults = searchResults.filter(
+    (card) => !gameState.guesses.some((g) => g.card.name === card.name),
+  );
 
   // The player missed MAX_GUESSES times and has not seen the answer yet.
   const outOfGuesses =
@@ -501,8 +515,49 @@ const Keyfordle = () => {
           )}
         </div>
 
+        {/* Global Statistics */}
+        {globalStats && globalStats.games_played > 0 && (
+          <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+            <h3 className="text-lg font-semibold mb-3 text-center text-gray-900 dark:text-white">
+              Today's Statistics
+            </h3>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+              <div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {globalStats.games_played}
+                </div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Games Played</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                  {globalStats.wins}
+                </div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Wins</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-red-600 dark:text-red-400">
+                  {globalStats.losses}
+                </div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Losses</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-primary">
+                  {globalStats.win_rate.toFixed(1)}%
+                </div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Win Rate</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                  {globalStats.average_guesses.toFixed(1)}
+                </div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">Avg Guesses</div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Search Bar */}
-        <div className="mb-8 relative">
+        <div className="mb-6 relative">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
@@ -527,12 +582,13 @@ const Keyfordle = () => {
           </div>
 
           {/* Dropdown Results */}
-          {searchResults.length > 0 && !selectedCard && (
+          {visibleResults.length > 0 && !selectedCard && (
             <div
               ref={dropdownRef}
-              className="absolute z-50 top-full mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+              className="absolute z-50 top-full mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg overflow-y-auto"
+              style={{ maxHeight: dropdownMaxHeight }}
             >
-              {searchResults.map((card) => (
+              {visibleResults.map((card) => (
                 <button
                   key={card.name}
                   onClick={() => handleCardSelect(card)}
@@ -595,44 +651,28 @@ const Keyfordle = () => {
           </div>
         </div>
 
-        {/* Global Statistics */}
-        {globalStats && globalStats.games_played > 0 && (
-          <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold mb-3 text-center text-gray-900 dark:text-white">
-              Today's Statistics
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
-              <div>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {globalStats.games_played}
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Games Played</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                  {globalStats.wins}
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Wins</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-red-600 dark:text-red-400">
-                  {globalStats.losses}
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Losses</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-primary">
-                  {globalStats.win_rate.toFixed(1)}%
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Win Rate</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                  {globalStats.average_guesses.toFixed(1)}
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Avg Guesses</div>
-              </div>
-            </div>
+        {/* Out of guesses: keep going or see the answer */}
+        {outOfGuesses && (
+          <div className="mb-6 p-3 rounded-lg bg-gray-800 border border-gray-700 flex flex-wrap items-center justify-center gap-3 text-sm">
+            <span className="text-gray-300">
+              {gameState.continued
+                ? "Still guessing. Your result counts as a miss."
+                : `Out of guesses after ${MAX_GUESSES} tries.`}
+            </span>
+            {!gameState.continued && (
+              <button
+                onClick={handleContinue}
+                className="px-4 py-1.5 rounded-lg bg-primary hover:bg-primary-dark text-gray-900 font-medium transition-colors"
+              >
+                Continue?
+              </button>
+            )}
+            <button
+              onClick={handleReveal}
+              className="px-4 py-1.5 rounded-lg border border-gray-600 text-white hover:bg-gray-700 transition-colors"
+            >
+              Show answer
+            </button>
           </div>
         )}
 
@@ -961,31 +1001,6 @@ const Keyfordle = () => {
             );
           })}
         </div>
-
-        {/* Out of guesses: keep going or see the answer */}
-        {outOfGuesses && (
-          <div className="mt-3 p-3 rounded-lg bg-gray-800 border border-gray-700 flex flex-wrap items-center justify-center gap-3 text-sm">
-            <span className="text-gray-300">
-              {gameState.continued
-                ? "Still guessing. Your result counts as a miss."
-                : `Out of guesses after ${MAX_GUESSES} tries.`}
-            </span>
-            {!gameState.continued && (
-              <button
-                onClick={handleContinue}
-                className="px-4 py-1.5 rounded-lg bg-primary hover:bg-primary-dark text-gray-900 font-medium transition-colors"
-              >
-                Continue?
-              </button>
-            )}
-            <button
-              onClick={handleReveal}
-              className="px-4 py-1.5 rounded-lg border border-gray-600 text-white hover:bg-gray-700 transition-colors"
-            >
-              Show answer
-            </button>
-          </div>
-        )}
 
         {/* Legend */}
         <div className="mt-8 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
