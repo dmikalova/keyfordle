@@ -176,6 +176,13 @@ describe("playerStats", () => {
     expect(stats.maxStreak).toBe(1);
   });
 
+  // The page renders before the server names today. A throw here blanked it.
+  it("has no current streak before today is known", () => {
+    const stats = playerStats([r("2026-11-25", "won", 2)], "");
+    expect(stats.currentStreak).toBe(0);
+    expect(stats.maxStreak).toBe(1);
+  });
+
   it("is all zeros with no games", () => {
     expect(playerStats([], "2026-11-26")).toMatchObject({ played: 0, winRate: 0, maxStreak: 0 });
   });

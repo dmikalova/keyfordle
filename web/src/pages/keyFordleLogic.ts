@@ -356,10 +356,12 @@ export function playerStats(results: DayResult[], today: string): PlayerStats {
     maxStreak = Math.max(maxStreak, length);
   }
 
+  // Before the server says which day is today, today is empty and there is no
+  // current streak to count.
   const todayFinished = finished.some((r) => r.date === today);
-  let day = todayFinished ? today : addDays(today, -1);
+  let day = !today ? "" : todayFinished ? today : addDays(today, -1);
   let currentStreak = 0;
-  while (won.has(day)) {
+  while (day && won.has(day)) {
     currentStreak++;
     day = addDays(day, -1);
   }
