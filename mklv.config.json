@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dmikalova/project-standards/main/schema/mklv.config.schema.json",
+  "name": "keyfordle",
+  "entrypoint": "cmd/keyfordle/main.go",
+  "kind": "cloudrun",
+  "ignore": {
+    "git": ["/bin/", "/build/", "coverage.*", "/keyfordle", "/internal/site/assets/app/"],
+    "docker": ["internal/site/assets/app"]
+  },
+  "tools": {
+    "pnpm": {
+      "catalog": {
+        "vite": "npm:@voidzero-dev/vite-plus-core@1.4.0",
+        "vite-plus": "1.4.0"
+      },
+      "overrides": {
+        "vite@*": "catalog:"
+      },
+      "peerDependencyRules": {
+        "allowAny": ["vite"],
+        "allowedVersions": {
+          "vite": "*"
+        }
+      }
+    }
+  }
+}
