@@ -54,15 +54,6 @@ const Keyfordle = () => {
   } | null>(null);
   const [copied, setCopied] = useState(false);
 
-  // Load daily card first to get the server date, then load game state
-  useEffect(() => {
-    const initializeGame = async () => {
-      await fetchDailyCardAndDate();
-      fetchGlobalStats();
-    };
-    initializeGame();
-  }, []);
-
   // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -161,7 +152,7 @@ const Keyfordle = () => {
         });
       }
       // Refresh stats after recording
-      fetchGlobalStats();
+      await fetchGlobalStats();
     } catch (error) {
       console.error("Error recording game completion:", error);
     }
@@ -196,6 +187,17 @@ const Keyfordle = () => {
     }
   };
 
+  // Load daily card first to get the server date, then load game state. The
+  // effect sits below the functions it calls, so they exist when it reads them.
+  // Both functions catch their own errors, so the promise is not awaited.
+  useEffect(() => {
+    const initializeGame = async () => {
+      await fetchDailyCardAndDate();
+      await fetchGlobalStats();
+    };
+    void initializeGame();
+  }, []);
+
   const searchCards = async (query: string) => {
     if (query.length < 2) {
       setSearchResults([]);
@@ -224,8 +226,9 @@ const Keyfordle = () => {
       clearTimeout(searchTimeoutRef.current);
     }
 
+    // searchCards catches its own errors, so the promise is not awaited.
     searchTimeoutRef.current = setTimeout(() => {
-      searchCards(value);
+      void searchCards(value);
     }, 300);
   };
 
@@ -278,7 +281,8 @@ const Keyfordle = () => {
         const completedKey = `keyfordle_completed_${serverDate}`;
         if (!localStorage.getItem(completedKey)) {
           localStorage.setItem(completedKey, "true");
-          recordGameCompletion(newState.targetCard?.name || "", gameWon, newGuesses.length);
+          // recordGameCompletion catches its own errors, so the promise is not awaited.
+          void recordGameCompletion(newState.targetCard?.name || "", gameWon, newGuesses.length);
         }
       }
     } catch (error) {
