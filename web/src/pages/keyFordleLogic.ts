@@ -276,3 +276,100 @@ export function addDays(date: string, n: number): string {
   const [y, m, d] = date.split("-").map(Number);
   return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10);
 }
+
+// A day the player has played, as saved in the browser.
+// - won: found the card within MAX_GUESSES.
+// - lost: missed MAX_GUESSES times. A late find after Continue? still counts
+//   as lost, as it does on the server.
+// - playing: started, not finished.
+export type DayStatus = "won" | "lost" | "playing";
+
+export interface DayResult {
+  date: string;
+  status: DayStatus;
+  guesses: number;
+}
+
+// SAVED_GAME_KEY matches the YYYY-MM-DD saved-game keys the page writes.
+const SAVED_GAME_KEY = /^keyfordle_(\d{4}-\d{2}-\d{2})$/;
+
+// dayResultOf reads one saved game. It returns null for a game with no guesses
+// or a value that is not a saved game.
+export function dayResultOf(date: string, saved: string): DayResult | null {
+  try {
+    const state = JSON.parse(saved) as { guesses?: unknown[]; gameWon?: boolean };
+    const guesses = Array.isArray(state.guesses) ? state.guesses.length : 0;
+    if (guesses === 0) return null;
+
+    let status: DayStatus = "playing";
+    if (state.gameWon && guesses <= MAX_GUESSES) status = "won";
+    else if (guesses >= MAX_GUESSES) status = "lost";
+
+    return { date, status, guesses };
+  } catch {
+    return null;
+  }
+}
+
+// readSavedResults lists every game saved in storage, oldest day first.
+export function readSavedResults(storage: Storage): DayResult[] {
+  const results: DayResult[] = [];
+
+  for (let i = 0; i < storage.length; i++) {
+    const key = storage.key(i);
+    const match = key ? SAVED_GAME_KEY.exec(key) : null;
+    if (!match || !key) continue;
+
+    const result = dayResultOf(match[1], storage.getItem(key) || "");
+    if (result) results.push(result);
+  }
+
+  return results.sort((a, b) => a.date.localeCompare(b.date));
+}
+
+export interface PlayerStats {
+  played: number;
+  wins: number;
+  winRate: number;
+  currentStreak: number;
+  maxStreak: number;
+  // distribution[n - 1] is the number of wins in n guesses.
+  distribution: number[];
+}
+
+// playerStats sums finished days. A streak is a run of won days in a row by
+// date. The current streak ends today, or yesterday while today is unfinished.
+export function playerStats(results: DayResult[], today: string): PlayerStats {
+  const finished = results.filter((r) => r.status !== "playing");
+  const won = new Set(finished.filter((r) => r.status === "won").map((r) => r.date));
+  const distribution = new Array<number>(MAX_GUESSES).fill(0);
+
+  for (const r of finished) {
+    if (r.status === "won") distribution[r.guesses - 1]++;
+  }
+
+  let maxStreak = 0;
+  for (const date of won) {
+    if (won.has(addDays(date, -1))) continue;
+    let length = 1;
+    while (won.has(addDays(date, length))) length++;
+    maxStreak = Math.max(maxStreak, length);
+  }
+
+  const todayFinished = finished.some((r) => r.date === today);
+  let day = todayFinished ? today : addDays(today, -1);
+  let currentStreak = 0;
+  while (won.has(day)) {
+    currentStreak++;
+    day = addDays(day, -1);
+  }
+
+  return {
+    played: finished.length,
+    wins: won.size,
+    winRate: finished.length ? (won.size / finished.length) * 100 : 0,
+    currentStreak,
+    maxStreak,
+    distribution,
+  };
+}

@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vite-plus/test";
-import { type Card, addDays, compareCards, formatRank, EXPANSIONS } from "./keyFordleLogic";
+import {
+  type Card,
+  type DayResult,
+  type DayStatus,
+  addDays,
+  compareCards,
+  dayResultOf,
+  formatRank,
+  playerStats,
+  EXPANSIONS,
+} from "./keyFordleLogic";
 
 const card = (over: Partial<Card>): Card => ({
   name: "Ancient Bear",
@@ -105,5 +115,68 @@ describe("addDays", () => {
     expect(addDays("2018-12-31", 1)).toBe("2019-01-01");
     expect(addDays("2020-02-28", 1)).toBe("2020-02-29");
     expect(addDays("2020-03-01", -1)).toBe("2020-02-29");
+  });
+});
+
+describe("dayResultOf", () => {
+  const saved = (guesses: number, gameWon: boolean) =>
+    JSON.stringify({ guesses: new Array(guesses).fill({}), gameWon });
+
+  it("classifies a saved game", () => {
+    expect(dayResultOf("2020-01-01", saved(3, true))?.status).toBe("won");
+    expect(dayResultOf("2020-01-01", saved(6, false))?.status).toBe("lost");
+    expect(dayResultOf("2020-01-01", saved(2, false))?.status).toBe("playing");
+  });
+
+  it("counts a find after continuing as lost", () => {
+    expect(dayResultOf("2020-01-01", saved(8, true))?.status).toBe("lost");
+  });
+
+  it("skips empty or broken games", () => {
+    expect(dayResultOf("2020-01-01", saved(0, false))).toBeNull();
+    expect(dayResultOf("2020-01-01", "not json")).toBeNull();
+  });
+});
+
+describe("playerStats", () => {
+  const r = (date: string, status: DayStatus, guesses: number): DayResult => ({
+    date,
+    status,
+    guesses,
+  });
+
+  it("sums wins, streaks and the guess distribution", () => {
+    const stats = playerStats(
+      [
+        r("2026-11-20", "won", 2),
+        r("2026-11-21", "won", 3),
+        r("2026-11-22", "won", 3),
+        r("2026-11-23", "lost", 6),
+        r("2026-11-24", "won", 4),
+        r("2026-11-25", "won", 1),
+        r("2026-11-26", "playing", 2),
+      ],
+      "2026-11-26",
+    );
+
+    expect(stats.played).toBe(6);
+    expect(stats.wins).toBe(5);
+    expect(stats.maxStreak).toBe(3);
+    // Today is unfinished, so the streak runs back from yesterday.
+    expect(stats.currentStreak).toBe(2);
+    expect(stats.distribution).toEqual([1, 1, 2, 1, 0, 0]);
+  });
+
+  it("ends the current streak at a finished today", () => {
+    const stats = playerStats(
+      [r("2026-11-25", "won", 2), r("2026-11-26", "lost", 6)],
+      "2026-11-26",
+    );
+    expect(stats.currentStreak).toBe(0);
+    expect(stats.maxStreak).toBe(1);
+  });
+
+  it("is all zeros with no games", () => {
+    expect(playerStats([], "2026-11-26")).toMatchObject({ played: 0, winRate: 0, maxStreak: 0 });
   });
 });

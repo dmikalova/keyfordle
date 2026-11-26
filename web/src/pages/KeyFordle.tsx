@@ -8,11 +8,15 @@ import {
   ChevronRight,
   Copy,
   CheckCircle,
+  BarChart3,
 } from "lucide-react";
 import api from "../utils/api";
 import { useSEO } from "../hooks/useSEO";
+import DayPicker from "../components/DayPicker";
+import PlayerStatsDialog from "../components/PlayerStatsDialog";
 import {
   type Card,
+  type DayResult,
   type GuessResult,
   MAX_GUESSES,
   EXPANSIONS,
@@ -21,6 +25,8 @@ import {
   compareCards,
   FIRST_DAY,
   addDays,
+  playerStats,
+  readSavedResults,
 } from "./keyFordleLogic";
 
 // Shown in place of a card image that fails to load.
@@ -83,6 +89,15 @@ const KeyFordle = () => {
     card_of_the_day: string | null;
   } | null>(null);
   const [copied, setCopied] = useState(false);
+  const [showStats, setShowStats] = useState(false);
+  // activeIndex is the search result the arrow keys point at.
+  const [activeIndex, setActiveIndex] = useState(0);
+  // zoomedImage is the card image enlarged by a tap or click.
+  const [zoomedImage, setZoomedImage] = useState<{ src: string; alt: string } | null>(null);
+  // Keep the result the arrow keys point at in view.
+  useEffect(() => {
+    dropdownRef.current?.children[activeIndex]?.scrollIntoView({ block: "nearest" });
+  }, [activeIndex]);
   // History mode: the server says which day is today and which is the first,
   // and the most played days are offered as shortcuts.
   const [today, setToday] = useState("");
@@ -291,6 +306,7 @@ const KeyFordle = () => {
         `/api/decks/public/card_search/?search=${encodeURIComponent(query)}&limit=50`,
       );
       setSearchResults(response.data.results || []);
+      setActiveIndex(0);
     } catch (error) {
       console.error("Error searching cards:", error);
       setSearchResults([]);
@@ -313,11 +329,12 @@ const KeyFordle = () => {
     }, 300);
   };
 
-  const handleCardSelect = (card: Card) => {
+  // A keyboard pick keeps focus in the box, so the next Enter submits.
+  const handleCardSelect = (card: Card, { keepFocus = false } = {}) => {
     setSelectedCard(card);
     setSearchQuery(card.name);
     setSearchResults([]);
-    searchInputRef.current?.blur();
+    if (!keepFocus) searchInputRef.current?.blur();
   };
 
   const handleSubmitGuess = () => {
@@ -403,6 +420,18 @@ const KeyFordle = () => {
   const handleContinue = () => updateGameState({ continued: true, gameFinished: false });
 
   const handleReveal = () => updateGameState({ gameFinished: true, revealed: true });
+
+  // The player's own results, from the games saved in this browser. They are
+  // read on every render, so the calendar and stats follow each guess. A
+  // player has at most a few thousand saved days, so this stays cheap.
+  let savedResults: DayResult[] = [];
+  try {
+    savedResults = readSavedResults(window.localStorage);
+  } catch {
+    // Storage can be blocked; the page then shows no saved results.
+  }
+  const dayResults = new Map(savedResults.map((r) => [r.date, r.status]));
+  const myStats = playerStats(savedResults, today || gameState.date);
 
   // Search results without the cards already guessed.
   const visibleResults = searchResults.filter(
@@ -587,16 +616,12 @@ const KeyFordle = () => {
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
-              <input
-                type="date"
+              <DayPicker
                 value={gameState.date}
                 min={firstDay}
-                max={today || undefined}
-                onChange={(e) => {
-                  if (e.target.value) goToDay(e.target.value);
-                }}
-                aria-label="Pick a day"
-                className="px-2 py-1 rounded-lg border border-gray-600 bg-gray-800 text-white [color-scheme:dark]"
+                max={today || gameState.date}
+                results={dayResults}
+                onSelect={goToDay}
               />
               <button
                 onClick={() => goToDay(addDays(gameState.date, 1))}
@@ -614,6 +639,13 @@ const KeyFordle = () => {
                   Today
                 </button>
               )}
+              <button
+                onClick={() => setShowStats(true)}
+                className="flex items-center gap-1.5 px-3 py-1 rounded-lg border border-gray-600 text-white hover:bg-gray-700"
+              >
+                <BarChart3 className="h-4 w-4 text-primary" />
+                Your stats
+              </button>
             </div>
           )}
           {gameState.date && (
@@ -698,8 +730,27 @@ const KeyFordle = () => {
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter" && selectedCard) {
+                // Arrow keys move through the results, Enter picks one, and a
+                // second Enter submits it. Escape closes the list.
+                const open = visibleResults.length > 0 && !selectedCard;
+                if (e.key === "ArrowDown" && open) {
+                  e.preventDefault();
+                  setActiveIndex((i) => Math.min(i + 1, visibleResults.length - 1));
+                } else if (e.key === "ArrowUp" && open) {
+                  e.preventDefault();
+                  setActiveIndex((i) => Math.max(i - 1, 0));
+                } else if (e.key === "Enter" && selectedCard) {
                   handleSubmitGuess();
+                } else if (e.key === "Enter" && open) {
+                  e.preventDefault();
+                  handleCardSelect(
+                    visibleResults[Math.min(activeIndex, visibleResults.length - 1)],
+                    {
+                      keepFocus: true,
+                    },
+                  );
+                } else if (e.key === "Escape") {
+                  setSearchResults([]);
                 }
               }}
               placeholder="Search for a card..."
@@ -720,11 +771,12 @@ const KeyFordle = () => {
               className="absolute z-50 top-full mt-1 w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg overflow-y-auto"
               style={{ maxHeight: dropdownMaxHeight }}
             >
-              {visibleResults.map((card) => (
+              {visibleResults.map((card, index) => (
                 <button
                   key={card.name}
                   onClick={() => handleCardSelect(card)}
-                  className="w-full text-left px-3 py-2 flex items-center gap-3 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 last:border-b-0 transition-colors"
+                  onMouseEnter={() => setActiveIndex(index)}
+                  className={`w-full text-left px-3 py-2 flex items-center gap-3 ${index === activeIndex ? "bg-gray-700" : ""} text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 last:border-b-0 transition-colors`}
                 >
                   <img
                     src={card.image || IMAGE_MISSING}
@@ -896,11 +948,27 @@ const KeyFordle = () => {
               <div key={index} className="flex gap-3 items-center">
                 {/* Card Image */}
                 {guess && cardImage ? (
-                  <div className="flex-shrink-0 flex flex-col items-center">
+                  // The small button takes the hover, and the zoomed image
+                  // ignores the pointer, so moving onto the next card works
+                  // at once. While it shrinks back, the image keeps its
+                  // z-index until the transition ends, so it stays on top.
+                  // A tap or click opens the card full size.
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      const img = e.currentTarget.querySelector("img");
+                      setZoomedImage({
+                        src: img?.currentSrc || cardImage,
+                        alt: guess.card.name,
+                      });
+                    }}
+                    aria-label={`Enlarge ${guess.card.name}`}
+                    className="group relative flex-shrink-0 w-20 h-28 cursor-zoom-in"
+                  >
                     <img
                       src={cardImage}
                       alt={guess.card.name}
-                      className="w-20 h-28 object-contain drop-shadow-md transition-transform duration-300 hover:scale-[5] hover:z-50 relative"
+                      className="pointer-events-none relative z-0 w-20 h-28 object-contain drop-shadow-md [transition:transform_300ms,z-index_0s_300ms] group-hover:z-50 group-hover:scale-[5] group-hover:[transition:transform_300ms,z-index_0s]"
                       onError={(e) => {
                         // A card whose image is not uploaded yet shows the
                         // placeholder. The check stops a loop if the
@@ -910,7 +978,7 @@ const KeyFordle = () => {
                         }
                       }}
                     />
-                  </div>
+                  </button>
                 ) : (
                   <div className="w-20 h-28 rounded border border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 flex-shrink-0 flex items-center justify-center">
                     <span className="text-gray-400 dark:text-gray-600 text-xs">—</span>
@@ -1213,6 +1281,40 @@ const KeyFordle = () => {
           </ul>
         </div>
       </div>
+
+      {showStats && (
+        <PlayerStatsDialog
+          stats={myStats}
+          highlight={
+            gameState.gameWon && gameState.guesses.length <= MAX_GUESSES
+              ? gameState.guesses.length
+              : undefined
+          }
+          onClose={() => setShowStats(false)}
+        />
+      )}
+
+      {/* A tapped or clicked card, full size. Any click or Escape closes it. */}
+      {zoomedImage && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={zoomedImage.alt}
+          tabIndex={-1}
+          ref={(el) => el?.focus()}
+          onClick={() => setZoomedImage(null)}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") setZoomedImage(null);
+          }}
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 p-4 cursor-zoom-out outline-none"
+        >
+          <img
+            src={zoomedImage.src}
+            alt={zoomedImage.alt}
+            className="max-h-[85vh] max-w-[90vw] object-contain drop-shadow-2xl"
+          />
+        </div>
+      )}
     </div>
   );
 };

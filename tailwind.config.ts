@@ -15,6 +15,9 @@ const web = (path: string) => fileURLToPath(new URL(`./web/${path}`, import.meta
 export default {
   content: [web("index.html"), web("src/**/*.{ts,tsx}")],
   darkMode: "class",
+  // hover: styles apply only on devices that can hover, so a tap on a phone
+  // does not leave a card zoomed in place.
+  future: { hoverOnlyWhenSupported: true },
   theme: {
     extend: {
       colors: {
