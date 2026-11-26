@@ -702,9 +702,12 @@ const Keyfordle = () => {
                             }
 
                             return (
+                              // Every tile has the same width, so letter N
+                              // sits in the same column in every guess.
                               <span
                                 key={letterIndex}
-                                className={`inline-block px-1.5 py-0.5 rounded text-white font-bold ${bgColor} transition-colors duration-300`}
+                                title={`Character ${letterIndex + 1}${letter === " " ? " (space)" : ""}`}
+                                className={`inline-block w-5 py-0.5 text-center font-mono rounded text-white font-bold cursor-default ${bgColor} transition-colors duration-300`}
                                 style={{
                                   animationDelay: `${letterIndex * 50}ms`,
                                   animation: isFlipped ? "flip 0.6s ease-in-out" : "none",
