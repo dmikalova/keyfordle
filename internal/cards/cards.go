@@ -141,20 +141,50 @@ func (p *Pool) ByName(name string) (Card, bool) {
 // pool without reference cards. MD5 is a spreader here, not a security
 // boundary.
 func (p *Pool) Pick(day time.Time) Card {
+	return p.cards[p.order(day)[0]]
+}
+
+// Candidates returns the names a day may take, best first. The first is
+// Pick(day). The rest walk on from the pick, wrapping, through the cards of
+// the same kind. A reference day then walks the deck cards from upstream's
+// pick, so it still gets a card when every reference card is taken. A deck
+// day never gets a reference card. The store takes the first candidate that
+// no other day holds.
+func (p *Pool) Candidates(day time.Time) []string {
+	order := p.order(day)
+
+	names := make([]string, len(order))
+	for i, c := range order {
+		names[i] = p.cards[c].Name
+	}
+
+	return names
+}
+
+// order returns the indexes of a day's candidates, best first.
+func (p *Pool) order(day time.Time) []int {
 	sum := md5.Sum([]byte(day.UTC().Format("20060102")))
 	n := new(big.Int).SetBytes(sum[:])
 
+	var out []int
+
 	quotient, percent := new(big.Int).DivMod(n, big.NewInt(100), new(big.Int))
 	if len(p.reference) > 0 && percent.Int64() < ReferencePercent {
-		return p.cards[p.reference[indexOf(quotient, len(p.reference))]]
+		out = walk(out, p.reference, quotient)
 	}
 
-	return p.cards[p.deck[indexOf(n, len(p.deck))]]
+	return walk(out, p.deck, n)
 }
 
-// indexOf returns n modulo size.
-func indexOf(n *big.Int, size int) int64 {
-	return new(big.Int).Mod(n, big.NewInt(int64(size))).Int64()
+// walk appends every index of kind, from n modulo its length, wrapping.
+func walk(out, kind []int, n *big.Int) []int {
+	start := int(new(big.Int).Mod(n, big.NewInt(int64(len(kind)))).Int64())
+
+	for i := range kind {
+		out = append(out, kind[(start+i)%len(kind)])
+	}
+
+	return out
 }
 
 // MinQueryLength is the shortest query Search answers, as upstream.

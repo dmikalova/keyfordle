@@ -3,9 +3,11 @@ package store_test
 import (
 	"context"
 	"errors"
+	"fmt"
 	"os"
 	"sync"
 	"testing"
+	"time"
 
 	"github.com/dmikalova/keyfordle/internal/store"
 )
@@ -42,7 +44,7 @@ func TestClaimDayKeepsTheFirstCard(t *testing.T) {
 
 	for i := range got {
 		wg.Go(func() {
-			name, err := s.ClaimDay(ctx, date, string(rune('A'+i)))
+			name, err := s.ClaimDay(ctx, date, []string{string(rune('A' + i))})
 			if err != nil {
 				t.Errorf("ClaimDay: %v", err)
 			}
@@ -60,6 +62,50 @@ func TestClaimDayKeepsTheFirstCard(t *testing.T) {
 	}
 }
 
+// TestClaimDaySkipsTakenCards claims three new days from the same two
+// candidates. The second day skips the card the first day holds. The third
+// finds both taken and takes the earliest of the least used.
+func TestClaimDaySkipsTakenCards(t *testing.T) {
+	s := open(t)
+	ctx := context.Background()
+
+	// The test database is reused, so the names are new each run and the days
+	// are the first three unclaimed ones from 1900.
+	run := time.Now().UnixNano()
+	x, y := fmt.Sprintf("X %d", run), fmt.Sprintf("Y %d", run)
+	base := time.Date(1900, 1, 1, 0, 0, 0, 0, time.UTC)
+
+	for {
+		_, err := s.Day(ctx, base.AddDate(0, 0, 2).Format(time.DateOnly))
+		if errors.Is(err, store.ErrNoDay) {
+			break
+		}
+
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		base = base.AddDate(0, 0, 3)
+	}
+
+	for i, want := range []string{x, y, x} {
+		date := base.AddDate(0, 0, i).Format(time.DateOnly)
+
+		got, err := s.ClaimDay(ctx, date, []string{x, y})
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if got != want {
+			t.Fatalf("day %d took %q, want %q", i, got, want)
+		}
+	}
+
+	if _, err := s.ClaimDay(ctx, base.Format(time.DateOnly), nil); err != nil {
+		t.Fatalf("ClaimDay on a claimed day with no candidates: %v", err)
+	}
+}
+
 func TestRecordFinishCountsEveryGame(t *testing.T) {
 	s := open(t)
 	ctx := context.Background()
@@ -70,7 +116,7 @@ func TestRecordFinishCountsEveryGame(t *testing.T) {
 		t.Fatalf("RecordFinish on an unclaimed day = %v, want ErrNoDay", err)
 	}
 
-	if _, err := s.ClaimDay(ctx, date, "Ancient Bear"); err != nil {
+	if _, err := s.ClaimDay(ctx, date, []string{"Ancient Bear"}); err != nil {
 		t.Fatal(err)
 	}
 
@@ -114,7 +160,7 @@ func TestPopularDaysOrdersByPlays(t *testing.T) {
 	// The test database is reused, so each run adds plays: 3 on the first day
 	// and 5 on the second keep the second ahead whatever ran before.
 	for date, plays := range map[string]int{"1998-02-01": 3, "1998-02-02": 5} {
-		if _, err := s.ClaimDay(ctx, date, "Card"); err != nil {
+		if _, err := s.ClaimDay(ctx, date, []string{"Card"}); err != nil {
 			t.Fatal(err)
 		}
 

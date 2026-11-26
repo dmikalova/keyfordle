@@ -75,28 +75,63 @@ func (s *Store) Close() { s.pool.Close() }
 const dayColumns = `date, card_name, games_played, wins, losses, total_guesses, created_at, updated_at`
 
 // ClaimDay returns the card stored for date. When the day has no row yet, it
-// stores cardName first. A concurrent claim for the same day is harmless: the
-// insert that loses does nothing, and both callers read the winner's card.
-func (s *Store) ClaimDay(ctx context.Context, date, cardName string) (string, error) {
+// stores one of candidates first: the first that no other day holds, or, when
+// every candidate is taken, the one that the fewest days hold, earliest first.
+// A concurrent claim for the same day is harmless: the insert that loses does
+// nothing, and both callers read the winner's card. Two new days claimed at the
+// same moment can both take one card; nothing else repeats a card while an
+// unused candidate is left.
+func (s *Store) ClaimDay(ctx context.Context, date string, candidates []string) (string, error) {
+	// Almost every call is for a day that already has its card. Reading it
+	// first keeps the candidate list off the wire for those.
+	stored, err := s.dayCard(ctx, date)
+	if err == nil {
+		return stored, nil
+	}
+
+	if !errors.Is(err, pgx.ErrNoRows) {
+		return "", fmt.Errorf("read the card for %s: %w", date, err)
+	}
+
+	if len(candidates) == 0 {
+		return "", fmt.Errorf("claim the card for %s: no candidates", date)
+	}
+
 	const insert = `
 		INSERT INTO keyfordle.days (date, card_name)
-		VALUES ($1::date, $2)
+		SELECT $1::date, c.name
+		FROM unnest($2::text[]) WITH ORDINALITY AS c(name, rank)
+		LEFT JOIN (
+			SELECT card_name, count(*) AS uses
+			FROM keyfordle.days
+			GROUP BY card_name
+		) AS u ON u.card_name = c.name
+		ORDER BY coalesce(u.uses, 0), c.rank
+		LIMIT 1
 		ON CONFLICT (date) DO NOTHING`
 
-	if _, err := s.pool.Exec(ctx, insert, date, cardName); err != nil {
+	if _, err := s.pool.Exec(ctx, insert, date, candidates); err != nil {
 		return "", fmt.Errorf("claim the card for %s: %w", date, err)
 	}
 
 	// A separate statement, so its snapshot sees a row another instance
 	// committed while the insert above waited on it.
-	var stored string
-
-	const query = `SELECT card_name FROM keyfordle.days WHERE date = $1::date`
-	if err := s.pool.QueryRow(ctx, query, date).Scan(&stored); err != nil {
+	stored, err = s.dayCard(ctx, date)
+	if err != nil {
 		return "", fmt.Errorf("read the card for %s: %w", date, err)
 	}
 
 	return stored, nil
+}
+
+// dayCard reads the card stored for date.
+func (s *Store) dayCard(ctx context.Context, date string) (string, error) {
+	var stored string
+
+	const query = `SELECT card_name FROM keyfordle.days WHERE date = $1::date`
+	err := s.pool.QueryRow(ctx, query, date).Scan(&stored)
+
+	return stored, err
 }
 
 // Day returns the row for date, or ErrNoDay.

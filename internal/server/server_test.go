@@ -28,7 +28,9 @@ type fakeStore struct {
 
 func newFakeStore() *fakeStore { return &fakeStore{days: map[string]*store.Day{}} }
 
-func (f *fakeStore) ClaimDay(_ context.Context, date, cardName string) (string, error) {
+// ClaimDay stores the candidate the fewest days hold, earliest first, as the
+// SQL does.
+func (f *fakeStore) ClaimDay(_ context.Context, date string, candidates []string) (string, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
@@ -40,10 +42,22 @@ func (f *fakeStore) ClaimDay(_ context.Context, date, cardName string) (string, 
 		return d.CardName, nil
 	}
 
-	day, _ := time.Parse("2006-01-02", date)
-	f.days[date] = &store.Day{Date: day, CardName: cardName}
+	uses := map[string]int{}
+	for _, d := range f.days {
+		uses[d.CardName]++
+	}
 
-	return cardName, nil
+	best := candidates[0]
+	for _, c := range candidates {
+		if uses[c] < uses[best] {
+			best = c
+		}
+	}
+
+	day, _ := time.Parse("2006-01-02", date)
+	f.days[date] = &store.Day{Date: day, CardName: best}
+
+	return best, nil
 }
 
 func (f *fakeStore) Day(_ context.Context, date string) (store.Day, error) {
@@ -211,6 +225,42 @@ func TestDailyCardIsClaimedOnce(t *testing.T) {
 	_, body, _ = do(t, h, httptest.NewRequest(http.MethodGet, "/api/decks/public/daily_card/", nil))
 	if got := body["card"].(map[string]any)["name"]; got != "Bear Flute" {
 		t.Fatalf("daily_card after the claim = %v (first %v), want the stored card", got, first)
+	}
+}
+
+// TestDaysDoNotRepeatCards claims as many days as the pool has cards: each
+// gets its own card. The next day repeats a card, because none is left.
+func TestDaysDoNotRepeatCards(t *testing.T) {
+	st := newFakeStore()
+	h := newServer(t, st)
+
+	seen := map[any]bool{}
+
+	for _, date := range []string{"2020-01-01", "2020-01-02", "2020-01-03"} {
+		code, body, _ := do(
+			t,
+			h,
+			httptest.NewRequest(http.MethodGet, "/api/decks/public/daily_card/?date="+date, nil),
+		)
+		if code != http.StatusOK {
+			t.Fatalf("daily_card?date=%s = %d %v", date, code, body)
+		}
+
+		name := body["card"].(map[string]any)["name"]
+		if seen[name] {
+			t.Fatalf("%s repeated %v; days so far %v", date, name, seen)
+		}
+
+		seen[name] = true
+	}
+
+	code, body, _ := do(
+		t,
+		h,
+		httptest.NewRequest(http.MethodGet, "/api/decks/public/daily_card/?date=2020-01-04", nil),
+	)
+	if code != http.StatusOK || !seen[body["card"].(map[string]any)["name"]] {
+		t.Fatalf("the day after the pool ran out = %d %v", code, body)
 	}
 }
 

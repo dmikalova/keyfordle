@@ -3,6 +3,7 @@ package cards_test
 import (
 	"crypto/md5"
 	"math/big"
+	"strings"
 	"testing"
 	"time"
 
@@ -112,6 +113,66 @@ func TestPickDrawsReferenceCards(t *testing.T) {
 	// About 2% of ten years is 73 days.
 	if referenceDays < 40 || referenceDays > 110 {
 		t.Fatalf("%d of %d days drew a reference card, want about 2%%", referenceDays, days)
+	}
+}
+
+// TestCandidates pins the candidate order: the pick, then the rest of its kind
+// from the pick on, wrapping. A reference day then walks the deck cards from
+// upstream's pick. A deck day holds no reference card.
+func TestCandidates(t *testing.T) {
+	isReference := map[string]bool{"B": true, "F": true}
+
+	entries := make([]cards.Entry, 0, 7)
+	for _, n := range []string{"A", "B", "C", "D", "E", "F", "G"} {
+		e := entry(n, "")
+		e.Reference = isReference[n]
+		entries = append(entries, e)
+	}
+
+	pool, err := cards.New(entries)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	deck := []string{"A", "C", "D", "E", "G"}
+	start := time.Date(2018, 11, 15, 0, 0, 0, 0, time.UTC)
+	referenceDays := 0
+
+	for d := range 3650 {
+		day := start.AddDate(0, 0, d)
+		got := pool.Candidates(day)
+
+		if got[0] != pool.Pick(day).Name {
+			t.Fatalf(
+				"%s: Candidates[0] = %q, Pick = %q",
+				day.Format(time.DateOnly),
+				got[0],
+				pool.Pick(day).Name,
+			)
+		}
+
+		sum := md5.Sum([]byte(day.Format("20060102")))
+		n := new(big.Int).SetBytes(sum[:])
+		at := int(new(big.Int).Mod(n, big.NewInt(5)).Int64())
+
+		want := []string{}
+		if isReference[got[0]] {
+			referenceDays++
+			other := map[string]string{"B": "F", "F": "B"}[got[0]]
+			want = append(want, got[0], other)
+		}
+
+		for i := range deck {
+			want = append(want, deck[(at+i)%len(deck)])
+		}
+
+		if strings.Join(got, ",") != strings.Join(want, ",") {
+			t.Fatalf("%s: Candidates = %v, want %v", day.Format(time.DateOnly), got, want)
+		}
+	}
+
+	if referenceDays == 0 {
+		t.Fatal("no day drew a reference card")
 	}
 }
 

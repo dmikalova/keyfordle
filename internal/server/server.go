@@ -40,7 +40,7 @@ const dateLayout = "2006-01-02"
 
 // Store is the state the API reads and writes. *store.Store implements it.
 type Store interface {
-	ClaimDay(ctx context.Context, date, cardName string) (string, error)
+	ClaimDay(ctx context.Context, date string, candidates []string) (string, error)
 	Day(ctx context.Context, date string) (store.Day, error)
 	RecordFinish(ctx context.Context, date string, won bool, guesses int) (store.Day, error)
 	PopularDays(ctx context.Context, limit int) ([]store.Day, error)
@@ -144,15 +144,16 @@ func (s *Server) dayOf(requested string) (string, error) {
 	return date, nil
 }
 
-// claimDay returns the card of date, storing the pool's pick if the day is new.
-// Every day, past or present, picks from the whole pool.
+// claimDay returns the card of date. A new day takes the pool's first candidate
+// that no other day holds. Every day, past or present, picks from the whole
+// pool.
 func (s *Server) claimDay(ctx context.Context, date string) (cards.Card, error) {
 	day, err := time.Parse(dateLayout, date)
 	if err != nil {
 		return cards.Card{}, err
 	}
 
-	name, err := s.store.ClaimDay(ctx, date, s.pool.Pick(day).Name)
+	name, err := s.store.ClaimDay(ctx, date, s.pool.Candidates(day))
 	if err != nil {
 		return cards.Card{}, err
 	}
