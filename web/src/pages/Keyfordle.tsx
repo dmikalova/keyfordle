@@ -992,7 +992,7 @@ const Keyfordle = () => {
           <h3 className="font-bold text-white mb-2">How to play</h3>
           <p className="text-sm text-gray-300 mb-3">
             Find today&apos;s card in {MAX_GUESSES} guesses. Each guess shows how{" "}
-            <strong>your card</strong> compares to today&apos;s card.
+            <strong>your guess</strong> compares to today&apos;s card.
           </p>
           <ul className="space-y-2 text-sm text-gray-300">
             <li className="flex items-start gap-2">
@@ -1006,7 +1006,7 @@ const Keyfordle = () => {
                 <ArrowUp className="h-3 w-3" />
               </span>
               <span>
-                Close. Your card is higher, rarer, or from a newer set. Today&apos;s card is lower,
+                Close. Your guess is higher, rarer, or from a newer set. Today&apos;s card is lower,
                 less rare, or older.
               </span>
             </li>
@@ -1015,7 +1015,7 @@ const Keyfordle = () => {
                 <ArrowDown className="h-3 w-3" />
               </span>
               <span>
-                Close. Your card is lower, less rare, or from an older set. Today&apos;s card is
+                Close. Your guess is lower, less rare, or from an older set. Today&apos;s card is
                 higher, rarer, or newer. Rarity shows this one in yellow.
               </span>
             </li>
