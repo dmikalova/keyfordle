@@ -43,8 +43,11 @@ Run both gates before calling work done:
   section in `internal/catalog/doc.go`, and a case in the catalog tests.
   Run `mage ci:fix` after `mage cards`: its spell fixer corrects a Master Vault
   typo in one excluded archon power's name (Controlling Expertise).
-- **Image paths follow vex's importer:** `<set-slug>/<number>.png`, or
-  `<number>-<name-slug>.png` when two cards in one set share a number.
+- **Image paths follow vex's importer:** `<set-slug>/<number><ext>`, or
+  `<number>-<name-slug><ext>` when two cards in one set share a number, under
+  `images/cards/` in the `mklv-keyforge-cards-public` bucket. The base URL and
+  the extension are `ImageBaseURL` and `ImageExt` in `internal/catalog`;
+  change them there and run `mage cards`.
 
 ## Talking to Supabase
 

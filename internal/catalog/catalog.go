@@ -21,9 +21,13 @@ import (
 	"github.com/dmikalova/keyfordle/internal/cards"
 )
 
-// ImageBaseURL is where the card images live: the public keyforge.cards image
-// bucket, keyed by set slug and collector number.
-const ImageBaseURL = "https://storage.googleapis.com/mklv-keyforge-cards-images/cards/"
+// The card images live under images/cards/ in the public keyforge.cards
+// bucket, one per <set-slug>/<file>. The extension is a constant of its own
+// because the images may move to another format.
+const (
+	ImageBaseURL = "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/"
+	ImageExt     = ".png"
+)
 
 // CatalogDir is where vex keeps its set catalogs, relative to a vex checkout.
 const CatalogDir = "internal/cards/provenance"
@@ -376,15 +380,15 @@ func convert(set Set, src source, sharedNumber bool) (cards.Entry, error) {
 }
 
 // imageName is the card's file name in the image bucket, as vex's importer
-// writes it: <number>.png, or <number>-<name slug>.png when another card in the
-// same set shares the number (Menagerie #305 is Veylan Analyst and It's
+// writes it: <number><ext>, or <number>-<name slug><ext> when another card in
+// the same set shares the number (Menagerie #305 is Veylan Analyst and It's
 // Coming...).
 func imageName(src source, sharedNumber bool) string {
 	if !sharedNumber {
-		return src.Number + ".png"
+		return src.Number + ImageExt
 	}
 
-	return src.Number + "-" + slug(src.Name) + ".png"
+	return src.Number + "-" + slug(src.Name) + ImageExt
 }
 
 // slug lowercases s and keeps its ASCII letters and digits. Apostrophes and

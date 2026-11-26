@@ -258,10 +258,10 @@ func TestBuildNamesImagesOnASharedNumber(t *testing.T) {
 	}
 
 	want := map[string]string{
-		"Lone Card":       "menagerie/304.png",
-		"Veylan Analyst":  "menagerie/305-veylan-analyst.png",
-		"It’s Coming...":  "menagerie/305-its-coming.png",
-		"\"Big\" Bot 2.0": "menagerie/306-big-bot-2-0.png",
+		"Lone Card":       "menagerie/304",
+		"Veylan Analyst":  "menagerie/305-veylan-analyst",
+		"It’s Coming...":  "menagerie/305-its-coming",
+		"\"Big\" Bot 2.0": "menagerie/306-big-bot-2-0",
 	}
 
 	if len(res.Pool) != len(want) {
@@ -269,8 +269,8 @@ func TestBuildNamesImagesOnASharedNumber(t *testing.T) {
 	}
 
 	for _, e := range res.Pool {
-		if got := strings.TrimPrefix(e.Image, catalog.ImageBaseURL); got != want[e.Name] {
-			t.Errorf("%s image = %q, want %q", e.Name, got, want[e.Name])
+		if got, wantURL := e.Image, catalog.ImageBaseURL+want[e.Name]+catalog.ImageExt; got != wantURL {
+			t.Errorf("%s image = %q, want %q", e.Name, got, wantURL)
 		}
 	}
 }
