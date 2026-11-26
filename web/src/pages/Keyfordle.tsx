@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react'
-import { Search, Check, ArrowUp, ArrowDown, Copy, CheckCircle } from 'lucide-react'
-import api from '../utils/api'
-import { useSEO } from '../hooks/useSEO'
+import { useState, useEffect, useRef } from "react";
+import { Search, Check, ArrowUp, ArrowDown, Copy, CheckCircle } from "lucide-react";
+import api from "../utils/api";
+import { useSEO } from "../hooks/useSEO";
 import {
   type Card,
   type GuessResult,
@@ -10,58 +10,58 @@ import {
   formatDateFromString,
   formatRank,
   compareCards,
-} from './keyfordleLogic'
+} from "./keyfordleLogic";
 
 interface GameState {
-  date: string
-  targetCard: Card | null
-  guesses: GuessResult[]
-  gameWon: boolean
-  gameFinished: boolean
-  playerRank?: number
+  date: string;
+  targetCard: Card | null;
+  guesses: GuessResult[];
+  gameWon: boolean;
+  gameFinished: boolean;
+  playerRank?: number;
 }
 
 const Keyfordle = () => {
   useSEO({
-    title: 'Keyfordle - Daily Card Guessing Game',
-    description: 'Guess the KeyForge card of the day! A Wordle-style game for KeyForge cards.',
-    canonical: 'https://keyfordle.keyforge.cards/',
-  })
+    title: "Keyfordle - Daily Card Guessing Game",
+    description: "Guess the KeyForge card of the day! A Wordle-style game for KeyForge cards.",
+    canonical: "https://keyfordle.keyforge.cards/",
+  });
 
-  const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState<Card[]>([])
-  const [selectedCard, setSelectedCard] = useState<Card | null>(null)
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<Card[]>([]);
+  const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   const [gameState, setGameState] = useState<GameState>({
-    date: '',
+    date: "",
     targetCard: null,
     guesses: [],
     gameWon: false,
     gameFinished: false,
-  })
-  const [loading, setLoading] = useState(true)
-  const [searching, setSearching] = useState(false)
-  const [flippedIndexes, setFlippedIndexes] = useState<Set<number>>(new Set())
-  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const searchInputRef = useRef<HTMLInputElement>(null)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  });
+  const [loading, setLoading] = useState(true);
+  const [searching, setSearching] = useState(false);
+  const [flippedIndexes, setFlippedIndexes] = useState<Set<number>>(new Set());
+  const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [globalStats, setGlobalStats] = useState<{
-    games_played: number
-    wins: number
-    losses: number
-    win_rate: number
-    average_guesses: number
-    card_of_the_day: string | null
-  } | null>(null)
-  const [copied, setCopied] = useState(false)
+    games_played: number;
+    wins: number;
+    losses: number;
+    win_rate: number;
+    average_guesses: number;
+    card_of_the_day: string | null;
+  } | null>(null);
+  const [copied, setCopied] = useState(false);
 
   // Load daily card first to get the server date, then load game state
   useEffect(() => {
     const initializeGame = async () => {
-      await fetchDailyCardAndDate()
-      fetchGlobalStats()
-    }
-    initializeGame()
-  }, [])
+      await fetchDailyCardAndDate();
+      fetchGlobalStats();
+    };
+    initializeGame();
+  }, []);
 
   // Handle click outside to close dropdown
   useEffect(() => {
@@ -72,28 +72,28 @@ const Keyfordle = () => {
         searchInputRef.current &&
         !searchInputRef.current.contains(event.target as Node)
       ) {
-        setSearchResults([])
+        setSearchResults([]);
       }
-    }
+    };
 
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const loadGameState = (serverDate: string) => {
     try {
-      const savedState = localStorage.getItem(`keyfordle_${serverDate}`)
+      const savedState = localStorage.getItem(`keyfordle_${serverDate}`);
 
       if (savedState) {
-        const parsed = JSON.parse(savedState)
+        const parsed = JSON.parse(savedState);
         // Ensure backwards compatibility - add nameMatches to old guesses if missing
         if (parsed.guesses && Array.isArray(parsed.guesses)) {
           parsed.guesses.forEach((guess: GuessResult) => {
             if (guess && guess.card && guess.card.name && !guess.nameMatches) {
               // Generate nameMatches for old guesses (will be recalculated on next comparison anyway)
-              guess.nameMatches = new Array(guess.card.name.length).fill('absent')
+              guess.nameMatches = new Array(guess.card.name.length).fill("absent");
             }
-          })
+          });
         }
         // Merge saved state with current state (preserve date and targetCard from backend)
         setGameState((prev) => ({
@@ -101,27 +101,27 @@ const Keyfordle = () => {
           ...parsed,
           date: prev.date, // Keep server date
           targetCard: prev.targetCard || parsed.targetCard, // Prefer server targetCard
-        }))
+        }));
         // Restore flipped indexes for already revealed guesses
-        const flipped = new Set<number>()
+        const flipped = new Set<number>();
         parsed.guesses.forEach((_: GuessResult, index: number) => {
-          flipped.add(index)
-        })
-        setFlippedIndexes(flipped)
-        setLoading(false)
+          flipped.add(index);
+        });
+        setFlippedIndexes(flipped);
+        setLoading(false);
       } else {
         // New day - gameState already has date and targetCard from fetchDailyCardAndDate
-        setLoading(false)
+        setLoading(false);
       }
     } catch (error) {
-      console.error('Error loading game state:', error)
-      setLoading(false)
+      console.error("Error loading game state:", error);
+      setLoading(false);
     }
-  }
+  };
 
   const fetchGlobalStats = async () => {
     try {
-      const response = await api.get('/api/decks/public/keyfordle_stats/')
+      const response = await api.get("/api/decks/public/keyfordle_stats/");
       setGlobalStats({
         games_played: response.data.games_played || 0,
         wins: response.data.wins || 0,
@@ -129,49 +129,49 @@ const Keyfordle = () => {
         win_rate: response.data.win_rate || 0,
         average_guesses: response.data.average_guesses || 0,
         card_of_the_day: response.data.card_of_the_day || null,
-      })
+      });
     } catch (error) {
-      console.error('Error fetching global stats:', error)
+      console.error("Error fetching global stats:", error);
     }
-  }
+  };
 
   const recordGameCompletion = async (cardName: string, gameWon: boolean, numGuesses: number) => {
     try {
-      const response = await api.post('/api/decks/public/record_keyfordle_completion/', {
+      const response = await api.post("/api/decks/public/record_keyfordle_completion/", {
         card_name: cardName,
         game_won: gameWon,
         num_guesses: numGuesses,
-      })
+      });
       // Store the player rank from the response and save to localStorage
       if (response.data.player_rank) {
         setGameState((prev) => {
           const updatedState = {
             ...prev,
             playerRank: response.data.player_rank,
-          }
+          };
           // Save updated state with rank to localStorage
           if (prev.date) {
             try {
-              localStorage.setItem(`keyfordle_${prev.date}`, JSON.stringify(updatedState))
+              localStorage.setItem(`keyfordle_${prev.date}`, JSON.stringify(updatedState));
             } catch (error) {
-              console.error('Error saving game state with rank:', error)
+              console.error("Error saving game state with rank:", error);
             }
           }
-          return updatedState
-        })
+          return updatedState;
+        });
       }
       // Refresh stats after recording
-      fetchGlobalStats()
+      fetchGlobalStats();
     } catch (error) {
-      console.error('Error recording game completion:', error)
+      console.error("Error recording game completion:", error);
     }
-  }
+  };
 
   const fetchDailyCardAndDate = async () => {
     try {
-      const response = await api.get('/api/decks/public/daily_card/')
-      const dailyCard = response.data.card
-      const serverDate = response.data.date // Use date from backend
+      const response = await api.get("/api/decks/public/daily_card/");
+      const dailyCard = response.data.card;
+      const serverDate = response.data.date; // Use date from backend
 
       setGameState((prev) => {
         // Always update date from server, and targetCard if not already set
@@ -179,264 +179,264 @@ const Keyfordle = () => {
           ...prev,
           date: serverDate,
           targetCard: prev.targetCard || dailyCard,
-        }
-      })
+        };
+      });
 
       // Load game state from localStorage using the server date
-      loadGameState(serverDate)
+      loadGameState(serverDate);
     } catch (error) {
-      console.error('Error fetching daily card:', error)
+      console.error("Error fetching daily card:", error);
       // Fallback to local date if backend fails (shouldn't happen normally)
-      const fallbackDate = new Date().toISOString().split('T')[0]
+      const fallbackDate = new Date().toISOString().split("T")[0];
       setGameState((prev) => ({
         ...prev,
         date: prev.date || fallbackDate,
-      }))
-      loadGameState(fallbackDate)
+      }));
+      loadGameState(fallbackDate);
     }
-  }
+  };
 
   const searchCards = async (query: string) => {
     if (query.length < 2) {
-      setSearchResults([])
-      return
+      setSearchResults([]);
+      return;
     }
 
-    setSearching(true)
+    setSearching(true);
     try {
       const response = await api.get(
         `/api/decks/public/card_search/?search=${encodeURIComponent(query)}&limit=10`,
-      )
-      setSearchResults(response.data.results || [])
+      );
+      setSearchResults(response.data.results || []);
     } catch (error) {
-      console.error('Error searching cards:', error)
-      setSearchResults([])
+      console.error("Error searching cards:", error);
+      setSearchResults([]);
     } finally {
-      setSearching(false)
+      setSearching(false);
     }
-  }
+  };
 
   const handleSearchChange = (value: string) => {
-    setSearchQuery(value)
-    setSelectedCard(null)
+    setSearchQuery(value);
+    setSelectedCard(null);
 
     if (searchTimeoutRef.current) {
-      clearTimeout(searchTimeoutRef.current)
+      clearTimeout(searchTimeoutRef.current);
     }
 
     searchTimeoutRef.current = setTimeout(() => {
-      searchCards(value)
-    }, 300)
-  }
+      searchCards(value);
+    }, 300);
+  };
 
   const handleCardSelect = (card: Card) => {
-    setSelectedCard(card)
-    setSearchQuery(card.name)
-    setSearchResults([])
-    searchInputRef.current?.blur()
-  }
+    setSelectedCard(card);
+    setSearchQuery(card.name);
+    setSearchResults([]);
+    searchInputRef.current?.blur();
+  };
 
   const handleSubmitGuess = () => {
     if (!selectedCard || !gameState.targetCard || gameState.gameFinished) {
-      return
+      return;
     }
 
     // Check if already guessed this card
     if (gameState.guesses.some((g) => g.card.name === selectedCard.name)) {
-      alert('You already guessed this card!')
-      return
+      alert("You already guessed this card!");
+      return;
     }
 
-    const result = compareCards(selectedCard, gameState.targetCard)
-    const newGuesses = [...gameState.guesses, result]
-    const gameWon = selectedCard.name === gameState.targetCard.name
-    const gameFinished = gameWon || newGuesses.length >= MAX_GUESSES
-    const wasFinished = gameState.gameFinished
+    const result = compareCards(selectedCard, gameState.targetCard);
+    const newGuesses = [...gameState.guesses, result];
+    const gameWon = selectedCard.name === gameState.targetCard.name;
+    const gameFinished = gameWon || newGuesses.length >= MAX_GUESSES;
+    const wasFinished = gameState.gameFinished;
 
     const newState: GameState = {
       ...gameState,
       guesses: newGuesses,
       gameWon,
       gameFinished,
-    }
+    };
 
-    setGameState(newState)
+    setGameState(newState);
 
     // Save to localStorage using server date from gameState
     try {
-      const serverDate = gameState.date
+      const serverDate = gameState.date;
       if (!serverDate) {
-        console.error('No date available in gameState')
-        return
+        console.error("No date available in gameState");
+        return;
       }
 
-      localStorage.setItem(`keyfordle_${serverDate}`, JSON.stringify(newState))
+      localStorage.setItem(`keyfordle_${serverDate}`, JSON.stringify(newState));
 
       // Record completion to database when game finishes (only once per completion)
       if (gameFinished && !wasFinished) {
         // Check if we already recorded this completion (to avoid double counting on refresh)
-        const completedKey = `keyfordle_completed_${serverDate}`
+        const completedKey = `keyfordle_completed_${serverDate}`;
         if (!localStorage.getItem(completedKey)) {
-          localStorage.setItem(completedKey, 'true')
-          recordGameCompletion(newState.targetCard?.name || '', gameWon, newGuesses.length)
+          localStorage.setItem(completedKey, "true");
+          recordGameCompletion(newState.targetCard?.name || "", gameWon, newGuesses.length);
         }
       }
     } catch (error) {
-      console.error('Error saving game state:', error)
+      console.error("Error saving game state:", error);
     }
 
     // Flip animation
-    const guessIndex = newGuesses.length - 1
+    const guessIndex = newGuesses.length - 1;
     setTimeout(() => {
-      setFlippedIndexes((prev) => new Set(prev).add(guessIndex))
-    }, 100)
+      setFlippedIndexes((prev) => new Set(prev).add(guessIndex));
+    }, 100);
 
     // Reset search
-    setSelectedCard(null)
-    setSearchQuery('')
-  }
+    setSelectedCard(null);
+    setSearchQuery("");
+  };
 
   const generateShareMessage = (): string => {
-    if (!gameState.targetCard || !gameState.date) return ''
+    if (!gameState.targetCard || !gameState.date) return "";
 
     const dateStr = formatDateFromString(gameState.date, {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    })
-    const guessCount = gameState.guesses.length
-    const resultEmoji = gameState.gameWon ? '🎉' : '😔'
-    const resultText = gameState.gameWon ? 'Solved' : 'Failed'
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+    const guessCount = gameState.guesses.length;
+    const resultEmoji = gameState.gameWon ? "🎉" : "😔";
+    const resultText = gameState.gameWon ? "Solved" : "Failed";
 
-    let message = `Keyfordle ${dateStr} ${resultText} ${resultEmoji}\n`
-    message += `${guessCount}/${MAX_GUESSES} guesses\n`
+    let message = `Keyfordle ${dateStr} ${resultText} ${resultEmoji}\n`;
+    message += `${guessCount}/${MAX_GUESSES} guesses\n`;
 
     // Add rank information if available
     if (gameState.playerRank) {
-      const rankText = formatRank(gameState.playerRank)
-      message += `I was the ${rankText} to finish!\n`
+      const rankText = formatRank(gameState.playerRank);
+      message += `I was the ${rankText} to finish!\n`;
     }
 
-    message += `\n`
+    message += `\n`;
 
     // Add emoji grid for each guess
     gameState.guesses.forEach((guess) => {
       // Attributes in order: House, Type, Rarity, Expansion, Amber, Power, Armor (matching frontend display)
       // Using ⬛ (black square) to represent red/wrong matches since there's no standard red square emoji
-      const houseEmoji = guess.houseMatch === 'exact' ? '🟩' : '⬛'
-      const typeEmoji = guess.typeMatch === 'exact' ? '🟩' : '⬛'
+      const houseEmoji = guess.houseMatch === "exact" ? "🟩" : "⬛";
+      const typeEmoji = guess.typeMatch === "exact" ? "🟩" : "⬛";
       const rarityEmoji =
-        guess.rarityMatch === 'exact'
-          ? '🟩'
-          : guess.rarityMatch === 'more_rare'
-            ? '🟦'
-            : guess.rarityMatch === 'less_rare'
-              ? '🟨'
-              : '⬛'
+        guess.rarityMatch === "exact"
+          ? "🟩"
+          : guess.rarityMatch === "more_rare"
+            ? "🟦"
+            : guess.rarityMatch === "less_rare"
+              ? "🟨"
+              : "⬛";
       const expEmoji =
-        guess.expansionMatch === 'exact'
-          ? '🟩'
-          : guess.expansionMatch === 'earlier' || guess.expansionMatch === 'later'
-            ? '🟦'
-            : '⬛'
+        guess.expansionMatch === "exact"
+          ? "🟩"
+          : guess.expansionMatch === "earlier" || guess.expansionMatch === "later"
+            ? "🟦"
+            : "⬛";
 
       // Numeric attributes: Green for exact, Blue for higher/lower, Black for none (red in UI)
       const amberEmoji =
-        guess.amberMatch === 'exact'
-          ? '🟩'
-          : guess.amberMatch === 'higher' || guess.amberMatch === 'lower'
-            ? '🟦'
-            : '⬛'
+        guess.amberMatch === "exact"
+          ? "🟩"
+          : guess.amberMatch === "higher" || guess.amberMatch === "lower"
+            ? "🟦"
+            : "⬛";
       const powerEmoji =
-        guess.powerMatch === 'exact'
-          ? '🟩'
-          : guess.powerMatch === 'higher' || guess.powerMatch === 'lower'
-            ? '🟦'
-            : '⬛'
+        guess.powerMatch === "exact"
+          ? "🟩"
+          : guess.powerMatch === "higher" || guess.powerMatch === "lower"
+            ? "🟦"
+            : "⬛";
       const armorEmoji =
-        guess.armorMatch === 'exact'
-          ? '🟩'
-          : guess.armorMatch === 'higher' || guess.armorMatch === 'lower'
-            ? '🟦'
-            : '⬛'
+        guess.armorMatch === "exact"
+          ? "🟩"
+          : guess.armorMatch === "higher" || guess.armorMatch === "lower"
+            ? "🟦"
+            : "⬛";
 
-      message += `${houseEmoji}${typeEmoji}${rarityEmoji}${expEmoji}${amberEmoji}${powerEmoji}${armorEmoji}\n`
-    })
+      message += `${houseEmoji}${typeEmoji}${rarityEmoji}${expEmoji}${amberEmoji}${powerEmoji}${armorEmoji}\n`;
+    });
 
-    message += `\nPlay at: https://keyfordle.keyforge.cards`
-    return message
-  }
+    message += `\nPlay at: https://keyfordle.keyforge.cards`;
+    return message;
+  };
 
   const handleCopyShare = async () => {
     try {
-      const message = generateShareMessage()
-      await navigator.clipboard.writeText(message)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      const message = generateShareMessage();
+      await navigator.clipboard.writeText(message);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch (error) {
-      console.error('Error copying to clipboard:', error)
+      console.error("Error copying to clipboard:", error);
     }
-  }
+  };
 
   const getCellColor = (
     guess: GuessResult | null,
-    attribute: 'house' | 'type' | 'rarity' | 'amber' | 'power' | 'armor' | 'expansion',
+    attribute: "house" | "type" | "rarity" | "amber" | "power" | "armor" | "expansion",
     index: number,
   ) => {
     if (!guess || !flippedIndexes.has(index)) {
-      return 'bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600'
+      return "bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600";
     }
 
     switch (attribute) {
-      case 'house':
-        return guess.houseMatch === 'exact'
-          ? 'bg-green-500 text-white border-green-600'
-          : 'bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700'
-      case 'type':
-        return guess.typeMatch === 'exact'
-          ? 'bg-green-500 text-white border-green-600'
-          : 'bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700'
-      case 'rarity':
-        if (guess.rarityMatch === 'exact') {
-          return 'bg-green-500 text-white border-green-600'
-        } else if (guess.rarityMatch === 'more_rare') {
-          return 'bg-blue-400 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-700'
-        } else if (guess.rarityMatch === 'less_rare') {
-          return 'bg-yellow-500 text-white border-yellow-600'
+      case "house":
+        return guess.houseMatch === "exact"
+          ? "bg-green-500 text-white border-green-600"
+          : "bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700";
+      case "type":
+        return guess.typeMatch === "exact"
+          ? "bg-green-500 text-white border-green-600"
+          : "bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700";
+      case "rarity":
+        if (guess.rarityMatch === "exact") {
+          return "bg-green-500 text-white border-green-600";
+        } else if (guess.rarityMatch === "more_rare") {
+          return "bg-blue-400 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-700";
+        } else if (guess.rarityMatch === "less_rare") {
+          return "bg-yellow-500 text-white border-yellow-600";
         }
-        return 'bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700'
-      case 'amber':
-      case 'power':
-      case 'armor':
-        let matchType: 'exact' | 'higher' | 'lower' | 'none'
-        if (attribute === 'amber') matchType = guess.amberMatch
-        else if (attribute === 'power') matchType = guess.powerMatch
-        else matchType = guess.armorMatch
+        return "bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700";
+      case "amber":
+      case "power":
+      case "armor":
+        let matchType: "exact" | "higher" | "lower" | "none";
+        if (attribute === "amber") matchType = guess.amberMatch;
+        else if (attribute === "power") matchType = guess.powerMatch;
+        else matchType = guess.armorMatch;
 
-        if (matchType === 'exact') {
-          return 'bg-green-500 text-white border-green-600'
-        } else if (matchType === 'higher' || matchType === 'lower') {
-          return 'bg-blue-400 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-700'
+        if (matchType === "exact") {
+          return "bg-green-500 text-white border-green-600";
+        } else if (matchType === "higher" || matchType === "lower") {
+          return "bg-blue-400 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-700";
         }
-        return 'bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700'
-      case 'expansion':
-        if (guess.expansionMatch === 'exact') {
-          return 'bg-green-500 text-white border-green-600'
-        } else if (guess.expansionMatch === 'earlier' || guess.expansionMatch === 'later') {
-          return 'bg-blue-400 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-700'
+        return "bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700";
+      case "expansion":
+        if (guess.expansionMatch === "exact") {
+          return "bg-green-500 text-white border-green-600";
+        } else if (guess.expansionMatch === "earlier" || guess.expansionMatch === "later") {
+          return "bg-blue-400 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-700";
         }
-        return 'bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700'
+        return "bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700";
       default:
-        return 'bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600'
+        return "bg-gray-200 dark:bg-gray-700 border-gray-300 dark:border-gray-600";
     }
-  }
+  };
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
         <div className="text-xl text-gray-600 dark:text-gray-400">Loading...</div>
       </div>
-    )
+    );
   }
 
   return (
@@ -465,8 +465,8 @@ const Keyfordle = () => {
               value={searchQuery}
               onChange={(e) => handleSearchChange(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' && selectedCard) {
-                  handleSubmitGuess()
+                if (e.key === "Enter" && selectedCard) {
+                  handleSubmitGuess();
                 }
               }}
               placeholder="Search for a card..."
@@ -523,14 +523,14 @@ const Keyfordle = () => {
                           alt="amber"
                           className="w-3 h-3"
                           onError={(e) => {
-                            e.currentTarget.style.display = 'none'
+                            e.currentTarget.style.display = "none";
                           }}
                         />
                         {card.amber}
                       </span>
                     )}
-                    {card.power && card.power !== '-' && <span>⚔️ {card.power}</span>}
-                    {card.armor && card.armor !== '-' && <span>🛡️ {card.armor}</span>}
+                    {card.power && card.power !== "-" && <span>⚔️ {card.power}</span>}
+                    {card.armor && card.armor !== "-" && <span>🛡️ {card.armor}</span>}
                   </div>
                 </button>
               ))}
@@ -595,8 +595,8 @@ const Keyfordle = () => {
           <div
             className={`mb-6 p-4 rounded-lg text-center ${
               gameState.gameWon
-                ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
-                : 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200'
+                ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200"
+                : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200"
             }`}
           >
             {gameState.gameWon ? (
@@ -644,10 +644,10 @@ const Keyfordle = () => {
         {/* Guess Grid */}
         <div className="space-y-3">
           {Array.from({ length: MAX_GUESSES }).map((_, index) => {
-            const guess = gameState.guesses[index] || null
-            const isFlipped = flippedIndexes.has(index)
+            const guess = gameState.guesses[index] || null;
+            const isFlipped = flippedIndexes.has(index);
             // Use the same image field logic - CardSerializer returns 'image' field with the correct URL
-            const cardImage = guess?.card?.image
+            const cardImage = guess?.card?.image;
 
             return (
               <div key={index} className="flex gap-3 items-center">
@@ -659,7 +659,7 @@ const Keyfordle = () => {
                       alt={guess.card.name}
                       className="w-20 h-28 object-cover rounded border border-gray-200 dark:border-gray-600 shadow-sm transition-transform duration-300 hover:scale-[5] hover:z-50 relative"
                       onError={(e) => {
-                        e.currentTarget.style.display = 'none'
+                        e.currentTarget.style.display = "none";
                       }}
                     />
                   </div>
@@ -676,17 +676,17 @@ const Keyfordle = () => {
                     <div className="font-semibold text-left text-sm">
                       {guess && isFlipped ? (
                         <div className="flex items-center justify-start gap-0.5 flex-wrap">
-                          {guess.card.name.split('').map((letter, letterIndex) => {
+                          {guess.card.name.split("").map((letter, letterIndex) => {
                             // Handle backwards compatibility - nameMatches might not exist for old saved games
                             const matchStatus =
-                              (guess.nameMatches && guess.nameMatches[letterIndex]) || 'absent'
-                            let bgColor = 'bg-gray-400 dark:bg-gray-600'
-                            if (matchStatus === 'correct') {
-                              bgColor = 'bg-green-500 dark:bg-green-600'
-                            } else if (matchStatus === 'present') {
-                              bgColor = 'bg-yellow-500 dark:bg-yellow-600'
+                              (guess.nameMatches && guess.nameMatches[letterIndex]) || "absent";
+                            let bgColor = "bg-gray-400 dark:bg-gray-600";
+                            if (matchStatus === "correct") {
+                              bgColor = "bg-green-500 dark:bg-green-600";
+                            } else if (matchStatus === "present") {
+                              bgColor = "bg-yellow-500 dark:bg-yellow-600";
                             } else {
-                              bgColor = 'bg-red-400 dark:bg-red-600'
+                              bgColor = "bg-red-400 dark:bg-red-600";
                             }
 
                             return (
@@ -695,17 +695,17 @@ const Keyfordle = () => {
                                 className={`inline-block px-1.5 py-0.5 rounded text-white font-bold ${bgColor} transition-colors duration-300`}
                                 style={{
                                   animationDelay: `${letterIndex * 50}ms`,
-                                  animation: isFlipped ? 'flip 0.6s ease-in-out' : 'none',
+                                  animation: isFlipped ? "flip 0.6s ease-in-out" : "none",
                                 }}
                               >
-                                {letter === ' ' ? '\u00A0' : letter}
+                                {letter === " " ? "\u00A0" : letter}
                               </span>
-                            )
+                            );
                           })}
                         </div>
                       ) : (
                         <span className="text-gray-900 dark:text-white">
-                          {guess ? guess.card.name : '—'}
+                          {guess ? guess.card.name : "—"}
                         </span>
                       )}
                     </div>
@@ -717,18 +717,18 @@ const Keyfordle = () => {
                     <div
                       className={`px-2 py-2 rounded-lg border-2 text-center font-medium transition-all duration-500 flex-1 min-w-[70px] ${getCellColor(
                         guess,
-                        'house',
+                        "house",
                         index,
-                      )} ${isFlipped && guess ? '' : 'text-gray-900 dark:text-white'}`}
+                      )} ${isFlipped && guess ? "" : "text-gray-900 dark:text-white"}`}
                     >
                       <div
-                        className={`text-xs mb-1 ${isFlipped && guess ? 'text-white/80' : 'text-gray-500 dark:text-gray-400'}`}
+                        className={`text-xs mb-1 ${isFlipped && guess ? "text-white/80" : "text-gray-500 dark:text-gray-400"}`}
                       >
                         House
                       </div>
                       <div className="flex items-center justify-center gap-1 text-xs">
-                        {guess ? guess.card.house || '—' : '—'}
-                        {isFlipped && guess && guess.houseMatch === 'exact' && (
+                        {guess ? guess.card.house || "—" : "—"}
+                        {isFlipped && guess && guess.houseMatch === "exact" && (
                           <Check className="h-3 w-3" />
                         )}
                       </div>
@@ -738,18 +738,18 @@ const Keyfordle = () => {
                     <div
                       className={`px-2 py-2 rounded-lg border-2 text-center font-medium transition-all duration-500 flex-1 min-w-[70px] ${getCellColor(
                         guess,
-                        'type',
+                        "type",
                         index,
-                      )} ${isFlipped && guess ? '' : 'text-gray-900 dark:text-white'}`}
+                      )} ${isFlipped && guess ? "" : "text-gray-900 dark:text-white"}`}
                     >
                       <div
-                        className={`text-xs mb-1 ${isFlipped && guess ? 'text-white/80' : 'text-gray-500 dark:text-gray-400'}`}
+                        className={`text-xs mb-1 ${isFlipped && guess ? "text-white/80" : "text-gray-500 dark:text-gray-400"}`}
                       >
                         Type
                       </div>
                       <div className="flex items-center justify-center gap-1 text-xs">
-                        {guess ? guess.card.card_type || '—' : '—'}
-                        {isFlipped && guess && guess.typeMatch === 'exact' && (
+                        {guess ? guess.card.card_type || "—" : "—"}
+                        {isFlipped && guess && guess.typeMatch === "exact" && (
                           <Check className="h-3 w-3" />
                         )}
                       </div>
@@ -759,24 +759,24 @@ const Keyfordle = () => {
                     <div
                       className={`px-2 py-2 rounded-lg border-2 text-center font-medium transition-all duration-500 flex-1 min-w-[70px] ${getCellColor(
                         guess,
-                        'rarity',
+                        "rarity",
                         index,
-                      )} ${isFlipped && guess ? '' : 'text-gray-900 dark:text-white'}`}
+                      )} ${isFlipped && guess ? "" : "text-gray-900 dark:text-white"}`}
                     >
                       <div
-                        className={`text-xs mb-1 ${isFlipped && guess ? 'text-white/80' : 'text-gray-500 dark:text-gray-400'}`}
+                        className={`text-xs mb-1 ${isFlipped && guess ? "text-white/80" : "text-gray-500 dark:text-gray-400"}`}
                       >
                         Rarity
                       </div>
                       <div className="flex items-center justify-center gap-1 text-xs">
-                        {guess ? guess.card.rarity || '—' : '—'}
-                        {isFlipped && guess && guess.rarityMatch === 'exact' && (
+                        {guess ? guess.card.rarity || "—" : "—"}
+                        {isFlipped && guess && guess.rarityMatch === "exact" && (
                           <Check className="h-3 w-3" />
                         )}
-                        {isFlipped && guess && guess.rarityMatch === 'more_rare' && (
+                        {isFlipped && guess && guess.rarityMatch === "more_rare" && (
                           <ArrowUp className="h-3 w-3" />
                         )}
-                        {isFlipped && guess && guess.rarityMatch === 'less_rare' && (
+                        {isFlipped && guess && guess.rarityMatch === "less_rare" && (
                           <ArrowDown className="h-3 w-3" />
                         )}
                       </div>
@@ -786,26 +786,26 @@ const Keyfordle = () => {
                     <div
                       className={`px-2 py-2 rounded-lg border-2 text-center font-medium transition-all duration-500 flex-1 min-w-[70px] ${getCellColor(
                         guess,
-                        'expansion',
+                        "expansion",
                         index,
-                      )} ${isFlipped && guess ? '' : 'text-gray-900 dark:text-white'}`}
+                      )} ${isFlipped && guess ? "" : "text-gray-900 dark:text-white"}`}
                     >
                       <div
-                        className={`text-xs mb-1 ${isFlipped && guess ? 'text-white/80' : 'text-gray-500 dark:text-gray-400'}`}
+                        className={`text-xs mb-1 ${isFlipped && guess ? "text-white/80" : "text-gray-500 dark:text-gray-400"}`}
                       >
                         Exp
                       </div>
                       <div className="flex items-center justify-center gap-1 text-xs">
                         {guess && guess.card.expansion
                           ? EXPANSIONS[guess.card.expansion] || `${guess.card.expansion}`
-                          : '—'}
-                        {isFlipped && guess && guess.expansionMatch === 'exact' && (
+                          : "—"}
+                        {isFlipped && guess && guess.expansionMatch === "exact" && (
                           <Check className="h-3 w-3" />
                         )}
-                        {isFlipped && guess && guess.expansionMatch === 'earlier' && (
+                        {isFlipped && guess && guess.expansionMatch === "earlier" && (
                           <ArrowDown className="h-3 w-3" />
                         )}
-                        {isFlipped && guess && guess.expansionMatch === 'later' && (
+                        {isFlipped && guess && guess.expansionMatch === "later" && (
                           <ArrowUp className="h-3 w-3" />
                         )}
                       </div>
@@ -815,24 +815,24 @@ const Keyfordle = () => {
                     <div
                       className={`px-2 py-2 rounded-lg border-2 text-center font-medium transition-all duration-500 flex-1 min-w-[70px] ${getCellColor(
                         guess,
-                        'amber',
+                        "amber",
                         index,
-                      )} ${isFlipped && guess ? '' : 'text-gray-900 dark:text-white'}`}
+                      )} ${isFlipped && guess ? "" : "text-gray-900 dark:text-white"}`}
                     >
                       <div
-                        className={`text-xs mb-1 ${isFlipped && guess ? 'text-white/80' : 'text-gray-500 dark:text-gray-400'}`}
+                        className={`text-xs mb-1 ${isFlipped && guess ? "text-white/80" : "text-gray-500 dark:text-gray-400"}`}
                       >
                         Amber
                       </div>
                       <div className="flex items-center justify-center gap-1 text-xs">
-                        {guess ? guess.card.amber || 0 : '—'}
-                        {isFlipped && guess && guess.amberMatch === 'exact' && (
+                        {guess ? guess.card.amber || 0 : "—"}
+                        {isFlipped && guess && guess.amberMatch === "exact" && (
                           <Check className="h-3 w-3" />
                         )}
-                        {isFlipped && guess && guess.amberMatch === 'higher' && (
+                        {isFlipped && guess && guess.amberMatch === "higher" && (
                           <ArrowUp className="h-3 w-3" />
                         )}
-                        {isFlipped && guess && guess.amberMatch === 'lower' && (
+                        {isFlipped && guess && guess.amberMatch === "lower" && (
                           <ArrowDown className="h-3 w-3" />
                         )}
                       </div>
@@ -842,24 +842,24 @@ const Keyfordle = () => {
                     <div
                       className={`px-2 py-2 rounded-lg border-2 text-center font-medium transition-all duration-500 flex-1 min-w-[70px] ${getCellColor(
                         guess,
-                        'power',
+                        "power",
                         index,
-                      )} ${isFlipped && guess ? '' : 'text-gray-900 dark:text-white'}`}
+                      )} ${isFlipped && guess ? "" : "text-gray-900 dark:text-white"}`}
                     >
                       <div
-                        className={`text-xs mb-1 ${isFlipped && guess ? 'text-white/80' : 'text-gray-500 dark:text-gray-400'}`}
+                        className={`text-xs mb-1 ${isFlipped && guess ? "text-white/80" : "text-gray-500 dark:text-gray-400"}`}
                       >
                         Power
                       </div>
                       <div className="flex items-center justify-center gap-1 text-xs">
-                        {guess ? guess.card.power || '—' : '—'}
-                        {isFlipped && guess && guess.powerMatch === 'exact' && (
+                        {guess ? guess.card.power || "—" : "—"}
+                        {isFlipped && guess && guess.powerMatch === "exact" && (
                           <Check className="h-3 w-3" />
                         )}
-                        {isFlipped && guess && guess.powerMatch === 'higher' && (
+                        {isFlipped && guess && guess.powerMatch === "higher" && (
                           <ArrowUp className="h-3 w-3" />
                         )}
-                        {isFlipped && guess && guess.powerMatch === 'lower' && (
+                        {isFlipped && guess && guess.powerMatch === "lower" && (
                           <ArrowDown className="h-3 w-3" />
                         )}
                       </div>
@@ -869,24 +869,24 @@ const Keyfordle = () => {
                     <div
                       className={`px-2 py-2 rounded-lg border-2 text-center font-medium transition-all duration-500 flex-1 min-w-[70px] ${getCellColor(
                         guess,
-                        'armor',
+                        "armor",
                         index,
-                      )} ${isFlipped && guess ? '' : 'text-gray-900 dark:text-white'}`}
+                      )} ${isFlipped && guess ? "" : "text-gray-900 dark:text-white"}`}
                     >
                       <div
-                        className={`text-xs mb-1 ${isFlipped && guess ? 'text-white/80' : 'text-gray-500 dark:text-gray-400'}`}
+                        className={`text-xs mb-1 ${isFlipped && guess ? "text-white/80" : "text-gray-500 dark:text-gray-400"}`}
                       >
                         Armor
                       </div>
                       <div className="flex items-center justify-center gap-1 text-xs">
-                        {guess ? guess.card.armor || '—' : '—'}
-                        {isFlipped && guess && guess.armorMatch === 'exact' && (
+                        {guess ? guess.card.armor || "—" : "—"}
+                        {isFlipped && guess && guess.armorMatch === "exact" && (
                           <Check className="h-3 w-3" />
                         )}
-                        {isFlipped && guess && guess.armorMatch === 'higher' && (
+                        {isFlipped && guess && guess.armorMatch === "higher" && (
                           <ArrowUp className="h-3 w-3" />
                         )}
-                        {isFlipped && guess && guess.armorMatch === 'lower' && (
+                        {isFlipped && guess && guess.armorMatch === "lower" && (
                           <ArrowDown className="h-3 w-3" />
                         )}
                       </div>
@@ -894,7 +894,7 @@ const Keyfordle = () => {
                   </div>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
 
@@ -940,7 +940,7 @@ const Keyfordle = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Keyfordle
+export default Keyfordle;

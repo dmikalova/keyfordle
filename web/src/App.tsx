@@ -1,4 +1,4 @@
-import Keyfordle from './pages/Keyfordle.tsx'
+import Keyfordle from "./pages/Keyfordle.tsx";
 
 // The shell around the lifted page: a way back to keyforge.cards, and the
 // attribution the MIT License asks for.
@@ -31,6 +31,6 @@ const App = () => (
       <p>KeyForge is a trademark of Ghost Galaxy. Unofficial, not affiliated.</p>
     </footer>
   </div>
-)
+);
 
-export default App
+export default App;
