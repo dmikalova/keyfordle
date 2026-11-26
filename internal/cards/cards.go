@@ -16,6 +16,7 @@ import (
 	"slices"
 	"strings"
 	"time"
+	"unicode"
 )
 
 //go:embed cards.json
@@ -124,24 +125,109 @@ func (p *Pool) Pick(day time.Time) Card {
 // MinQueryLength is the shortest query Search answers, as upstream.
 const MinQueryLength = 2
 
-// Search returns up to limit cards whose name contains query, ignoring case, in
-// name order. A query shorter than MinQueryLength runes matches nothing.
+// The match tiers Search ranks by, best first.
+const (
+	matchContains = iota // the name contains the query as typed
+	matchInOrder         // the query's letters appear in the name in order
+	matchAnyOrder        // the query's letters all appear in the name
+	matchNone
+)
+
+// Search returns up to limit cards whose name holds every letter of query,
+// ignoring case, in any order. Matches rank by tier: the name contains the
+// query, then the letters appear in order, then they appear in any order.
+// Within a tier, cards keep name order. A letter typed twice must appear twice.
+// Spaces and punctuation in the query only count for the contains tier. A
+// query shorter than MinQueryLength runes matches nothing.
 func (p *Pool) Search(query string, limit int) []Card {
 	query = strings.ToLower(strings.TrimSpace(query))
 	if len([]rune(query)) < MinQueryLength || limit <= 0 {
 		return []Card{}
 	}
 
-	out := make([]Card, 0, min(limit, 16))
+	letters := lettersOf(query)
+	tiers := make([][]Card, matchNone)
 
 	for i, key := range p.keys {
-		if strings.Contains(key, query) {
-			out = append(out, p.cards[i])
-			if len(out) == limit {
-				break
+		best := matchNone
+		// A key holds the printed name and its ASCII fold; the better wins.
+		for name := range strings.SplitSeq(key, "\n") {
+			best = min(best, matchTier(name, query, letters))
+		}
+
+		if best != matchNone {
+			tiers[best] = append(tiers[best], p.cards[i])
+		}
+	}
+
+	out := make([]Card, 0, min(limit, 16))
+	for _, tier := range tiers {
+		out = append(out, tier[:min(len(tier), limit-len(out))]...)
+	}
+
+	return slices.Clip(out)
+}
+
+// matchTier reports how name matches a lowercased query and its letters.
+func matchTier(name, query string, letters []rune) int {
+	switch {
+	case strings.Contains(name, query):
+		return matchContains
+	case len(letters) == 0:
+		return matchNone
+	case inOrder(name, letters):
+		return matchInOrder
+	case allPresent(name, letters):
+		return matchAnyOrder
+	default:
+		return matchNone
+	}
+}
+
+// lettersOf returns the letters and digits of s.
+func lettersOf(s string) []rune {
+	var out []rune
+
+	for _, r := range s {
+		if unicode.IsLetter(r) || unicode.IsDigit(r) {
+			out = append(out, r)
+		}
+	}
+
+	return out
+}
+
+// inOrder reports whether letters appear in name in order, with gaps allowed.
+func inOrder(name string, letters []rune) bool {
+	i := 0
+
+	for _, r := range name {
+		if r == letters[i] {
+			i++
+			if i == len(letters) {
+				return true
 			}
 		}
 	}
 
-	return slices.Clip(out)
+	return false
+}
+
+// allPresent reports whether name holds every one of letters, counting
+// repeats, in any order.
+func allPresent(name string, letters []rune) bool {
+	have := map[rune]int{}
+	for _, r := range name {
+		have[r]++
+	}
+
+	for _, r := range letters {
+		if have[r] == 0 {
+			return false
+		}
+
+		have[r]--
+	}
+
+	return true
 }

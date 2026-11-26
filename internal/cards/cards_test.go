@@ -111,6 +111,59 @@ func TestByName(t *testing.T) {
 	}
 }
 
+// TestSearchAnyOrder pins the fuzzy ranking: contains, then letters in order,
+// then letters in any order, each tier in name order.
+func TestSearchAnyOrder(t *testing.T) {
+	pool, err := cards.New([]cards.Entry{
+		entry("Dodger", ""),
+		entry("Hand of Dis", ""),
+		entry("Overshadow", ""),
+		entry("Shadow Self", ""),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []struct {
+		query string
+		want  []string
+	}{
+		// Overshadow and Shadow Self contain it; Hand of Dis has h-a-d-o in
+		// order (H, a, d, o); nothing else holds all four letters.
+		{"hado", []string{"Overshadow", "Shadow Self", "Hand of Dis"}},
+		// No name contains "odah" or has it in order; three hold the letters.
+		{"odah", []string{"Hand of Dis", "Overshadow", "Shadow Self"}},
+		// A repeated letter must appear twice: only Shadow Self has two s's.
+		{"ss", []string{"Shadow Self"}},
+		// Spaces in the query only matter for the contains tier.
+		{"self sha", []string{"Shadow Self"}},
+		{"xyz", nil},
+	}
+
+	for _, tt := range tests {
+		got := pool.Search(tt.query, 10)
+
+		names := make([]string, len(got))
+		for i, c := range got {
+			names[i] = c.Name
+		}
+
+		if len(names) != len(tt.want) {
+			t.Fatalf("Search(%q) = %v, want %v", tt.query, names, tt.want)
+		}
+
+		for i := range names {
+			if names[i] != tt.want[i] {
+				t.Fatalf("Search(%q) = %v, want %v", tt.query, names, tt.want)
+			}
+		}
+	}
+
+	if got := pool.Search("odah", 2); len(got) != 2 {
+		t.Fatalf("Search limit 2 returned %d cards", len(got))
+	}
+}
+
 func TestSearch(t *testing.T) {
 	pool, err := cards.New([]cards.Entry{
 		entry("Ancient Bear", ""),
@@ -126,7 +179,8 @@ func TestSearch(t *testing.T) {
 		limit int
 		want  []string
 	}{
-		{"bear", 10, []string{"Ancient Bear", "Bear Flute"}},
+		// Æmber Imp folds to "aember imp", which holds b, e, a and r.
+		{"bear", 10, []string{"Ancient Bear", "Bear Flute", "Æmber Imp"}},
 		{"BEAR", 1, []string{"Ancient Bear"}},
 		{"aember", 10, []string{"Æmber Imp"}},
 		{"æmber", 10, []string{"Æmber Imp"}},
