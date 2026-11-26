@@ -38,19 +38,31 @@ type Card struct {
 	Image      string   `json:"image"`
 }
 
-// Entry is one card as cards.json stores it: the served card plus the
-// ASCII-folded name that search also matches, so "aember" finds "Æmber".
+// Entry is one card as cards.json stores it: the served card, the
+// ASCII-folded name that search also matches, so "aember" finds "Æmber", and
+// whether it is a reference card.
 type Entry struct {
 	Card
 
 	Folded string `json:"folded,omitempty"`
+	// Reference marks a card that sits beside a deck, not in it: an archon
+	// power, a prophecy or the tide. Pick draws these on ReferencePercent of
+	// days.
+	Reference bool `json:"reference,omitempty"`
 }
+
+// ReferencePercent is the share of days, in percent, whose card is a
+// reference card.
+const ReferencePercent = 2
 
 // Pool is the set of cards a player can guess and the day can pick.
 type Pool struct {
 	cards  []Card
 	keys   []string
 	byName map[string]int
+	// deck and reference index cards, in name order, by the kind Pick draws.
+	deck      []int
+	reference []int
 }
 
 // Load parses the embedded pool.
@@ -93,6 +105,16 @@ func New(entries []Entry) (*Pool, error) {
 		p.cards[i] = e.Card
 		p.keys[i] = strings.ToLower(e.Name + "\n" + e.Folded)
 		p.byName[e.Name] = i
+
+		if e.Reference {
+			p.reference = append(p.reference, i)
+		} else {
+			p.deck = append(p.deck, i)
+		}
+	}
+
+	if len(p.deck) == 0 {
+		return nil, errors.New("the card pool holds only reference cards")
 	}
 
 	return p, nil
@@ -111,15 +133,28 @@ func (p *Pool) ByName(name string) (Card, bool) {
 	return p.cards[i], true
 }
 
-// Pick returns the card for a UTC day. It is upstream KeyFordle's rule: the MD5
-// of the date as YYYYMMDD, read as an integer, modulo the pool size, indexes the
-// pool in name order. MD5 is a spreader here, not a security boundary.
+// Pick returns the card for a UTC day. It extends upstream KeyFordle's rule:
+// the MD5 of the date as YYYYMMDD, read as an integer n. When n mod 100 is
+// below ReferencePercent and the pool holds reference cards, n / 100 modulo
+// their count indexes them in name order. Otherwise n modulo the deck card
+// count indexes the deck cards in name order, which is upstream's rule for a
+// pool without reference cards. MD5 is a spreader here, not a security
+// boundary.
 func (p *Pool) Pick(day time.Time) Card {
 	sum := md5.Sum([]byte(day.UTC().Format("20060102")))
 	n := new(big.Int).SetBytes(sum[:])
-	i := n.Mod(n, big.NewInt(int64(len(p.cards)))).Int64()
 
-	return p.cards[i]
+	quotient, percent := new(big.Int).DivMod(n, big.NewInt(100), new(big.Int))
+	if len(p.reference) > 0 && percent.Int64() < ReferencePercent {
+		return p.cards[p.reference[indexOf(quotient, len(p.reference))]]
+	}
+
+	return p.cards[p.deck[indexOf(n, len(p.deck))]]
+}
+
+// indexOf returns n modulo size.
+func indexOf(n *big.Int, size int) int64 {
+	return new(big.Int).Mod(n, big.NewInt(int64(size))).Int64()
 }
 
 // MinQueryLength is the shortest query Search answers, as upstream.

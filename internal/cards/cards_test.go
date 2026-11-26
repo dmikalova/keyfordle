@@ -67,6 +67,63 @@ func TestPickFollowsTheUpstreamRule(t *testing.T) {
 	}
 }
 
+// TestPickDrawsReferenceCards pins the reference card rule: when the date's MD5
+// is below ReferencePercent modulo 100, the day draws a reference card, and
+// otherwise a deck card by upstream's rule over the deck cards alone.
+func TestPickDrawsReferenceCards(t *testing.T) {
+	deck := []string{"A", "C", "D", "E", "G"}
+	reference := []string{"B", "F"}
+	isReference := map[string]bool{"B": true, "F": true}
+
+	entries := make([]cards.Entry, 0, 7)
+	for _, n := range []string{"A", "B", "C", "D", "E", "F", "G"} {
+		e := entry(n, "")
+		e.Reference = isReference[n]
+		entries = append(entries, e)
+	}
+
+	pool, err := cards.New(entries)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	start := time.Date(2018, 11, 15, 0, 0, 0, 0, time.UTC)
+	days, referenceDays := 3650, 0
+
+	for d := range days {
+		day := start.AddDate(0, 0, d)
+		sum := md5.Sum([]byte(day.Format("20060102")))
+		n := new(big.Int).SetBytes(sum[:])
+		quotient, percent := new(big.Int).DivMod(n, big.NewInt(100), new(big.Int))
+
+		var want string
+		if percent.Int64() < cards.ReferencePercent {
+			referenceDays++
+			want = reference[new(big.Int).Mod(quotient, big.NewInt(2)).Int64()]
+		} else {
+			want = deck[new(big.Int).Mod(n, big.NewInt(5)).Int64()]
+		}
+
+		if got := pool.Pick(day).Name; got != want {
+			t.Fatalf("%s: Pick = %q, want %q", day.Format(time.DateOnly), got, want)
+		}
+	}
+
+	// About 2% of ten years is 73 days.
+	if referenceDays < 40 || referenceDays > 110 {
+		t.Fatalf("%d of %d days drew a reference card, want about 2%%", referenceDays, days)
+	}
+}
+
+func TestNewRejectsAReferenceOnlyPool(t *testing.T) {
+	e := entry("A", "")
+	e.Reference = true
+
+	if _, err := cards.New([]cards.Entry{e}); err == nil {
+		t.Fatal("New accepted a pool with no deck cards")
+	}
+}
+
 func TestPickIsStableAndSpread(t *testing.T) {
 	entries := make([]cards.Entry, 0, 26)
 	for c := 'A'; c <= 'Z'; c++ {

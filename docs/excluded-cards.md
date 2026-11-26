@@ -2,17 +2,13 @@
 
 # Cards left out of the pool
 
-The pool holds 2492 cards: the actions, artifacts, creatures and upgrades of player decks. `mage cards` leaves 205 cards out. [excluded-cards.json](excluded-cards.json) lists each one. An entry is one card. Its `set` and `number` are its first printing, and `printings` lists every catalog entry that it covers.
+The pool holds 2570 cards: the actions, artifacts, creatures and upgrades of every deck, the Keyraken adventure's included, and the archon powers, prophecies and tide that sit beside a deck. `mage cards` leaves 127 cards out. [excluded-cards.json](excluded-cards.json) lists each one. An entry is one card. Its `set` and `number` are its first printing, and `printings` lists every catalog entry that it covers.
 
 | Reason           | Cards |
 | ---------------- | ----- |
 | `gigantic`       | 20    |
 | `evil-twin`      | 49    |
 | `token-creature` | 58    |
-| `archon-power`   | 28    |
-| `prophecy`       | 22    |
-| `the-tide`       | 1     |
-| `keyraken`       | 27    |
 
 ## Gigantic creatures
 
@@ -30,28 +26,4 @@ Each evil twin has the name of a regular creature that is in the pool. vex recor
 
 Reason: `token-creature`. Cards: 58.
 
-A token creature is not a deck card. A card in the deck makes it. The catalog has their stats. To add them, decide that a token can be the card of the day.
-
-## Archon powers
-
-Reason: `archon-power`. Cards: 28.
-
-An archon power is not a deck card, and it has no house. To add them, decide that they belong in the game and give the page a value for their house.
-
-## Prophecies
-
-Reason: `prophecy`. Cards: 22.
-
-A prophecy sits beside the deck, not in it, and it has no house. To add them, decide that they belong in the game and give the page a value for their house.
-
-## The tide
-
-Reason: `the-tide`. Cards: 1.
-
-The tide is one shared card that tracks the game state. It is not a deck card, and it has no house. To add it, decide that it belongs in the game and give the page a value for its house.
-
-## The Keyraken adventure
-
-Reason: `keyraken`. Cards: 27.
-
-These cards make the boss deck of the Keyraken adventure. No player deck holds them. To add them, decide that adventure cards belong in the game and add the Keyraken house to the page.
+A token creature is not a deck card. A card in the deck makes it. vex records no power or armor for token creatures. To add them, get their stats into vex's catalog. Then convert them as creatures.

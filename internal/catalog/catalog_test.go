@@ -3,6 +3,7 @@ package catalog_test
 import (
 	"encoding/json"
 	"slices"
+	"strconv"
 	"strings"
 	"testing"
 	"testing/fstest"
@@ -131,29 +132,38 @@ func TestBuildCoversEveryCatalogEntryOnce(t *testing.T) {
 	}
 }
 
-func TestBuildPoolHoldsDeckCardTypesOnly(t *testing.T) {
+func TestBuildPoolHoldsDeckAndReferenceCards(t *testing.T) {
 	res, err := catalog.Build(vex(every))
 	if err != nil {
 		t.Fatalf("Build: %v", err)
 	}
 
-	var names []string
+	var got []string
 
 	for _, e := range res.Pool {
-		names = append(names, e.Name+" "+e.CardType)
+		got = append(got, strings.Join(
+			[]string{e.Name, e.CardType, e.House, e.Rarity, strconv.FormatBool(e.Reference)},
+			" | ",
+		))
 	}
 
+	// A reference card has no house and is Special, the tide included. The
+	// Keyraken adventure's cards are deck cards of the Keyraken house.
 	want := []string{
-		"Alaka’s Brew Action",
-		"Gauntlet Upgrade",
-		"It’s Coming... Action",
-		"Lamp Artifact",
-		"Veylan Analyst Creature",
-		"Zed Creature",
+		"Alaka’s Brew | Action | Brobnar | Common | false",
+		"Archon Power | Archon Power |  | Special | true",
+		"Gauntlet | Upgrade | Brobnar | Common | false",
+		"It’s Coming... | Action | Saurian | Rare | false",
+		"Keyraken Tentacle | Creature | Keyraken | Rare | false",
+		"Lamp | Artifact | Logos | Uncommon | false",
+		"Prophecy | Prophecy |  | Special | true",
+		"The Tide | The Tide |  | Special | true",
+		"Veylan Analyst | Creature | Logos | Common | false",
+		"Zed | Creature | Star Alliance | Rare | false",
 	}
 
-	if !slices.Equal(names, want) {
-		t.Fatalf("pool = %v, want %v", names, want)
+	if !slices.Equal(got, want) {
+		t.Fatalf("pool\n%s\nwant\n%s", strings.Join(got, "\n"), strings.Join(want, "\n"))
 	}
 }
 
@@ -186,10 +196,6 @@ func TestBuildRecordsEveryExclusion(t *testing.T) {
 		"gigantic | Ultra Gravitron | massmutation | 125 | gigantic creature base | logos | massmutation/125,massmutation/126,menagerie/323",
 		"evil-twin | Zed | darktidings | 001 | evil twin creature | logos | darktidings/001",
 		"token-creature | Grumpus | darktidings | 002 | token creature | dis | darktidings/002,tokensofchange/010",
-		"archon-power | Archon Power | aemberskies | S01 | archon power | archonpower | aemberskies/S01",
-		"prophecy | Prophecy | propheticvisions | P01 | prophecy | prophecy | propheticvisions/P01",
-		"the-tide | The Tide | darktidings | 003 | the tide | thetide | darktidings/003",
-		"keyraken | Keyraken Tentacle | menagerie | 200 | creature | keyraken | menagerie/200",
 	}
 
 	if !slices.Equal(got, want) {
@@ -280,8 +286,12 @@ func TestBuildFailsLoudly(t *testing.T) {
 		"unknown type":   `[{"number": "1", "name": "X", "house": "dis", "type": "location", "rarity": "Rare"}]`,
 		"unknown house":  `[{"number": "1", "name": "X", "house": "mystery", "type": "action", "rarity": "Rare"}]`,
 		"unknown rarity": `[{"number": "1", "name": "X", "house": "dis", "type": "action", "rarity": "Mythic"}]`,
-		"bad json":       `{`,
-		"no pool cards":  `[]`,
+		"one name, two types": `[
+			{"number": "1", "name": "X", "house": "dis", "type": "action", "rarity": "Rare"},
+			{"number": "2", "name": "X", "house": "archonpower", "type": "archon power", "rarity": "Special"}
+		]`,
+		"bad json":      `{`,
+		"no pool cards": `[]`,
 	}
 
 	for name, body := range tests {

@@ -1281,6 +1281,35 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/aemberskies/200.webp"
   },
   {
+    "name": "Artificer",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "You may play artifacts as if they belonged to your active house.",
+    "card_number": "300",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/300.webp",
+    "reference": true
+  },
+  {
+    "name": "Ascending Jet",
+    "house": "Keyraken",
+    "card_type": "Artifact",
+    "rarity": "Common",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": ["power"],
+    "card_text": "Action: Give a friendly creature three +1 power counters.",
+    "card_number": "259",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/259.webp"
+  },
+  {
     "name": "Ashwing Protocol",
     "house": "Ouboros",
     "card_type": "Action",
@@ -1293,6 +1322,21 @@
     "card_number": "122",
     "expansion": 928,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/draconianmeasures/122.webp"
+  },
+  {
+    "name": "Ask Again Later",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Each time your opponent chooses their active house, they must name a house on your identity card. Reveal the top card of your deck. If the revealed card does not match the named house, fulfill Ask Again Later.",
+    "card_number": "P01",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P01.webp",
+    "reference": true
   },
   {
     "name": "Assert Dominance",
@@ -1685,6 +1729,21 @@
     "card_number": "241",
     "expansion": 700,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/grimreminders/241.webp"
+  },
+  {
+    "name": "Bad Omen",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "At the end of your opponent's turn, if they have exactly 6 Aember, fulfill Bad Omen.",
+    "card_number": "P02",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P02.webp",
+    "reference": true
   },
   {
     "name": "Bad Penny",
@@ -2107,6 +2166,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/340.webp"
   },
   {
+    "name": "Beast of Dark Legend",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Rare",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Play a friendly Keyraken creature from a purged zone. Ready a friendly Keyraken creature.",
+    "card_number": "245",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/245.webp"
+  },
+  {
     "name": "Beasts’ Bane",
     "house": "Dis",
     "card_type": "Action",
@@ -2162,6 +2235,20 @@
     "card_number": "212",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/212.webp"
+  },
+  {
+    "name": "Behold Its Grandeur",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Uncommon",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Gain 1 Aember for each creature you control that shares a house with one or more of its neighbors, to a maximum of 4 Aember.",
+    "card_number": "249",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/249.webp"
   },
   {
     "name": "Belcher",
@@ -4592,6 +4679,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/214.webp"
   },
   {
+    "name": "Charismatic Inspiration",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Friendly Human creatures enter play ready.",
+    "card_number": "301",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/301.webp",
+    "reference": true
+  },
+  {
     "name": "Charitable Herald",
     "house": "Redemption",
     "card_type": "Creature",
@@ -5503,6 +5605,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/241.webp"
   },
   {
+    "name": "Commanding Presence",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "After a player chooses Saurian as their active house, exalt each non-Dinosaur creature.",
+    "card_number": "302",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/302.webp",
+    "reference": true
+  },
+  {
     "name": "Commpod",
     "house": "Mars",
     "card_type": "Artifact",
@@ -5686,6 +5803,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/aemberskies/115.webp"
   },
   {
+    "name": "Control",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "When resolving an Aember bonus icon, you may instead capture 1 Aember.",
+    "card_number": "303",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/303.webp",
+    "reference": true
+  },
+  {
     "name": "Control the Weak",
     "house": "Dis",
     "card_type": "Action",
@@ -5698,6 +5830,21 @@
     "card_number": "055",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/055.webp"
+  },
+  {
+    "name": "Controling Expertise",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Yellow keys cost +1 Aember.\nWhile your yellow key is forged, you may play 1 card that does not belong to your active house each turn.",
+    "card_number": "304",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/304.webp",
+    "reference": true
   },
   {
     "name": "Cooperative Hunting",
@@ -6082,6 +6229,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/windsofexchange/024.webp"
   },
   {
+    "name": "Crimson Churning",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Common",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: For each friendly Tentacle in play, deal 1 Damage to an enemy creature.",
+    "card_number": "260",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/260.webp"
+  },
+  {
     "name": "Crimson Dax",
     "house": "Mars",
     "card_type": "Creature",
@@ -6178,6 +6339,20 @@
     "card_number": "388",
     "expansion": 600,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/windsofexchange/388.webp"
+  },
+  {
+    "name": "Crushing Tentacle",
+    "house": "Keyraken",
+    "card_type": "Creature",
+    "rarity": "Common",
+    "amber": 0,
+    "power": "6",
+    "armor": "0",
+    "traits": ["tentacle"],
+    "card_text": "Assault 3.\nIf a friendly Legendary Keyraken is not in play, archive Crushing Tentacle.\nDestroyed: Deal 3 Damage to a friendly Legendary Keyraken.",
+    "card_number": "261",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/261.webp"
   },
   {
     "name": "Cryptic Collapse",
@@ -7093,6 +7268,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/355.webp"
   },
   {
+    "name": "Defend the Keyraken!",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Common",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Ward a friendly Keyraken creature and each of its neighbors.",
+    "card_number": "262",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/262.webp"
+  },
+  {
     "name": "Defense Initiative",
     "house": "Saurian",
     "card_type": "Action",
@@ -7163,6 +7352,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/aemberskies/044.webp"
   },
   {
+    "name": "Deluge of Power",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Each friendly artifact gains, \"Action: Gain 2 Aember. Archive this card.\"",
+    "card_number": "305",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/305.webp",
+    "reference": true
+  },
+  {
     "name": "Demonic Shelf",
     "house": "Dis",
     "card_type": "Artifact",
@@ -7175,6 +7379,21 @@
     "card_number": "045",
     "expansion": 800,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/aemberskies/045.webp"
+  },
+  {
+    "name": "Demonic Wrath",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Each friendly Dis creature gains \"After Reap: Deal 1 Damage to a creature.\"",
+    "card_number": "306",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/306.webp",
+    "reference": true
   },
   {
     "name": "Demons’ Bane",
@@ -7274,6 +7493,20 @@
     "card_number": "321",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/321.webp"
+  },
+  {
+    "name": "Devour Whole",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Uncommon",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: If a friendly Legendary Keyraken is in play, destroy an enemy creature or artifact.",
+    "card_number": "250",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/250.webp"
   },
   {
     "name": "Dew Faerie",
@@ -7755,6 +7988,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/164.webp"
   },
   {
+    "name": "Divine Spark",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "After a player chooses Sanctum as their active house, gain 2 Aember.",
+    "card_number": "307",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/307.webp",
+    "reference": true
+  },
+  {
     "name": "Doc Bookton",
     "house": "Logos",
     "card_type": "Creature",
@@ -8034,6 +8282,20 @@
     "card_number": "201",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/201.webp"
+  },
+  {
+    "name": "Drag to Your Doom",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Uncommon",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Put an enemy flank creature on the bottom of its owner's deck.",
+    "card_number": "251",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/251.webp"
   },
   {
     "name": "Dragnet",
@@ -8984,6 +9246,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/135.webp"
   },
   {
+    "name": "Emergence",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Common",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Search your deck and discard pile for a friendly Keyraken creature and play it.",
+    "card_number": "263",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/263.webp"
+  },
+  {
     "name": "Emeritus Darn",
     "house": "Logos",
     "card_type": "Creature",
@@ -9616,6 +9892,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/052.webp"
   },
   {
+    "name": "Expect the Unexpected",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, after your opponent shuffles their deck, fulfill Expect the Unexpected.",
+    "card_number": "P03",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P03.webp",
+    "reference": true
+  },
+  {
     "name": "Experiment Q",
     "house": "Mars",
     "card_type": "Creature",
@@ -9911,6 +10202,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/370.webp"
   },
   {
+    "name": "Fate Laughs at Your Plans",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, when your opponent adds their archives to their hand, fulfill Fate Laughs at Your Plans.",
+    "card_number": "P04",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P04.webp",
+    "reference": true
+  },
+  {
     "name": "Fathom Reaver",
     "house": "Unfathomable",
     "card_type": "Creature",
@@ -10176,6 +10482,21 @@
     "card_number": "028",
     "expansion": 700,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/grimreminders/028.webp"
+  },
+  {
+    "name": "Fighting Expertise",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Red keys cost +1 Aember.\nWhile your red key is forged, each friendly creature gains, \"After Fight: Steal 1 Aember.\"",
+    "card_number": "308",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/308.webp",
+    "reference": true
   },
   {
     "name": "Fila the Researcher",
@@ -10685,6 +11006,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/windsofexchange/094.webp"
   },
   {
+    "name": "Forge Ahead With Confidence",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, after your opponent forges a key, fulfill Forge Ahead With Confidence.",
+    "card_number": "P05",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P05.webp",
+    "reference": true
+  },
+  {
     "name": "Forge Compiler",
     "house": "Logos",
     "card_type": "Artifact",
@@ -10725,6 +11061,21 @@
     "card_number": "009",
     "expansion": 928,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/draconianmeasures/009.webp"
+  },
+  {
+    "name": "Forgemaster",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Keys cost -1 Aember.\nPlayers may forge 1 additional key during their \"forge a key\" step.",
+    "card_number": "309",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/309.webp",
+    "reference": true
   },
   {
     "name": "Forgemaster Og",
@@ -12027,6 +12378,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/163.webp"
   },
   {
+    "name": "Go Forth and Conquer",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, after an enemy creature is used to fight, fulfill Go Forth and Conquer.",
+    "card_number": "P06",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P06.webp",
+    "reference": true
+  },
+  {
     "name": "Gold Key Imp",
     "house": "Dis",
     "card_type": "Creature",
@@ -12277,6 +12643,20 @@
     "card_number": "115",
     "expansion": 874,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/moremutation/115.webp"
+  },
+  {
+    "name": "Grappling Tentacle",
+    "house": "Keyraken",
+    "card_type": "Creature",
+    "rarity": "Common",
+    "amber": 0,
+    "power": "5",
+    "armor": "0",
+    "traits": ["tentacle"],
+    "card_text": "If a friendly Legendary Keyraken is not in play, archive Grappling Tentacle.\nPlay: Capture 3 Aember.\nDestroyed: Deal 3 Damage to a friendly Legendary Keyraken.",
+    "card_number": "264",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/264.webp"
   },
   {
     "name": "Grasping Vines",
@@ -13416,6 +13796,21 @@
     "card_number": "035",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/035.webp"
+  },
+  {
+    "name": "Heads, I Win",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "At the end of your turn, you may flip Heads, I Win.\nDuring your opponent's turn, after your opponent plays a creature adjacent to a creature of the same house, fulfill Heads, I Win.",
+    "card_number": "P07",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P07.webp",
+    "reference": true
   },
   {
     "name": "Heal or Harm",
@@ -15061,6 +15456,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/112.webp"
   },
   {
+    "name": "Into the Abyss",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Uncommon",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Your opponent discards their hand and draws 4 cards.",
+    "card_number": "252",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/252.webp"
+  },
+  {
     "name": "Into the Fray",
     "house": "Brobnar",
     "card_type": "Action",
@@ -15284,6 +15693,21 @@
     "card_number": "041",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/041.webp"
+  },
+  {
+    "name": "It Only Gets Worse",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, after your opponent steals one or more Aember from you, fulfill It Only Gets Worse.",
+    "card_number": "P08",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P08.webp",
+    "reference": true
   },
   {
     "name": "It’s Coming...",
@@ -16452,6 +16876,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/075.webp"
   },
   {
+    "name": "Lashing Tentacle",
+    "house": "Keyraken",
+    "card_type": "Creature",
+    "rarity": "Common",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["tentacle"],
+    "card_text": "Skirmish.\nIf a friendly Legendary Keyraken is not in play, archive Lashing Tentacle.\nDestroyed: Deal 3 Damage to a friendly Legendary Keyraken.",
+    "card_number": "265",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/265.webp"
+  },
+  {
     "name": "Lateral Shift",
     "house": "Unfathomable",
     "card_type": "Action",
@@ -16522,6 +16960,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/313.webp"
   },
   {
+    "name": "Left in Its Wake",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Uncommon",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Choose a house. Exhaust each creature that belongs to that house.",
+    "card_number": "253",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/253.webp"
+  },
+  {
     "name": "Leftenant Chars",
     "house": "Skyborn",
     "card_type": "Creature",
@@ -16562,6 +17014,20 @@
     "card_number": "187",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/187.webp"
+  },
+  {
+    "name": "Legendary Keyraken",
+    "house": "Keyraken",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "10",
+    "armor": "0",
+    "traits": ["beast"],
+    "card_text": "Legendary Keyraken gets +5 power for each forged key you have.\nAfter Reap: Forge a key at +6 Aember current cost, reduced by 1 Aember for each friendly Tentacle in play.",
+    "card_number": "244",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/244.webp"
   },
   {
     "name": "Legerdemain",
@@ -16703,6 +17169,21 @@
     "card_number": "284",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/284.webp"
+  },
+  {
+    "name": "Librarian",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "When resolving a bonus icon, you may archive a card from your hand instead.",
+    "card_number": "310",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/310.webp",
+    "reference": true
   },
   {
     "name": "Library Access",
@@ -17179,6 +17660,22 @@
     "card_number": "279",
     "expansion": 600,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/windsofexchange/279.webp"
+  },
+  {
+    "name": "Look How Far You’ve Come",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, after they play a creature, fulfill Look How Far You've Come.",
+    "card_number": "P09",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P09.webp",
+    "folded": "Look How Far You've Come",
+    "reference": true
   },
   {
     "name": "Look Over There!",
@@ -18095,6 +18592,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/tokensofchange/309.webp"
   },
   {
+    "name": "Master Planner",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "After a player chooses Mars as their active house, archive the top 2 cards of your deck.",
+    "card_number": "311",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/311.webp",
+    "reference": true
+  },
+  {
     "name": "Master Rabten",
     "house": "Sanctum",
     "card_type": "Creature",
@@ -18107,6 +18619,21 @@
     "card_number": "136",
     "expansion": 918,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/136.webp"
+  },
+  {
+    "name": "Master Strategist",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Each friendly Skyborn creature gains deploy and \"After Fight/After Reap: You may move this creature anywhere in your battleline.\"",
+    "card_number": "312",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/312.webp",
+    "reference": true
   },
   {
     "name": "Master Tashi",
@@ -19670,6 +20197,36 @@
     "folded": "Narp's Brew"
   },
   {
+    "name": "Nature's Guardian",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "After a player chooses Untamed as their active house, draw 2 cards.",
+    "card_number": "313",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/313.webp",
+    "reference": true
+  },
+  {
+    "name": "Nature's Strength",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Each friendly Beast creature gains versatile.",
+    "card_number": "314",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/314.webp",
+    "reference": true
+  },
+  {
     "name": "Nature’s Call",
     "house": "Untamed",
     "card_type": "Action",
@@ -20103,6 +20660,21 @@
     "card_number": "257",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/257.webp"
+  },
+  {
+    "name": "Noble Blood",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "After you play a Knight creature, gain 1 Aember.",
+    "card_number": "315",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/315.webp",
+    "reference": true
   },
   {
     "name": "Nocturnal Maneuver",
@@ -20782,6 +21354,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/077.webp"
   },
   {
+    "name": "Optimizer",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "At the start of your turn, purge a card from your discard pile.",
+    "card_number": "316",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/316.webp",
+    "reference": true
+  },
+  {
     "name": "Optio Gorkus",
     "house": "Saurian",
     "card_type": "Creature",
@@ -21037,6 +21624,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/windsofexchange/220.webp"
   },
   {
+    "name": "Outlook Not So Good",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "After your opponent chooses an active house that matches no cards in play, fulfill Outlook Not So Good.",
+    "card_number": "P10",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P10.webp",
+    "reference": true
+  },
+  {
     "name": "Outnegotiate",
     "house": "Ekwidon",
     "card_type": "Action",
@@ -21049,6 +21651,21 @@
     "card_number": "081",
     "expansion": 600,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/windsofexchange/081.webp"
+  },
+  {
+    "name": "Overcharged",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During game setup, you cannot take a mulligan.\nAfter you draw your opening hand, search your deck for any 3 cards, reveal them, and put them into your archives.",
+    "card_number": "317",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/317.webp",
+    "reference": true
   },
   {
     "name": "Overclocked Shock Collar",
@@ -21077,6 +21694,21 @@
     "card_number": "087",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/087.webp"
+  },
+  {
+    "name": "Overreach",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, after an enemy creature is used to reap, fulfill Overreach.",
+    "card_number": "P11",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P11.webp",
+    "reference": true
   },
   {
     "name": "Overrun",
@@ -22652,6 +23284,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/windsofexchange/047.webp"
   },
   {
+    "name": "Preternatural Will",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Common",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Fully heal each friendly Keyraken creature.",
+    "card_number": "266",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/266.webp"
+  },
+  {
     "name": "Pride",
     "house": "Dis",
     "card_type": "Creature",
@@ -22706,6 +23352,20 @@
     "card_number": "130",
     "expansion": 928,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/draconianmeasures/130.webp"
+  },
+  {
+    "name": "Primordial",
+    "house": "Keyraken",
+    "card_type": "Upgrade",
+    "rarity": "Uncommon",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Attach only to a friendly Legendary Keyraken. It gains, \"After Reap: Draw 2 cards.\"",
+    "card_number": "254",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/254.webp"
   },
   {
     "name": "Primordial Vault",
@@ -22860,6 +23520,21 @@
     "card_number": "095",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/095.webp"
+  },
+  {
+    "name": "Progenitor of Giants",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Each friendly Brobnar creature gains \"After Fight: Gain 1 Aember.\"",
+    "card_number": "318",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/318.webp",
+    "reference": true
   },
   {
     "name": "Prognosticating Witch",
@@ -23467,6 +24142,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/windsofexchange/129.webp"
   },
   {
+    "name": "Race to the Surface",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Common",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Discard the top 5 cards of your deck. Archive each Keyraken card discarded this way.",
+    "card_number": "267",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/267.webp"
+  },
+  {
     "name": "Rack of Redemption",
     "house": "Redemption",
     "card_type": "Artifact",
@@ -23535,6 +24224,21 @@
     "card_number": "111",
     "expansion": 886,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/111.webp"
+  },
+  {
+    "name": "Rage",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "After you resolve a bonus icon, deal 1 Damage to a creature.",
+    "card_number": "319",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/319.webp",
+    "reference": true
   },
   {
     "name": "Rage Reset",
@@ -24154,6 +24858,21 @@
     "card_number": "112",
     "expansion": 886,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/112.webp"
+  },
+  {
+    "name": "Redeemer",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Each friendly Mutant creature gains, \"Destroyed: Draw 1 card.\"",
+    "card_number": "320",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/320.webp",
+    "reference": true
   },
   {
     "name": "Redeemer Amara",
@@ -25853,6 +26572,36 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/aemberskies/297.webp"
   },
   {
+    "name": "Schemer",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Each friendly flank creature gains elusive, skirmish, and taunt.",
+    "card_number": "321",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/321.webp",
+    "reference": true
+  },
+  {
+    "name": "Scheming Expertise",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Blue keys cost +1 Aember.\nWhile your blue key is forged, you draw 2 additional cards during your \"draw cards step.\"",
+    "card_number": "322",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/322.webp",
+    "reference": true
+  },
+  {
     "name": "Sci. Officer Morpheus",
     "house": "Star Alliance",
     "card_type": "Creature",
@@ -26779,6 +27528,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/aemberskies/140.webp"
   },
   {
+    "name": "Shield Tentacle",
+    "house": "Keyraken",
+    "card_type": "Creature",
+    "rarity": "Common",
+    "amber": 0,
+    "power": "6",
+    "armor": "0",
+    "traits": ["tentacle"],
+    "card_text": "Deploy. Taunt.\nIf a friendly Legendary Keyraken is not in play, archive Shield Tentacle.\nDestroyed: Deal 3 Damage to a friendly Legendary Keyraken.",
+    "card_number": "268",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/268.webp"
+  },
+  {
     "name": "Shield of Justice",
     "house": "Sanctum",
     "card_type": "Action",
@@ -27104,6 +27867,36 @@
     "card_number": "049",
     "expansion": 435,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/049.webp"
+  },
+  {
+    "name": "Signature Move",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Before drawing starting hands, name an action card. Search your deck for any number of the named card, reveal them, and put them into your archives.",
+    "card_number": "323",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/323.webp",
+    "reference": true
+  },
+  {
+    "name": "Signs Point to Yes",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "At the end of your opponent's turn, if they have Aember in their pool equal to or greater than the current key cost, fulfill Signs Point to Yes.",
+    "card_number": "P12",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P12.webp",
+    "reference": true
   },
   {
     "name": "Sil-A-T8",
@@ -27611,6 +28404,20 @@
     "card_number": "030",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/030.webp"
+  },
+  {
+    "name": "Slippery Tentacle",
+    "house": "Keyraken",
+    "card_type": "Creature",
+    "rarity": "Common",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["tentacle"],
+    "card_text": "If a friendly Legendary Keyraken is not in play, archive Slippery Tentacle.\nAfter Reap: Gain 1 Aember.\nDestroyed: Deal 3 Damage to a friendly Legendary Keyraken.",
+    "card_number": "269",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/269.webp"
   },
   {
     "name": "Slipshot",
@@ -28666,6 +29473,36 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/draconianmeasures/249.webp"
   },
   {
+    "name": "Stars Aligned",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "At the start of your opponent's turn, if each player has the same number of creatures, fulfill Stars Aligned.",
+    "card_number": "P13",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P13.webp",
+    "reference": true
+  },
+  {
+    "name": "Stasis Field",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "At the start of your turn, you may exhaust an enemy creature.",
+    "card_number": "324",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/324.webp",
+    "reference": true
+  },
+  {
     "name": "Stasis Nexus",
     "house": "Mars",
     "card_type": "Artifact",
@@ -29354,6 +30191,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/189.webp"
   },
   {
+    "name": "Swift Current",
+    "house": "Keyraken",
+    "card_type": "Artifact",
+    "rarity": "Rare",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": ["power"],
+    "card_text": "Action: Each friendly Tentacle captures 1 Aember.",
+    "card_number": "246",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/246.webp"
+  },
+  {
     "name": "Swift Induction",
     "house": "Redemption",
     "card_type": "Action",
@@ -29507,6 +30358,21 @@
     "card_number": "320",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/320.webp"
+  },
+  {
+    "name": "Tails, You Lose",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "At the end of your turn, you may flip Tails, You Lose.\nDuring your opponent's turn, after your opponent plays a creature adjacent to a creature belonging to a different house, fulfill Tails, You Lose.",
+    "card_number": "P14",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P14.webp",
+    "reference": true
   },
   {
     "name": "Take Hostages",
@@ -29971,6 +30837,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/259.webp"
   },
   {
+    "name": "Tenacious Tentacle",
+    "house": "Keyraken",
+    "card_type": "Creature",
+    "rarity": "Common",
+    "amber": 0,
+    "power": "2",
+    "armor": "0",
+    "traits": ["tentacle"],
+    "card_text": "If a friendly Legendary Keyraken is not in play, archive Tenacious Tentacle.\nAfter Reap: Steal 1 Aember.\nDestroyed: Deal 3 Damage to a friendly Legendary Keyraken.",
+    "card_number": "270",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/270.webp"
+  },
+  {
     "name": "Tendrils from Beyond",
     "house": "Unfathomable",
     "card_type": "Action",
@@ -30195,6 +31075,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/212.webp"
   },
   {
+    "name": "The Cards Will Tell",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, after your opponent draws a card outside of their \"draw cards step\", fulfill The Cards Will Tell.",
+    "card_number": "P15",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P15.webp",
+    "reference": true
+  },
+  {
     "name": "The Chosen One",
     "house": "Unfathomable",
     "card_type": "Creature",
@@ -30279,6 +31174,36 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/157.webp"
   },
   {
+    "name": "The Early Bird",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "At the end of your opponent's turn, if they have more Aember in their pool than you, fulfill The Early Bird.",
+    "card_number": "P16",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P16.webp",
+    "reference": true
+  },
+  {
+    "name": "The End is Nigh",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, after 3 or more creatures have been destroyed that turn, fulfill The End is Nigh.",
+    "card_number": "P17",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P17.webp",
+    "reference": true
+  },
+  {
     "name": "The Evil Eye",
     "house": "Dis",
     "card_type": "Action",
@@ -30291,6 +31216,20 @@
     "card_number": "084",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/084.webp"
+  },
+  {
+    "name": "The Evil in the Ranks",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Uncommon",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Each enemy flank creature deals Damage to its neighbor equal to its power.",
+    "card_number": "255",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/255.webp"
   },
   {
     "name": "The Feathered Shaman",
@@ -30602,6 +31541,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/grimreminders/198.webp"
   },
   {
+    "name": "The Second Mouse",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "At the end of your opponent's turn, if they have less Aember in their pool than you, fulfill The Second Mouse.",
+    "card_number": "P18",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P18.webp",
+    "reference": true
+  },
+  {
     "name": "The Shadow Council",
     "house": "Shadows",
     "card_type": "Creature",
@@ -30685,6 +31639,21 @@
     "card_number": "101",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/101.webp"
+  },
+  {
+    "name": "The Tide",
+    "house": "",
+    "card_type": "The Tide",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "High Tide\n(The tide is high for you.)\nLow Tide\n(The tide is low for you.)\nOmni: Raise the tide. Gain 3 chains.",
+    "card_number": "000",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/000.webp",
+    "reference": true
   },
   {
     "name": "The Twin Lamps",
@@ -30869,6 +31838,21 @@
     "expansion": 435,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/334.webp",
     "folded": "They're Everywhere!"
+  },
+  {
+    "name": "Thievery",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your turn, after you discard a card from your hand, you may purge it from the discard pile. If you do, steal 1 Aember.",
+    "card_number": "325",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/325.webp",
+    "reference": true
   },
   {
     "name": "Thieves’ Bane",
@@ -31082,6 +32066,20 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/grimreminders/164.webp"
   },
   {
+    "name": "Tidal Trouble",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Uncommon",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Stun an enemy creature and each creature that shares a house with it.",
+    "card_number": "256",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/256.webp"
+  },
+  {
     "name": "Tidal Wave",
     "house": "Unfathomable",
     "card_type": "Action",
@@ -31094,6 +32092,20 @@
     "card_number": "347",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/347.webp"
+  },
+  {
+    "name": "Tide Down",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Rare",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Play: Discard up to 3 cards from your hand. For each card discarded this way, choose a card in your discard pile and archive it.",
+    "card_number": "247",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/247.webp"
   },
   {
     "name": "Tide Warp",
@@ -31164,6 +32176,21 @@
     "card_number": "379",
     "expansion": 600,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/windsofexchange/379.webp"
+  },
+  {
+    "name": "Tinkerer",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Your keys cost -2 Aember.\nYou must forge 1 additional key to win the game.",
+    "card_number": "326",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/326.webp",
+    "reference": true
   },
   {
     "name": "Tireless Crocag",
@@ -31290,6 +32317,20 @@
     "card_number": "S20",
     "expansion": 800,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/aemberskies/S20.webp"
+  },
+  {
+    "name": "Titanic Maw",
+    "house": "Keyraken",
+    "card_type": "Upgrade",
+    "rarity": "Rare",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Enhance Damage Damage Damage Damage.\nAttach only to a friendly Legendary Keyraken. It gains skirmish and splash-attack 3.",
+    "card_number": "248",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/248.webp"
   },
   {
     "name": "Toad",
@@ -31754,6 +32795,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/284.webp"
   },
   {
+    "name": "Treat Each Action as Your Last",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, after your opponent plays their second action that turn, fulfill Treat Each Action as Your Last",
+    "card_number": "P19",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P19.webp",
+    "reference": true
+  },
+  {
     "name": "Tremor",
     "house": "Brobnar",
     "card_type": "Action",
@@ -32005,6 +33061,21 @@
     "card_number": "248",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/248.webp"
+  },
+  {
+    "name": "Trust Your Feelings",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "When a card is placed under Trust Your Feelings, name a house. The next time your opponent chooses the named house as their active house, fulfill Trust Your Feelings.",
+    "card_number": "P20",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P20.webp",
+    "reference": true
   },
   {
     "name": "Tsunami",
@@ -33303,6 +34374,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/grimreminders/199.webp"
   },
   {
+    "name": "Warden of the Crucible",
+    "house": "",
+    "card_type": "Archon Power",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Each friendly creature gains, \"Action: Deal 4 Damage to a creature.\"",
+    "card_number": "327",
+    "expansion": 918,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/327.webp",
+    "reference": true
+  },
+  {
     "name": "Wardrummer",
     "house": "Brobnar",
     "card_type": "Creature",
@@ -33400,6 +34486,21 @@
     "card_number": "412",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/412.webp"
+  },
+  {
+    "name": "Wasteful Regret",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, after your opponent discards a cards from their hand, fulfill Wasteful Regret.",
+    "card_number": "P21",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P21.webp",
+    "reference": true
   },
   {
     "name": "Watch Your Step",
@@ -33667,6 +34768,20 @@
     "card_number": "335",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/335.webp"
+  },
+  {
+    "name": "Whirpool Eddy",
+    "house": "Keyraken",
+    "card_type": "Artifact",
+    "rarity": "Uncommon",
+    "amber": 1,
+    "power": null,
+    "armor": null,
+    "traits": ["power"],
+    "card_text": "Action: Stun and exhaust a creature that is not already stunned.",
+    "card_number": "257",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/257.webp"
   },
   {
     "name": "Whisper",
@@ -33989,6 +35104,21 @@
     "card_number": "039",
     "expansion": 918,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/crucibleclash/039.webp"
+  },
+  {
+    "name": "Wounds Into Wisdom",
+    "house": "",
+    "card_type": "Prophecy",
+    "rarity": "Special",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "During your opponent's turn, after a friendly creature is dealt damage, fulfill Wounds into Wisdom.",
+    "card_number": "P22",
+    "expansion": 886,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/propheticvisions/P22.webp",
+    "reference": true
   },
   {
     "name": "Wraith Construct",
@@ -34580,6 +35710,21 @@
     "expansion": 700,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/grimreminders/072.webp",
     "folded": "Zavel, \"Archaeologist\""
+  },
+  {
+    "name": "Zealot’s Revelation",
+    "house": "Keyraken",
+    "card_type": "Action",
+    "rarity": "Uncommon",
+    "amber": 0,
+    "power": null,
+    "armor": null,
+    "traits": [],
+    "card_text": "Enhance Aember Capture Damage Draw.\nPlay: Draw 4 cards.",
+    "card_number": "258",
+    "expansion": 722,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/menagerie/258.webp",
+    "folded": "Zealot's Revelation"
   },
   {
     "name": "Zeff “Punch” Yardus",

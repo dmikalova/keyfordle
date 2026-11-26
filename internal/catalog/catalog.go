@@ -5,6 +5,11 @@
 // internal/cards embeds: one card per name, from the first set in release order
 // that printed it, in the value formats the lifted React page compares. Every
 // card it leaves out is recorded, with the reason, so it can be added later.
+//
+// The pool holds the deck cards of every set, the Keyraken adventure's cards
+// included, and the reference cards that sit beside a deck: archon powers,
+// prophecies and the tide. A reference card has no house. internal/cards picks
+// one as the card of the day on about 2% of days.
 package catalog
 
 import (
@@ -75,6 +80,7 @@ var houses = map[string]string{
 	"elders":       "Elders",
 	"geistoid":     "Geistoid",
 	"ironyxrebels": "Ironyx Rebels",
+	"keyraken":     "Keyraken",
 	"logos":        "Logos",
 	"mars":         "Mars",
 	"ouboros":      "Ouboros",
@@ -88,12 +94,21 @@ var houses = map[string]string{
 	"untamed":      "Untamed",
 }
 
-// cardTypes maps the card types the pool holds to the type the page shows.
+// cardTypes maps the deck card types the pool holds to the type the page shows.
 var cardTypes = map[string]string{
 	"action":   "Action",
 	"artifact": "Artifact",
 	"creature": "Creature",
 	"upgrade":  "Upgrade",
+}
+
+// referenceTypes maps the reference card types the pool holds to the type the
+// page shows. A reference card has no house, and its rarity is Special: the
+// tide's catalog rarity, "The Tide", is not one the page orders.
+var referenceTypes = map[string]string{
+	"archon power": "Archon Power",
+	"prophecy":     "Prophecy",
+	"the tide":     "The Tide",
 }
 
 // Reason is why a card is left out of the pool.
@@ -102,13 +117,9 @@ type Reason string
 // The reasons, one per kind of card the pool leaves out. Reasons lists them in
 // the order the excluded list and its document use.
 const (
-	ReasonGigantic    Reason = "gigantic"
-	ReasonEvilTwin    Reason = "evil-twin"
-	ReasonToken       Reason = "token-creature"
-	ReasonArchonPower Reason = "archon-power"
-	ReasonProphecy    Reason = "prophecy"
-	ReasonTheTide     Reason = "the-tide"
-	ReasonKeyraken    Reason = "keyraken"
+	ReasonGigantic Reason = "gigantic"
+	ReasonEvilTwin Reason = "evil-twin"
+	ReasonToken    Reason = "token-creature"
 )
 
 // Reasons lists every reason in document order.
@@ -116,26 +127,13 @@ var Reasons = []Reason{
 	ReasonGigantic,
 	ReasonEvilTwin,
 	ReasonToken,
-	ReasonArchonPower,
-	ReasonProphecy,
-	ReasonTheTide,
-	ReasonKeyraken,
-}
-
-// excludedHouses are houses no player deck holds. The house is checked before
-// the type, so a Keyraken token is recorded as a Keyraken card.
-var excludedHouses = map[string]Reason{
-	"keyraken": ReasonKeyraken,
 }
 
 // excludedTypes are the card types the pool leaves out.
 var excludedTypes = map[string]Reason{
-	"archon power":           ReasonArchonPower,
 	"evil twin creature":     ReasonEvilTwin,
 	"gigantic creature art":  ReasonGigantic,
 	"gigantic creature base": ReasonGigantic,
-	"prophecy":               ReasonProphecy,
-	"the tide":               ReasonTheTide,
 	"token creature":         ReasonToken,
 }
 
@@ -218,7 +216,7 @@ func (r Result) Count() int {
 // and sorts each catalog entry into the pool or the excluded list.
 func Build(fsys fs.FS) (Result, error) {
 	res := Result{PoolPrintings: map[string][]string{}}
-	poolIndex := map[string]string{}  // folded name -> pool name
+	poolIndex := map[string]int{}     // folded name -> index in res.Pool
 	excludedIndex := map[string]int{} // reason + folded name -> index in res.Excluded
 	read := 0
 
@@ -267,15 +265,25 @@ func Build(fsys fs.FS) (Result, error) {
 				return Result{}, fmt.Errorf("%s %s: %w", set.Slug, src.Number, err)
 			}
 
-			// A reprint keeps the set that first printed the card.
+			// A reprint keeps the set that first printed the card. Two cards of
+			// different types with one name are two cards, and the pool cannot
+			// tell them apart.
 			key := strings.ToLower(src.Name)
-			if name, seen := poolIndex[key]; seen {
-				res.PoolPrintings[name] = append(res.PoolPrintings[name], printing)
+			if i, seen := poolIndex[key]; seen {
+				first := res.Pool[i]
+				if first.CardType != entry.CardType {
+					return Result{}, fmt.Errorf(
+						"%s %s: %q is a %s and a %s",
+						set.Slug, src.Number, entry.Name, first.CardType, entry.CardType,
+					)
+				}
+
+				res.PoolPrintings[first.Name] = append(res.PoolPrintings[first.Name], printing)
 
 				continue
 			}
 
-			poolIndex[key] = entry.Name
+			poolIndex[key] = len(res.Pool)
 			res.PoolPrintings[entry.Name] = []string{printing}
 			res.Pool = append(res.Pool, entry)
 		}
@@ -321,10 +329,6 @@ func readCatalog(fsys fs.FS, set Set) ([]source, error) {
 
 // exclusion returns why the pool leaves src out, if it does.
 func exclusion(src source) (Reason, bool) {
-	if reason, ok := excludedHouses[src.House]; ok {
-		return reason, true
-	}
-
 	reason, ok := excludedTypes[src.Type]
 
 	return reason, ok
@@ -333,6 +337,10 @@ func exclusion(src source) (Reason, bool) {
 // convert folds one catalog card into a pool entry. sharedNumber is true when
 // another card in the set's catalog has the same collector number.
 func convert(set Set, src source, sharedNumber bool) (cards.Entry, error) {
+	if refType, ok := referenceTypes[src.Type]; ok {
+		return entryOf(set, src, sharedNumber, refType, "", "Special", true), nil
+	}
+
 	cardType, ok := cardTypes[src.Type]
 	if !ok {
 		return cards.Entry{}, fmt.Errorf("unknown card type %q", src.Type)
@@ -347,13 +355,25 @@ func convert(set Set, src source, sharedNumber bool) (cards.Entry, error) {
 		return cards.Entry{}, fmt.Errorf("unknown rarity %q", src.Rarity)
 	}
 
+	return entryOf(set, src, sharedNumber, cardType, house, src.Rarity, false), nil
+}
+
+// entryOf builds the pool entry of src from its converted type, house and
+// rarity.
+func entryOf(
+	set Set,
+	src source,
+	sharedNumber bool,
+	cardType, house, rarity string,
+	reference bool,
+) cards.Entry {
 	name := src.printedName()
 
 	c := cards.Card{
 		Name:       name,
 		House:      house,
 		CardType:   cardType,
-		Rarity:     src.Rarity,
+		Rarity:     rarity,
 		Amber:      src.Amber,
 		Traits:     traits(src.Traits),
 		CardText:   src.Text,
@@ -371,12 +391,12 @@ func convert(set Set, src source, sharedNumber bool) (cards.Entry, error) {
 		c.Armor = &armor
 	}
 
-	entry := cards.Entry{Card: c}
+	entry := cards.Entry{Card: c, Reference: reference}
 	if src.Name != name {
 		entry.Folded = src.Name
 	}
 
-	return entry, nil
+	return entry
 }
 
 // imageName is the card's file name in the image bucket, as vex's importer
