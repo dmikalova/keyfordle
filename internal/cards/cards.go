@@ -164,16 +164,14 @@ const MinQueryLength = 2
 const (
 	matchContains = iota // the name contains the query as typed
 	matchInOrder         // the query's letters appear in the name in order
-	matchAnyOrder        // the query's letters all appear in the name
 	matchNone
 )
 
-// Search returns up to limit cards whose name holds every letter of query,
-// ignoring case, in any order. Matches rank by tier: the name contains the
-// query, then the letters appear in order, then they appear in any order.
-// Within a tier, cards keep name order. A letter typed twice must appear twice.
-// Spaces and punctuation in the query only count for the contains tier. A
-// query shorter than MinQueryLength runes matches nothing.
+// Search returns up to limit cards whose name holds the letters of query in
+// order, ignoring case, with gaps allowed. Matches rank by tier: the name
+// contains the query, then the letters appear in order. Within a tier, cards
+// keep name order. Spaces and punctuation in the query only count for the
+// contains tier. A query shorter than MinQueryLength runes matches nothing.
 func (p *Pool) Search(query string, limit int) []Card {
 	query = strings.ToLower(strings.TrimSpace(query))
 	if len([]rune(query)) < MinQueryLength || limit <= 0 {
@@ -212,8 +210,6 @@ func matchTier(name, query string, letters []rune) int {
 		return matchNone
 	case inOrder(name, letters):
 		return matchInOrder
-	case allPresent(name, letters):
-		return matchAnyOrder
 	default:
 		return matchNone
 	}
@@ -246,23 +242,4 @@ func inOrder(name string, letters []rune) bool {
 	}
 
 	return false
-}
-
-// allPresent reports whether name holds every one of letters, counting
-// repeats, in any order.
-func allPresent(name string, letters []rune) bool {
-	have := map[rune]int{}
-	for _, r := range name {
-		have[r]++
-	}
-
-	for _, r := range letters {
-		if have[r] == 0 {
-			return false
-		}
-
-		have[r]--
-	}
-
-	return true
 }

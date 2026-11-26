@@ -168,9 +168,9 @@ func TestByName(t *testing.T) {
 	}
 }
 
-// TestSearchAnyOrder pins the fuzzy ranking: contains, then letters in order,
-// then letters in any order, each tier in name order.
-func TestSearchAnyOrder(t *testing.T) {
+// TestSearchInOrder pins the fuzzy ranking: contains, then letters in order,
+// each tier in name order. Letters out of order do not match.
+func TestSearchInOrder(t *testing.T) {
 	pool, err := cards.New([]cards.Entry{
 		entry("Dodger", ""),
 		entry("Hand of Dis", ""),
@@ -186,14 +186,19 @@ func TestSearchAnyOrder(t *testing.T) {
 		want  []string
 	}{
 		// Overshadow and Shadow Self contain it; Hand of Dis has h-a-d-o in
-		// order (H, a, d, o); nothing else holds all four letters.
+		// order (H, a, d, o).
 		{"hado", []string{"Overshadow", "Shadow Self", "Hand of Dis"}},
-		// No name contains "odah" or has it in order; three hold the letters.
-		{"odah", []string{"Hand of Dis", "Overshadow", "Shadow Self"}},
+		// Three names hold o, d, a and h, but none in that order.
+		{"odah", nil},
+		// Gaps are allowed: d-g in Dodger, s-f in Shadow Self.
+		{"dgr", []string{"Dodger"}},
+		{"shsf", []string{"Shadow Self"}},
 		// A repeated letter must appear twice: only Shadow Self has two s's.
 		{"ss", []string{"Shadow Self"}},
 		// Spaces in the query only matter for the contains tier.
-		{"self sha", []string{"Shadow Self"}},
+		{"sha self", []string{"Shadow Self"}},
+		// The words out of order do not match.
+		{"self sha", nil},
 		{"xyz", nil},
 	}
 
@@ -216,7 +221,7 @@ func TestSearchAnyOrder(t *testing.T) {
 		}
 	}
 
-	if got := pool.Search("odah", 2); len(got) != 2 {
+	if got := pool.Search("hado", 2); len(got) != 2 {
 		t.Fatalf("Search limit 2 returned %d cards", len(got))
 	}
 }
@@ -236,8 +241,9 @@ func TestSearch(t *testing.T) {
 		limit int
 		want  []string
 	}{
-		// Æmber Imp folds to "aember imp", which holds b, e, a and r.
-		{"bear", 10, []string{"Ancient Bear", "Bear Flute", "Æmber Imp"}},
+		// Æmber Imp folds to "aember imp", which holds b, e, a and r, but
+		// not in that order.
+		{"bear", 10, []string{"Ancient Bear", "Bear Flute"}},
 		{"BEAR", 1, []string{"Ancient Bear"}},
 		{"aember", 10, []string{"Æmber Imp"}},
 		{"æmber", 10, []string{"Æmber Imp"}},
