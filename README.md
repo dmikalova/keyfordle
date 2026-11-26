@@ -1,9 +1,9 @@
 # keyfordle
 
-Keyfordle, the daily KeyForge card-guessing game, at
+KeyFordle, the daily KeyForge card-guessing game, at
 [keyfordle.keyforge.cards](https://keyfordle.keyforge.cards).
 
-Keyfordle was created by the KFStats contributors
+KeyFordle was created by the KFStats contributors
 ([Valnor280/KFStats](https://github.com/Valnor280/KFStats)). This repository
 lifts its game page as is and serves it from a Go backend. See [NOTICE](NOTICE).
 

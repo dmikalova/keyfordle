@@ -1,4 +1,4 @@
-// Package server exposes Keyfordle over HTTP.
+// Package server exposes KeyFordle over HTTP.
 //
 // The API keeps the upstream KFStats paths and JSON shapes, because the lifted
 // React page calls them unchanged. Everything that is not the API or /health is
@@ -239,7 +239,7 @@ func (s *Server) handleStats(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, statsOf(day))
 }
 
-// stats is upstream's KeyfordleStatsSerializer, plus player_rank on a recorded
+// stats is upstream's KeyFordleStatsSerializer, plus player_rank on a recorded
 // completion. A day with no row has a null card and zeros, and no timestamps.
 type stats struct {
 	Date           string     `json:"date"`

@@ -1,4 +1,4 @@
-import Keyfordle from "./pages/Keyfordle.tsx";
+import KeyFordle from "./pages/KeyFordle.tsx";
 
 // The shell around the lifted page: a way back to keyforge.cards, and the
 // attribution the MIT License asks for.
@@ -14,12 +14,12 @@ const App = () => (
     </header>
 
     <main className="flex-1">
-      <Keyfordle />
+      <KeyFordle />
     </main>
 
     <footer className="max-w-4xl w-full mx-auto px-4 py-6 text-center text-xs text-gray-500 dark:text-gray-400 space-y-1">
       <p>
-        Keyfordle was created by the KFStats contributors (
+        KeyFordle was created by the KFStats contributors (
         <a
           href="https://github.com/Valnor280/KFStats"
           className="underline hover:text-gray-900 dark:hover:text-white"

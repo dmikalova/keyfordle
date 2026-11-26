@@ -1,4 +1,4 @@
-// Package catalog builds Keyfordle's card pool from vex's set catalogs.
+// Package catalog builds KeyFordle's card pool from vex's set catalogs.
 //
 // vex keeps one JSON catalog per set at internal/cards/provenance/<slug>.json,
 // built from the Master Vault decks feed. Build folds them into the pool that

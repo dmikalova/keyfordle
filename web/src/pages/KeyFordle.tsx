@@ -10,7 +10,7 @@ import {
   formatDateFromString,
   formatRank,
   compareCards,
-} from "./keyfordleLogic";
+} from "./keyFordleLogic";
 
 // Shown in place of a card image that fails to load.
 const IMAGE_MISSING = "/assets/image-missing.svg";
@@ -29,9 +29,9 @@ interface GameState {
   revealed?: boolean;
 }
 
-const Keyfordle = () => {
+const KeyFordle = () => {
   useSEO({
-    title: "Keyfordle - Daily Card Guessing Game",
+    title: "KeyFordle - Daily Card Guessing Game",
     description: "Guess the KeyForge card of the day! A Wordle-style game for KeyForge cards.",
     canonical: "https://keyfordle.keyforge.cards/",
   });
@@ -366,7 +366,7 @@ const Keyfordle = () => {
         : "Solved"
       : "Failed";
 
-    let message = `Keyfordle ${dateStr} ${resultText} ${resultEmoji}\n`;
+    let message = `KeyFordle ${dateStr} ${resultText} ${resultEmoji}\n`;
     message += overTime
       ? `${guessCount} guesses (${MAX_GUESSES} allowed)\n`
       : `${guessCount}/${MAX_GUESSES} guesses\n`;
@@ -504,7 +504,7 @@ const Keyfordle = () => {
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary mb-2">Keyfordle</h1>
+          <h1 className="text-4xl font-bold text-primary mb-2">KeyFordle</h1>
           <p className="text-gray-600 dark:text-gray-400">
             Guess the KeyForge card of the day! You have {MAX_GUESSES} tries.
           </p>
@@ -745,7 +745,7 @@ const Keyfordle = () => {
                     <img
                       src={cardImage}
                       alt={guess.card.name}
-                      className="w-20 h-28 object-cover rounded border border-gray-200 dark:border-gray-600 shadow-sm transition-transform duration-300 hover:scale-[5] hover:z-50 relative"
+                      className="w-20 h-28 object-contain drop-shadow-md transition-transform duration-300 hover:scale-[5] hover:z-50 relative"
                       onError={(e) => {
                         // A card whose image is not uploaded yet shows the
                         // placeholder. The check stops a loop if the
@@ -1066,4 +1066,4 @@ const Keyfordle = () => {
   );
 };
 
-export default Keyfordle;
+export default KeyFordle;

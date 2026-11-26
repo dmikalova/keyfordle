@@ -3,7 +3,7 @@ import type { Config } from "tailwindcss";
 
 const web = (path: string) => fileURLToPath(new URL(`./web/${path}`, import.meta.url));
 
-// Upstream KFStats' Tailwind 3 config, cut to what the Keyfordle page uses,
+// Upstream KFStats' Tailwind 3 config, cut to what the KeyFordle page uses,
 // with the keyforge.cards theme. keyforge.cards is dark only, so index.html
 // sets the dark class and the page's dark: styles always apply.
 //

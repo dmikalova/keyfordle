@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { type Card, compareCards, formatRank, EXPANSIONS } from "./keyfordleLogic";
+import { type Card, compareCards, formatRank, EXPANSIONS } from "./keyFordleLogic";
 
 const card = (over: Partial<Card>): Card => ({
   name: "Ancient Bear",

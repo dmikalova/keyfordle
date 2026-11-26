@@ -1,4 +1,4 @@
-// Package cards holds the Keyfordle card pool.
+// Package cards holds the KeyFordle card pool.
 //
 // The pool is cards.json, embedded at build time. `mage cards` generates it
 // from vex's set catalogs (see internal/catalog). A card's JSON field names are
@@ -111,7 +111,7 @@ func (p *Pool) ByName(name string) (Card, bool) {
 	return p.cards[i], true
 }
 
-// Pick returns the card for a UTC day. It is upstream Keyfordle's rule: the MD5
+// Pick returns the card for a UTC day. It is upstream KeyFordle's rule: the MD5
 // of the date as YYYYMMDD, read as an integer, modulo the pool size, indexes the
 // pool in name order. MD5 is a spreader here, not a security boundary.
 func (p *Pool) Pick(day time.Time) Card {

@@ -1,4 +1,4 @@
-// Keyfordle's rules, moved out of Keyfordle.tsx unchanged so they can be tested.
+// KeyFordle's rules, moved out of KeyFordle.tsx unchanged so they can be tested.
 // The comparison is upstream's compareCards; only its formatting changed.
 
 export interface Card {

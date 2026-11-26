@@ -25,7 +25,7 @@ Run both gates before calling work done:
 
 ## Rules
 
-- **The page is a lift and shift.** `web/src/pages/Keyfordle.tsx` stays as
+- **The page is a lift and shift.** `web/src/pages/KeyFordle.tsx` stays as
   close to upstream KFStats as the toolchain allows. A change to the game goes
   in its own commit and names the upstream behavior it changes. The planned
   replacement is Go with templ and Datastar, not a rewrite in React.

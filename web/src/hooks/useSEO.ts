@@ -20,7 +20,7 @@ export function useSEO({ title, description, keywords, canonical }: SEOProps = {
     if (title) {
       document.title = title;
     } else {
-      document.title = "Keyfordle";
+      document.title = "KeyFordle";
     }
 
     // Update meta description

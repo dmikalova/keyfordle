@@ -4,8 +4,8 @@ This product includes software derived from KFStats
 (https://github.com/Valnor280/KFStats), commit
 ddce671f5f94a746d3eb7f262cc838e7d18ba723, licensed under the MIT License.
 
-The derived portions are the Keyfordle game page and its helpers under web/:
-web/src/pages/Keyfordle.tsx, web/src/pages/keyfordleLogic.ts,
+The derived portions are the KeyFordle game page and its helpers under web/:
+web/src/pages/KeyFordle.tsx, web/src/pages/keyFordleLogic.ts,
 web/src/hooks/useSEO.ts and web/public/assets/Aember.png, and the API that
 internal/server reimplements. The KFStats license follows.
 

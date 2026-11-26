@@ -1,4 +1,4 @@
-// Command keyfordle serves Keyfordle, the daily KeyForge card-guessing game.
+// Command keyfordle serves KeyFordle, the daily KeyForge card-guessing game.
 //
 // It serves the React page and the four API routes the page calls. The day's
 // card and the finished-game totals live in Postgres.

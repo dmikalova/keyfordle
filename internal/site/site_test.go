@@ -11,7 +11,7 @@ import (
 
 func built() fstest.MapFS {
 	return fstest.MapFS{
-		"assets/app/index.html":         {Data: []byte("<!doctype html><title>Keyfordle</title>")},
+		"assets/app/index.html":         {Data: []byte("<!doctype html><title>KeyFordle</title>")},
 		"assets/app/static/app-1a2b.js": {Data: []byte("console.log(1)")},
 		"assets/app/assets/Aember.png":  {Data: []byte("png")},
 	}
@@ -32,10 +32,10 @@ func TestCacheHeaders(t *testing.T) {
 	tests := []struct {
 		path, cache, body string
 	}{
-		{"/", "no-cache", "<!doctype html><title>Keyfordle</title>"},
-		{"/index.html", "no-cache", "<!doctype html><title>Keyfordle</title>"},
-		{"/keyfordle", "no-cache", "<!doctype html><title>Keyfordle</title>"},
-		{"/static", "no-cache", "<!doctype html><title>Keyfordle</title>"},
+		{"/", "no-cache", "<!doctype html><title>KeyFordle</title>"},
+		{"/index.html", "no-cache", "<!doctype html><title>KeyFordle</title>"},
+		{"/keyfordle", "no-cache", "<!doctype html><title>KeyFordle</title>"},
+		{"/static", "no-cache", "<!doctype html><title>KeyFordle</title>"},
 		{"/static/app-1a2b.js", "public, max-age=31536000, immutable", "console.log(1)"},
 		{"/assets/Aember.png", "public, max-age=86400", "png"},
 	}
