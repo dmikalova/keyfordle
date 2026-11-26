@@ -23,10 +23,10 @@ import (
 
 // The card images live under images/cards/ in the public keyforge.cards
 // bucket, one per <set-slug>/<file>. The extension is a constant of its own
-// because the images may move to another format.
+// because it follows the upload's format: WebP at quality 85 (`mage images`).
 const (
 	ImageBaseURL = "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/"
-	ImageExt     = ".png"
+	ImageExt     = ".webp"
 )
 
 // CatalogDir is where vex keeps its set catalogs, relative to a vex checkout.
