@@ -940,13 +940,27 @@ const Keyfordle = () => {
               <strong>Card Name:</strong> Letters in your guessed card's name show Green (correct
               position), Yellow (in target name but wrong position), or Red (not in target name)
             </li>
-            <li>
-              <strong>Numeric attributes (Amber, Power, Armor):</strong> Shows ↑ if your card is
-              higher, ↓ if lower than the target card
+            <li className="mt-2">
+              <strong>Arrows</strong> (Rarity, Expansion, Amber, Power, Armor) describe{" "}
+              <strong>your card</strong>, not the target:
             </li>
-            <li>
-              <strong>Expansion:</strong> Shows ↑ if your card is from a later expansion, ↓ if from
-              an earlier expansion than the target
+            <li className="flex items-start gap-2">
+              <ArrowUp className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <span>
+                Your card is rarer, from a later expansion, or higher. The target is less rare,
+                earlier, or lower.
+              </span>
+            </li>
+            <li className="flex items-start gap-2">
+              <ArrowDown className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <span>
+                Your card is less rare, from an earlier expansion, or lower. The target is rarer,
+                later, or higher.
+              </span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Check className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <span>Your card matches the target.</span>
             </li>
           </ul>
         </div>
