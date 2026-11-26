@@ -8,6 +8,7 @@ import {
   dayResultOf,
   formatRank,
   playerStats,
+  randomDay,
   EXPANSIONS,
 } from "./keyFordleLogic";
 
@@ -115,6 +116,30 @@ describe("addDays", () => {
     expect(addDays("2018-12-31", 1)).toBe("2019-01-01");
     expect(addDays("2020-02-28", 1)).toBe("2020-02-29");
     expect(addDays("2020-03-01", -1)).toBe("2020-02-29");
+  });
+});
+
+describe("randomDay", () => {
+  const first = "2020-01-01";
+  const last = "2020-01-05";
+
+  it("skips the current day and the played days", () => {
+    const played = new Set(["2020-01-02", "2020-01-04"]);
+    const seen = new Set<string>();
+    for (let i = 0; i < 100; i++) {
+      seen.add(randomDay(first, last, "2020-01-01", played, () => i / 100));
+    }
+    expect([...seen].sort()).toEqual(["2020-01-03", "2020-01-05"]);
+  });
+
+  it("falls back to every other day when all are played", () => {
+    const played = new Set(["2020-01-01", "2020-01-02", "2020-01-03", "2020-01-04", "2020-01-05"]);
+    expect(randomDay(first, last, "2020-01-03", played, () => 0)).toBe("2020-01-01");
+    expect(randomDay(first, last, "2020-01-03", played, () => 0.99)).toBe("2020-01-05");
+  });
+
+  it("returns the current day when there is no other", () => {
+    expect(randomDay(first, first, first, new Set(), () => 0.5)).toBe(first);
   });
 });
 

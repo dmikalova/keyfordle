@@ -277,6 +277,32 @@ export function addDays(date: string, n: number): string {
   return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10);
 }
 
+// randomDay returns a day from first to last, both included, that is not
+// current and that the player has not played. When every day is played, it
+// picks from every day but current. random returns a number in [0, 1), like
+// Math.random. It returns current when first to last holds no other day.
+export function randomDay(
+  first: string,
+  last: string,
+  current: string,
+  played: ReadonlySet<string>,
+  random: () => number = Math.random,
+): string {
+  const fresh: string[] = [];
+  const others: string[] = [];
+
+  for (let day = first; day <= last; day = addDays(day, 1)) {
+    if (day === current) continue;
+    others.push(day);
+    if (!played.has(day)) fresh.push(day);
+  }
+
+  const pool = fresh.length > 0 ? fresh : others;
+  if (pool.length === 0) return current;
+
+  return pool[Math.floor(random() * pool.length)];
+}
+
 // A day the player has played, as saved in the browser.
 // - won: found the card within MAX_GUESSES.
 // - lost: missed MAX_GUESSES times. A late find after Continue? still counts

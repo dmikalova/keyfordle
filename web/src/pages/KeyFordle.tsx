@@ -9,6 +9,7 @@ import {
   Copy,
   CheckCircle,
   BarChart3,
+  Shuffle,
 } from "lucide-react";
 import api from "../utils/api";
 import { useSEO } from "../hooks/useSEO";
@@ -26,6 +27,7 @@ import {
   FIRST_DAY,
   addDays,
   playerStats,
+  randomDay,
   readSavedResults,
 } from "./keyFordleLogic";
 
@@ -639,6 +641,23 @@ const KeyFordle = () => {
                   Today
                 </button>
               )}
+              <button
+                onClick={() =>
+                  goToDay(
+                    randomDay(
+                      firstDay,
+                      today || gameState.date,
+                      gameState.date,
+                      new Set(dayResults.keys()),
+                    ),
+                  )
+                }
+                title="Go to a random day you have not played"
+                className="flex items-center gap-1.5 px-3 py-1 rounded-lg border border-gray-600 text-white hover:bg-gray-700"
+              >
+                <Shuffle className="h-4 w-4 text-primary" />
+                Random day
+              </button>
               <button
                 onClick={() => setShowStats(true)}
                 className="flex items-center gap-1.5 px-3 py-1 rounded-lg border border-gray-600 text-white hover:bg-gray-700"
