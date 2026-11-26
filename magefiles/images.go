@@ -31,7 +31,8 @@ const (
 // that already exists. It then uploads the WebP files to the public bucket
 // with a one-year immutable Cache-Control, and the PNG originals to the
 // private bucket. A path never changes content, so a changed image needs a new
-// name. Needs cwebp and gcloud. Pass -dir=<images dir>.
+// name. Needs cwebp and gcloud. Pass the images dir as the argument, e.g.
+// `mage images ../vex/tmp/card-import/images`.
 func Images(dir string) error {
 	pngs, err := findPNGs(dir)
 	if err != nil {

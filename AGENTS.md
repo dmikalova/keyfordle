@@ -48,7 +48,7 @@ Run both gates before calling work done:
   `<number>-<name-slug><ext>` when two cards in one set share a number, under
   `images/cards/` in the `mklv-keyforge-cards-public` bucket. The base URL and
   the extension are `ImageBaseURL` and `ImageExt` in `internal/catalog`;
-  change them there and run `mage cards`. `mage images -dir=<dir>` converts
+  change them there and run `mage cards`. `mage images <dir>` converts
   the importer's PNGs to WebP at quality 85 and uploads them; the PNG
   originals go to the private `mklv-keyforge-cards` bucket. A card whose
   image fails to load shows `web/public/assets/image-missing.svg`.
