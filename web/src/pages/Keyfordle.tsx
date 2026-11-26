@@ -375,7 +375,7 @@ const Keyfordle = () => {
         guess.rarityMatch === "exact"
           ? "🟩"
           : guess.rarityMatch === "more_rare"
-            ? "🟦"
+            ? "🟨"
             : guess.rarityMatch === "less_rare"
               ? "🟨"
               : "⬛";
@@ -383,27 +383,27 @@ const Keyfordle = () => {
         guess.expansionMatch === "exact"
           ? "🟩"
           : guess.expansionMatch === "earlier" || guess.expansionMatch === "later"
-            ? "🟦"
+            ? "🟨"
             : "⬛";
 
-      // Numeric attributes: Green for exact, Blue for higher/lower, Black for none (red in UI)
+      // Numeric attributes: Green for exact, Yellow for higher/lower, Black for none (red in UI)
       const amberEmoji =
         guess.amberMatch === "exact"
           ? "🟩"
           : guess.amberMatch === "higher" || guess.amberMatch === "lower"
-            ? "🟦"
+            ? "🟨"
             : "⬛";
       const powerEmoji =
         guess.powerMatch === "exact"
           ? "🟩"
           : guess.powerMatch === "higher" || guess.powerMatch === "lower"
-            ? "🟦"
+            ? "🟨"
             : "⬛";
       const armorEmoji =
         guess.armorMatch === "exact"
           ? "🟩"
           : guess.armorMatch === "higher" || guess.armorMatch === "lower"
-            ? "🟦"
+            ? "🟨"
             : "⬛";
 
       message += `${houseEmoji}${typeEmoji}${rarityEmoji}${expEmoji}${amberEmoji}${powerEmoji}${armorEmoji}\n`;
@@ -446,7 +446,7 @@ const Keyfordle = () => {
         if (guess.rarityMatch === "exact") {
           return "bg-green-500 text-white border-green-600";
         } else if (guess.rarityMatch === "more_rare") {
-          return "bg-blue-400 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-700";
+          return "bg-yellow-500 text-white border-yellow-600";
         } else if (guess.rarityMatch === "less_rare") {
           return "bg-yellow-500 text-white border-yellow-600";
         }
@@ -462,14 +462,14 @@ const Keyfordle = () => {
         if (matchType === "exact") {
           return "bg-green-500 text-white border-green-600";
         } else if (matchType === "higher" || matchType === "lower") {
-          return "bg-blue-400 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-700";
+          return "bg-yellow-500 text-white border-yellow-600";
         }
         return "bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700";
       case "expansion":
         if (guess.expansionMatch === "exact") {
           return "bg-green-500 text-white border-green-600";
         } else if (guess.expansionMatch === "earlier" || guess.expansionMatch === "later") {
-          return "bg-blue-400 dark:bg-blue-600 text-white border-blue-500 dark:border-blue-700";
+          return "bg-yellow-500 text-white border-yellow-600";
         }
         return "bg-red-400 dark:bg-red-600 text-white border-red-500 dark:border-red-700";
       default:
@@ -1002,7 +1002,7 @@ const Keyfordle = () => {
               <span>Same as today&apos;s card.</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded bg-blue-500 text-white">
+              <span className="inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded bg-yellow-500 text-white">
                 <ArrowUp className="h-3 w-3" />
               </span>
               <span>
@@ -1011,12 +1011,12 @@ const Keyfordle = () => {
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded bg-blue-500 text-white">
+              <span className="inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded bg-yellow-500 text-white">
                 <ArrowDown className="h-3 w-3" />
               </span>
               <span>
                 Close. Your guess is lower, less rare, or from an older set. Today&apos;s card is
-                higher, rarer, or newer. Rarity shows this one in yellow.
+                higher, rarer, or newer.
               </span>
             </li>
             <li className="flex items-start gap-2">
