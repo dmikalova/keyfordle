@@ -12,6 +12,9 @@ import {
   compareCards,
 } from "./keyfordleLogic";
 
+// Shown in place of a card image that fails to load.
+const IMAGE_MISSING = "/assets/image-missing.svg";
+
 interface GameState {
   date: string;
   targetCard: Card | null;
@@ -663,7 +666,12 @@ const Keyfordle = () => {
                       alt={guess.card.name}
                       className="w-20 h-28 object-cover rounded border border-gray-200 dark:border-gray-600 shadow-sm transition-transform duration-300 hover:scale-[5] hover:z-50 relative"
                       onError={(e) => {
-                        e.currentTarget.style.display = "none";
+                        // A card whose image is not uploaded yet shows the
+                        // placeholder. The check stops a loop if the
+                        // placeholder fails too.
+                        if (!e.currentTarget.src.endsWith(IMAGE_MISSING)) {
+                          e.currentTarget.src = IMAGE_MISSING;
+                        }
                       }}
                     />
                   </div>

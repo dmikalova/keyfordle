@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420" viewBox="0 0 300 420">
+  <rect width="300" height="420" rx="16" fill="#3d2b47" />
+  <rect x="12" y="12" width="276" height="396" rx="10" fill="none" stroke="#bcafc6" stroke-width="4" stroke-dasharray="12 10" />
+  <text x="150" y="200" fill="#f5f5f5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="600" text-anchor="middle">Image</text>
+  <text x="150" y="245" fill="#f5f5f5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="600" text-anchor="middle">missing</text>
+</svg>
