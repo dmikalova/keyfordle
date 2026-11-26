@@ -41,8 +41,9 @@ Run both gates before calling work done:
   catalogs and formats them with `vp fmt`. Every catalog entry lands in
   exactly one of the two; a new kind of card to leave out gets a `Reason`, a
   section in `internal/catalog/doc.go`, and a case in the catalog tests.
-  Run `mage ci:fix` after `mage cards`: its spell fixer corrects a Master Vault
-  typo in one excluded archon power's name (Controlling Expertise).
+  Card names keep Master Vault's spelling, typos included, so the spell check
+  skips the generated `internal/cards/cards.json` and `docs/excluded-cards.json`
+  (`tools.misspell.exclude` in `mklv.config.json`).
 - **Image paths follow vex's importer:** `<set-slug>/<number><ext>`, or
   `<number>-<name-slug><ext>` when two cards in one set share a number, under
   `images/cards/` in the `mklv-keyforge-cards-public` bucket. The base URL and

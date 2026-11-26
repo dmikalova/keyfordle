@@ -22,6 +22,9 @@
           "vite": "*"
         }
       }
+    },
+    "misspell": {
+      "exclude": ["internal/cards/cards.json", "docs/excluded-cards.json"]
     }
   }
 }
