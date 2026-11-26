@@ -2,28 +2,28 @@
 
 # Cards left out of the pool
 
-The pool holds 2570 cards: the actions, artifacts, creatures and upgrades of every deck, the Keyraken adventure's included, and the archon powers, prophecies and tide that sit beside a deck. `mage cards` leaves 127 cards out. [excluded-cards.json](excluded-cards.json) lists each one. An entry is one card. Its `set` and `number` are its first printing, and `printings` lists every catalog entry that it covers.
+The pool holds 2605 cards: the actions, artifacts, creatures and upgrades of every deck, the Keyraken adventure's included, and the archon powers, prophecies and tide that sit beside a deck. `mage cards` leaves 96 cards out. [excluded-cards.json](excluded-cards.json) lists each one. An entry is one card. Its `set` and `number` are its first printing, and `printings` lists every catalog entry that it covers.
 
 | Reason           | Cards |
 | ---------------- | ----- |
-| `gigantic`       | 20    |
+| `gigantic`       | 17    |
 | `evil-twin`      | 49    |
-| `token-creature` | 58    |
+| `token-creature` | 30    |
 
 ## Gigantic creatures
 
-Reason: `gigantic`. Cards: 20.
+Reason: `gigantic`. Cards: 17.
 
-A gigantic creature has two halves with one name. The base half has the power, armor and text. The art half has none. To add them, build one pool card from the base half and give it a type the page can show. Then give them an image rule, because the art spans both halves.
+The pool takes each gigantic creature of the sets that keyforge-data has, as one card with the joined image. The cards listed here are in the other sets. They join the pool when keyforge-data has their set.
 
 ## Evil twins
 
 Reason: `evil-twin`. Cards: 49.
 
-Each evil twin has the name of a regular creature that is in the pool. vex records no power or armor for evil twins. To add them, get their stats into vex's catalog. Then give the pool a rule for two cards with one name, so that a guess can tell them apart.
+Each evil twin has the name of a regular creature that is in the pool. keyforge-data has their stats. To add them, give the pool a rule for two cards with one name, so that a guess can tell them apart.
 
 ## Token creatures
 
-Reason: `token-creature`. Cards: 58.
+Reason: `token-creature`. Cards: 30.
 
-A token creature is not a deck card. A card in the deck makes it. vex records no power or armor for token creatures. To add them, get their stats into vex's catalog. Then convert them as creatures.
+A token creature is not a deck card. A card in the deck makes it. The pool takes the token creatures of the sets that keyforge-data has, as Special creatures. The token creatures listed here are in sets that keyforge-data does not have yet. They join the pool when it does.

@@ -61,7 +61,8 @@ vp dev                       # page with hot reload, API proxied to :8080
 The `internal/store` tests run against that database when
 `KEYFORDLE_TEST_DATABASE_URL` names it, and skip otherwise.
 
-Regenerate the card pool from a vex checkout after vex updates its catalogs:
+Regenerate the card pool after a keyforge-data dataset publish. The command
+reads vex's catalogs only for the sets that the dataset does not have yet:
 
 ```sh
 mage cards -vex=../vex

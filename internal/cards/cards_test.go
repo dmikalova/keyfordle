@@ -1,8 +1,11 @@
 package cards_test
 
 import (
+	"compress/gzip"
 	"crypto/md5"
+	"io"
 	"math/big"
+	"os"
 	"strings"
 	"testing"
 	"time"
@@ -330,5 +333,53 @@ func TestSearch(t *testing.T) {
 				t.Fatalf("Search(%q)[%d] = %q, want %q", tt.query, i, got[i].Name, tt.want[i])
 			}
 		}
+	}
+}
+
+// TestPoolKeepsTheVexNames checks that every card of the pool that vex's
+// catalogs made is in the pool that keyforge-data makes. A game stores its
+// card by name (card_name), so an old game must still find its card.
+func TestPoolKeepsTheVexNames(t *testing.T) {
+	pool, err := cards.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// The list is gzipped, so that the spell fixer keeps Master Vault's
+	// spelling of the names.
+	f, err := os.Open("testdata/vex-pool-names.txt.gz")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	defer func() { _ = f.Close() }()
+
+	zr, err := gzip.NewReader(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	raw, err := io.ReadAll(zr)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	missing := 0
+
+	for name := range strings.Lines(string(raw)) {
+		name = strings.TrimRight(name, "\n")
+		if name == "" {
+			continue
+		}
+
+		if _, ok := pool.ByName(name); !ok {
+			missing++
+
+			t.Errorf("the pool has no card %q", name)
+		}
+	}
+
+	if missing > 0 {
+		t.Errorf("%d names of the vex pool are missing", missing)
 	}
 }

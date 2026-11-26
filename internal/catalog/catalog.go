@@ -1,4 +1,6 @@
-// Package catalog builds KeyFordle's card pool from vex's set catalogs.
+// Package catalog builds KeyFordle's card pool from the keyforge-data dataset
+// (BuildWithDataset). Until the dataset has every set, it reads vex's set
+// catalogs for the other sets, as described below.
 //
 // vex keeps one JSON catalog per set at internal/cards/provenance/<slug>.json,
 // built from the Master Vault decks feed. Build folds them into the pool that
@@ -215,12 +217,17 @@ func (r Result) Count() int {
 // Build reads every set's catalog from fsys, which is rooted at a vex checkout,
 // and sorts each catalog entry into the pool or the excluded list.
 func Build(fsys fs.FS) (Result, error) {
+	return buildSets(fsys, Sets)
+}
+
+// buildSets is Build for the given sets only.
+func buildSets(fsys fs.FS, sets []Set) (Result, error) {
 	res := Result{PoolPrintings: map[string][]string{}}
 	poolIndex := map[string]int{}     // folded name -> index in res.Pool
 	excludedIndex := map[string]int{} // reason + folded name -> index in res.Excluded
 	read := 0
 
-	for _, set := range Sets {
+	for _, set := range sets {
 		srcs, err := readCatalog(fsys, set)
 		if err != nil {
 			return Result{}, err

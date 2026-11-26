@@ -11,17 +11,17 @@ Run both gates before calling work done:
 
 ## Package layout
 
-| Path               | Role                                                     |
-| ------------------ | -------------------------------------------------------- |
-| `cmd/keyfordle`    | The Cloud Run entrypoint: load, connect, serve           |
-| `internal/cards`   | The embedded card pool: lookup, search, the daily pick   |
-| `internal/catalog` | Building the pool from vex's set catalogs (`mage cards`) |
-| `internal/config`  | Reading `/secrets/config.json` and validating it         |
-| `internal/server`  | The API routes and the cross-origin check                |
-| `internal/site`    | Serving the built page with its cache headers            |
-| `internal/store`   | The Postgres queries                                     |
-| `web/`             | The React page lifted from KFStats                       |
-| `db/schema.hcl`    | The Atlas schema that CI applies to Supabase             |
+| Path               | Role                                                   |
+| ------------------ | ------------------------------------------------------ |
+| `cmd/keyfordle`    | The Cloud Run entrypoint: load, connect, serve         |
+| `internal/cards`   | The embedded card pool: lookup, search, the daily pick |
+| `internal/catalog` | Building the pool from keyforge-data (`mage cards`)    |
+| `internal/config`  | Reading `/secrets/config.json` and validating it       |
+| `internal/server`  | The API routes and the cross-origin check              |
+| `internal/site`    | Serving the built page with its cache headers          |
+| `internal/store`   | The Postgres queries                                   |
+| `web/`             | The React page lifted from KFStats                     |
+| `db/schema.hcl`    | The Atlas schema that CI applies to Supabase           |
 
 ## Rules
 
@@ -37,9 +37,11 @@ Run both gates before calling work done:
   `UPDATE ... RETURNING`. Do not replace either with a read followed by a write.
 - **`/health` never touches the database.**
 - **Never hand-edit `internal/cards/cards.json` or `docs/excluded-cards.*`.**
-  Run `mage cards`. It writes the pool and the excluded list from vex's
-  catalogs and formats them with `vp fmt`. Every catalog entry lands in
-  exactly one of the two; a new kind of card to leave out gets a `Reason`, a
+  Run `mage cards`. It writes the pool and the excluded list from the
+  keyforge-data dataset, and formats them with `vp fmt`. It reads vex's
+  catalogs only for the sets that the dataset does not have yet. Run it again
+  after a dataset publish adds a set. Every card lands in exactly one of the
+  two; a new kind of card to leave out gets a `Reason`, a
   section in `internal/catalog/doc.go`, and a case in the catalog tests.
   Card names keep Master Vault's spelling, typos included, so the spell check
   skips the generated `internal/cards/cards.json` and `docs/excluded-cards.json`

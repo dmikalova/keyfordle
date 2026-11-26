@@ -5,6 +5,7 @@ go 1.27.2
 toolchain go1.27.4
 
 require (
+	github.com/dmikalova/keyforge-data v1.13.0
 	github.com/dmikalova/project-standards v1.37.0
 	github.com/jackc/pgx/v5 v5.11.0
 	github.com/magefile/mage v1.17.2
@@ -21,6 +22,6 @@ require (
 	github.com/quasilyte/uber-rules v0.0.0-20211221122301-454b255c313b // indirect
 	github.com/rogpeppe/go-internal v1.16.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/sync v0.23.0 // indirect
-	golang.org/x/text v0.42.0 // indirect
+	golang.org/x/sync v0.25.0 // indirect
+	golang.org/x/text v0.44.0 // indirect
 )

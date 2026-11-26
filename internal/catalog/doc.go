@@ -13,23 +13,22 @@ var reasonDocs = map[Reason]struct {
 }{
 	ReasonGigantic: {
 		"Gigantic creatures",
-		"A gigantic creature has two halves with one name. The base half has the power, " +
-			"armor and text. The art half has none. To add them, build one pool card from " +
-			"the base half and give it a type the page can show. Then give them an image " +
-			"rule, because the art spans both halves.",
+		"The pool takes each gigantic creature of the sets that keyforge-data has, as " +
+			"one card with the joined image. The cards listed here are in the other sets. " +
+			"They join the pool when keyforge-data has their set.",
 	},
 	ReasonEvilTwin: {
 		"Evil twins",
-		"Each evil twin has the name of a regular creature that is in the pool. vex " +
-			"records no power or armor for evil twins. To add them, get their stats into " +
-			"vex's catalog. Then give the pool a rule for two cards with one name, so that " +
-			"a guess can tell them apart.",
+		"Each evil twin has the name of a regular creature that is in the pool. " +
+			"keyforge-data has their stats. To add them, give the pool a rule for two " +
+			"cards with one name, so that a guess can tell them apart.",
 	},
 	ReasonToken: {
 		"Token creatures",
-		"A token creature is not a deck card. A card in the deck makes it. vex records " +
-			"no power or armor for token creatures. To add them, get their stats into " +
-			"vex's catalog. Then convert them as creatures.",
+		"A token creature is not a deck card. A card in the deck makes it. The pool " +
+			"takes the token creatures of the sets that keyforge-data has, as Special " +
+			"creatures. The token creatures listed here are in sets that keyforge-data " +
+			"does not have yet. They join the pool when it does.",
 	},
 }
 

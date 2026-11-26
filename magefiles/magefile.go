@@ -9,8 +9,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
+	"time"
 
+	"github.com/dmikalova/keyforge-data/card"
 	// mage:import ci
 	_ "github.com/dmikalova/project-standards/ci"
 	"github.com/magefile/mage/sh"
@@ -26,18 +29,25 @@ const (
 	excludedDocPath = "docs/excluded-cards.md"
 )
 
-// Cards regenerates the card pool from vex's catalogs. It reads every set
-// catalog under internal/cards/provenance in a vex checkout and writes the
-// pool to internal/cards/cards.json, and the cards it leaves out to
+// Cards regenerates the card pool from the keyforge-data dataset. It reads
+// vex's set catalogs (internal/cards/provenance in a vex checkout) only for the
+// sets that the dataset does not have yet. It writes the pool to
+// internal/cards/cards.json, and the cards it leaves out to
 // docs/excluded-cards.json and docs/excluded-cards.md. Pass -vex=<dir> for the
-// checkout; it defaults to ../vex. Commit the results.
+// checkout; it defaults to ../vex. Set DATASET_URL to read another dataset.
+// Commit the results.
 func Cards(vex *string) error {
 	dir := "../vex"
 	if vex != nil && *vex != "" {
 		dir = *vex
 	}
 
-	res, err := catalog.Build(os.DirFS(dir))
+	ds, err := loadDataset()
+	if err != nil {
+		return err
+	}
+
+	res, err := catalog.BuildWithDataset(ds, os.DirFS(dir))
 	if err != nil {
 		return err
 	}
@@ -95,4 +105,35 @@ func writeJSON(path string, v any) error {
 	}
 
 	return nil
+}
+
+// loadDataset downloads the keyforge-data dataset: DATASET_URL, or the
+// published dataset.
+func loadDataset() (*card.Dataset, error) {
+	url := os.Getenv("DATASET_URL")
+	if url == "" {
+		url = catalog.DatasetURL
+	}
+
+	client := &http.Client{Timeout: time.Minute}
+
+	resp, err := client.Get(url)
+	if err != nil {
+		return nil, fmt.Errorf("get the dataset: %w", err)
+	}
+
+	defer func() { _ = resp.Body.Close() }()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("get the dataset: %s", resp.Status)
+	}
+
+	var ds card.Dataset
+	if err := json.NewDecoder(resp.Body).Decode(&ds); err != nil {
+		return nil, fmt.Errorf("parse the dataset: %w", err)
+	}
+
+	fmt.Printf("dataset %s: %d cards in %d sets\n", ds.Version, len(ds.Cards), len(ds.Sets))
+
+	return &ds, nil
 }
