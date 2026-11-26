@@ -141,6 +141,38 @@ func (s *Store) RecordFinish(ctx context.Context, date string, won bool, guesses
 	return d, nil
 }
 
+// PopularDays returns up to limit days with finished games, most played first.
+// Ties go to the later day.
+func (s *Store) PopularDays(ctx context.Context, limit int) ([]Day, error) {
+	query := `SELECT ` + dayColumns + ` FROM keyfordle.days
+		WHERE games_played > 0
+		ORDER BY games_played DESC, date DESC
+		LIMIT $1::integer`
+
+	rows, err := s.pool.Query(ctx, query, limit)
+	if err != nil {
+		return nil, fmt.Errorf("read the popular days: %w", err)
+	}
+	defer rows.Close()
+
+	days := []Day{}
+
+	for rows.Next() {
+		d, err := scanDay(rows)
+		if err != nil {
+			return nil, fmt.Errorf("read a popular day: %w", err)
+		}
+
+		days = append(days, d)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("read the popular days: %w", err)
+	}
+
+	return days, nil
+}
+
 func scanDay(row pgx.Row) (Day, error) {
 	var d Day
 

@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/http/httptest"
+	"slices"
 	"strings"
 	"sync"
 	"testing"
@@ -85,6 +86,33 @@ func (f *fakeStore) RecordFinish(
 	}
 
 	return *d, nil
+}
+
+func (f *fakeStore) PopularDays(_ context.Context, limit int) ([]store.Day, error) {
+	f.mu.Lock()
+	defer f.mu.Unlock()
+
+	if f.fail != nil {
+		return nil, f.fail
+	}
+
+	days := []store.Day{}
+
+	for _, d := range f.days {
+		if d.GamesPlayed > 0 {
+			days = append(days, *d)
+		}
+	}
+
+	slices.SortFunc(days, func(a, b store.Day) int {
+		if a.GamesPlayed != b.GamesPlayed {
+			return b.GamesPlayed - a.GamesPlayed
+		}
+
+		return b.Date.Compare(a.Date)
+	})
+
+	return days[:min(limit, len(days))], nil
 }
 
 var noon = time.Date(2026, 11, 25, 12, 0, 0, 0, time.UTC)
@@ -382,5 +410,130 @@ func TestPageRejectsWrites(t *testing.T) {
 
 	if rec.Code != http.StatusMethodNotAllowed || rec.Header().Get("Allow") != "GET, HEAD" {
 		t.Fatalf("POST / = %d Allow %q, want 405", rec.Code, rec.Header().Get("Allow"))
+	}
+}
+
+// TestPastDays pins history mode: a past day has its own card and its own
+// totals, and a day before FirstDay or after today is refused.
+func TestPastDays(t *testing.T) {
+	st := newFakeStore()
+	h := newServer(t, st)
+
+	get := func(path string) (int, map[string]any) {
+		code, body, _ := do(t, h, httptest.NewRequest(http.MethodGet, path, nil))
+
+		return code, body
+	}
+
+	code, body := get("/api/decks/public/daily_card/?date=2019-06-01")
+	if code != http.StatusOK || body["date"] != "2019-06-01" || body["today"] != "2026-11-25" ||
+		body["first_day"] != server.FirstDay {
+		t.Fatalf("past daily_card = %d %v", code, body)
+	}
+
+	if _, ok := st.days["2019-06-01"]; !ok {
+		t.Fatal("a past day's card was not stored")
+	}
+
+	code, body, _ = do(
+		t,
+		h,
+		post(`{"card_name":"x","date":"2019-06-01","game_won":true,"num_guesses":2}`),
+	)
+	if code != http.StatusOK || body["date"] != "2019-06-01" || body["player_rank"] != 1.0 {
+		t.Fatalf("past completion = %d %v", code, body)
+	}
+
+	if _, ok := st.days["2026-11-25"]; ok {
+		t.Fatal("a past day's completion touched today")
+	}
+
+	code, body = get("/api/decks/public/keyfordle_stats/?date=2019-06-01")
+	if code != http.StatusOK || body["games_played"] != 1.0 {
+		t.Fatalf("past stats = %d %v", code, body)
+	}
+
+	for _, date := range []string{"2018-11-14", "2026-11-26", "2019-13-01", "yesterday"} {
+		if code, _ := get(
+			"/api/decks/public/daily_card/?date=" + date,
+		); code != http.StatusBadRequest {
+			t.Errorf("daily_card?date=%s = %d, want 400", date, code)
+		}
+
+		if code, _ := get(
+			"/api/decks/public/keyfordle_stats/?date=" + date,
+		); code != http.StatusBadRequest {
+			t.Errorf("keyfordle_stats?date=%s = %d, want 400", date, code)
+		}
+
+		body := `{"card_name":"x","date":"` + date + `","game_won":true,"num_guesses":2}`
+		if code, _, _ := do(t, h, post(body)); code != http.StatusBadRequest {
+			t.Errorf("completion on %s = %d, want 400", date, code)
+		}
+	}
+
+	if code, _ := get(
+		"/api/decks/public/daily_card/?date=" + server.FirstDay,
+	); code != http.StatusOK {
+		t.Errorf("daily_card on FirstDay = %d", code)
+	}
+}
+
+func TestPopularDays(t *testing.T) {
+	st := newFakeStore()
+	h := newServer(t, st)
+
+	plays := map[string]int{"2019-01-01": 1, "2020-01-01": 3, "2021-01-01": 2}
+	for date, n := range plays {
+		for range n {
+			body := `{"card_name":"x","date":"` + date + `","game_won":false,"num_guesses":6}`
+			if code, _, _ := do(t, h, post(body)); code != http.StatusOK {
+				t.Fatalf("completion on %s = %d", date, code)
+			}
+		}
+	}
+
+	// A day claimed but never finished is not popular.
+	do(
+		t,
+		h,
+		httptest.NewRequest(http.MethodGet, "/api/decks/public/daily_card/?date=2022-01-01", nil),
+	)
+
+	code, body, _ := do(
+		t,
+		h,
+		httptest.NewRequest(http.MethodGet, "/api/decks/public/keyfordle_days/", nil),
+	)
+	if code != http.StatusOK {
+		t.Fatalf("keyfordle_days = %d %v", code, body)
+	}
+
+	days := body["days"].([]any)
+
+	var got []string
+
+	for _, d := range days {
+		day := d.(map[string]any)
+		got = append(got, day["date"].(string))
+
+		if day["card_of_the_day"] != nil {
+			t.Errorf("popular day %v names its card", day["date"])
+		}
+	}
+
+	want := []string{"2020-01-01", "2021-01-01", "2019-01-01"}
+	if !slices.Equal(got, want) {
+		t.Fatalf("popular days = %v, want %v", got, want)
+	}
+
+	st.fail = errors.New("down")
+
+	if code, _, _ := do(
+		t,
+		h,
+		httptest.NewRequest(http.MethodGet, "/api/decks/public/keyfordle_days/", nil),
+	); code != http.StatusInternalServerError {
+		t.Fatalf("keyfordle_days with the store down = %d", code)
 	}
 }

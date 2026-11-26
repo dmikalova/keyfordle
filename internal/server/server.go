@@ -43,6 +43,7 @@ type Store interface {
 	ClaimDay(ctx context.Context, date, cardName string) (string, error)
 	Day(ctx context.Context, date string) (store.Day, error)
 	RecordFinish(ctx context.Context, date string, won bool, guesses int) (store.Day, error)
+	PopularDays(ctx context.Context, limit int) ([]store.Day, error)
 }
 
 // Server wires the pool and the store to the routes.
@@ -85,6 +86,7 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /api/decks/public/card_search/{$}", s.handleCardSearch)
 	mux.HandleFunc("POST /api/decks/public/record_keyfordle_completion/{$}", s.handleCompletion)
 	mux.HandleFunc("GET /api/decks/public/keyfordle_stats/{$}", s.handleStats)
+	mux.HandleFunc("GET /api/decks/public/keyfordle_days/{$}", s.handlePopularDays)
 	mux.HandleFunc("/api/", func(w http.ResponseWriter, _ *http.Request) {
 		writeError(w, http.StatusNotFound, "Not found")
 	})
@@ -113,15 +115,44 @@ func (s *Server) handleHealth(w http.ResponseWriter, _ *http.Request) {
 	_, _ = io.WriteString(w, "ok\n")
 }
 
+// FirstDay is KeyForge's release, the earliest day a player can pick.
+const FirstDay = "2018-11-15"
+
+// errBadDay is the answer to a day outside FirstDay to today.
+var errBadDay = errors.New("date must be a YYYY-MM-DD day from " + FirstDay + " to today")
+
 // today is the current UTC date. Upstream ran in UTC too.
 func (s *Server) today() string { return s.now().UTC().Format(dateLayout) }
 
-// claimToday returns today's card, storing the pool's pick if the day is new.
-func (s *Server) claimToday(ctx context.Context) (cards.Card, error) {
-	now := s.now()
-	date := now.UTC().Format(dateLayout)
+// dayOf returns the day a request names, or today when it names none. A day
+// after today is refused, so no one can see a card before its day.
+func (s *Server) dayOf(requested string) (string, error) {
+	if requested == "" {
+		return s.today(), nil
+	}
 
-	name, err := s.store.ClaimDay(ctx, date, s.pool.Pick(now).Name)
+	day, err := time.Parse(dateLayout, requested)
+	if err != nil {
+		return "", errBadDay
+	}
+
+	date := day.Format(dateLayout)
+	if date < FirstDay || date > s.today() {
+		return "", errBadDay
+	}
+
+	return date, nil
+}
+
+// claimDay returns the card of date, storing the pool's pick if the day is new.
+// Every day, past or present, picks from the whole pool.
+func (s *Server) claimDay(ctx context.Context, date string) (cards.Card, error) {
+	day, err := time.Parse(dateLayout, date)
+	if err != nil {
+		return cards.Card{}, err
+	}
+
+	name, err := s.store.ClaimDay(ctx, date, s.pool.Pick(day).Name)
 	if err != nil {
 		return cards.Card{}, err
 	}
@@ -136,8 +167,17 @@ func (s *Server) claimToday(ctx context.Context) (cards.Card, error) {
 	return card, nil
 }
 
+// handleDailyCard returns the card of ?date=, or today's card. today is always
+// included, so the page knows how far forward a player may go.
 func (s *Server) handleDailyCard(w http.ResponseWriter, r *http.Request) {
-	card, err := s.claimToday(r.Context())
+	date, err := s.dayOf(r.URL.Query().Get("date"))
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+
+		return
+	}
+
+	card, err := s.claimDay(r.Context(), date)
 	if err != nil {
 		s.log.Error("daily card", "error", err)
 		writeError(w, http.StatusInternalServerError, "Failed to get daily card")
@@ -145,7 +185,12 @@ func (s *Server) handleDailyCard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeJSON(w, http.StatusOK, map[string]any{"card": card, "date": s.today()})
+	writeJSON(w, http.StatusOK, map[string]any{
+		"card":      card,
+		"date":      date,
+		"today":     s.today(),
+		"first_day": FirstDay,
+	})
 }
 
 func (s *Server) handleCardSearch(w http.ResponseWriter, r *http.Request) {
@@ -162,8 +207,10 @@ func (s *Server) handleCardSearch(w http.ResponseWriter, r *http.Request) {
 
 // completion is the page's finished-game report. card_name is required, as
 // upstream, but the stored card is the day's card whatever the page sends.
+// Date is the day played; an empty Date is today.
 type completion struct {
 	CardName   string `json:"card_name"`
+	Date       string `json:"date"`
 	GameWon    bool   `json:"game_won"`
 	NumGuesses int    `json:"num_guesses"`
 }
@@ -197,16 +244,23 @@ func (s *Server) handleCompletion(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	date, err := s.dayOf(c.Date)
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+
+		return
+	}
+
 	ctx := r.Context()
 
-	if _, err := s.claimToday(ctx); err != nil {
+	if _, err := s.claimDay(ctx, date); err != nil {
 		s.log.Error("record completion: claim the day", "error", err)
 		writeError(w, http.StatusInternalServerError, "Failed to record completion")
 
 		return
 	}
 
-	day, err := s.store.RecordFinish(ctx, s.today(), c.GameWon, c.NumGuesses)
+	day, err := s.store.RecordFinish(ctx, date, c.GameWon, c.NumGuesses)
 	if err != nil {
 		s.log.Error("record completion", "error", err)
 		writeError(w, http.StatusInternalServerError, "Failed to record completion")
@@ -219,8 +273,14 @@ func (s *Server) handleCompletion(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, out)
 }
 
+// handleStats returns the totals of ?date=, or today's.
 func (s *Server) handleStats(w http.ResponseWriter, r *http.Request) {
-	date := s.today()
+	date, err := s.dayOf(r.URL.Query().Get("date"))
+	if err != nil {
+		writeError(w, http.StatusBadRequest, err.Error())
+
+		return
+	}
 
 	day, err := s.store.Day(r.Context(), date)
 	if errors.Is(err, store.ErrNoDay) {
@@ -277,6 +337,32 @@ func statsOf(d store.Day) stats {
 	}
 
 	return out
+}
+
+// popularDaysLimit is how many days the popular-days list returns.
+const popularDaysLimit = 10
+
+// handlePopularDays lists the most played days. It leaves out each day's card,
+// so the list spoils no day a player has not played.
+func (s *Server) handlePopularDays(w http.ResponseWriter, r *http.Request) {
+	days, err := s.store.PopularDays(r.Context(), popularDaysLimit)
+	if err != nil {
+		s.log.Error("popular days", "error", err)
+		writeError(w, http.StatusInternalServerError, "Failed to get popular days")
+
+		return
+	}
+
+	out := make([]stats, len(days))
+
+	for i, d := range days {
+		out[i] = statsOf(d)
+		out[i].CardOfTheDay = nil
+		out[i].CreatedAt = nil
+		out[i].UpdatedAt = nil
+	}
+
+	writeJSON(w, http.StatusOK, map[string]any{"days": out})
 }
 
 // writeJSON writes v. API answers are never cached: they change with every

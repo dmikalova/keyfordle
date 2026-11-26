@@ -266,3 +266,13 @@ export const compareCards = (guessed: Card, target: Card): GuessResult => {
     expansionMatch,
   };
 };
+
+// FIRST_DAY is KeyForge's release, the earliest day a player can pick. The
+// server sends the same day; this is the fallback before it answers.
+export const FIRST_DAY = "2018-11-15";
+
+// addDays moves a YYYY-MM-DD day by n days, in UTC like the server.
+export function addDays(date: string, n: number): string {
+  const [y, m, d] = date.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10);
+}

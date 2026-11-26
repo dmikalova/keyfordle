@@ -1,5 +1,14 @@
-import { useState, useEffect, useRef } from "react";
-import { Search, Check, ArrowUp, ArrowDown, Copy, CheckCircle } from "lucide-react";
+import { useState, useEffect, useEffectEvent, useRef } from "react";
+import {
+  Search,
+  Check,
+  ArrowUp,
+  ArrowDown,
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  CheckCircle,
+} from "lucide-react";
 import api from "../utils/api";
 import { useSEO } from "../hooks/useSEO";
 import {
@@ -10,6 +19,8 @@ import {
   formatDateFromString,
   formatRank,
   compareCards,
+  FIRST_DAY,
+  addDays,
 } from "./keyFordleLogic";
 
 // Shown in place of a card image that fails to load.
@@ -72,6 +83,11 @@ const KeyFordle = () => {
     card_of_the_day: string | null;
   } | null>(null);
   const [copied, setCopied] = useState(false);
+  // History mode: the server says which day is today and which is the first,
+  // and the most played days are offered as shortcuts.
+  const [today, setToday] = useState("");
+  const [firstDay, setFirstDay] = useState(FIRST_DAY);
+  const [popularDays, setPopularDays] = useState<{ date: string; games_played: number }[]>([]);
 
   // Handle click outside to close dropdown
   useEffect(() => {
@@ -129,9 +145,11 @@ const KeyFordle = () => {
     }
   };
 
-  const fetchGlobalStats = async () => {
+  const fetchGlobalStats = async (date: string) => {
     try {
-      const response = await api.get("/api/decks/public/keyfordle_stats/");
+      const response = await api.get(
+        `/api/decks/public/keyfordle_stats/?date=${encodeURIComponent(date)}`,
+      );
       setGlobalStats({
         games_played: response.data.games_played || 0,
         wins: response.data.wins || 0,
@@ -145,10 +163,16 @@ const KeyFordle = () => {
     }
   };
 
-  const recordGameCompletion = async (cardName: string, gameWon: boolean, numGuesses: number) => {
+  const recordGameCompletion = async (
+    cardName: string,
+    gameWon: boolean,
+    numGuesses: number,
+    date: string,
+  ) => {
     try {
       const response = await api.post("/api/decks/public/record_keyfordle_completion/", {
         card_name: cardName,
+        date,
         game_won: gameWon,
         num_guesses: numGuesses,
       });
@@ -171,50 +195,88 @@ const KeyFordle = () => {
         });
       }
       // Refresh stats after recording
-      await fetchGlobalStats();
+      await fetchGlobalStats(date);
+      await fetchPopularDays();
     } catch (error) {
       console.error("Error recording game completion:", error);
     }
   };
 
-  const fetchDailyCardAndDate = async () => {
+  const fetchPopularDays = async () => {
     try {
-      const response = await api.get("/api/decks/public/daily_card/");
-      const dailyCard = response.data.card;
-      const serverDate = response.data.date; // Use date from backend
-
-      setGameState((prev) => {
-        // Always update date from server, and targetCard if not already set
-        return {
-          ...prev,
-          date: serverDate,
-          targetCard: prev.targetCard || dailyCard,
-        };
-      });
-
-      // Load game state from localStorage using the server date
-      loadGameState(serverDate);
+      const response = await api.get("/api/decks/public/keyfordle_days/");
+      setPopularDays(response.data.days || []);
     } catch (error) {
-      console.error("Error fetching daily card:", error);
-      // Fallback to local date if backend fails (shouldn't happen normally)
-      const fallbackDate = new Date().toISOString().split("T")[0];
-      setGameState((prev) => ({
-        ...prev,
-        date: prev.date || fallbackDate,
-      }));
-      loadGameState(fallbackDate);
+      console.error("Error fetching popular days:", error);
     }
   };
 
-  // Load daily card first to get the server date, then load game state. The
-  // effect sits below the functions it calls, so they exist when it reads them.
-  // Both functions catch their own errors, so the promise is not awaited.
+  // loadDay shows one day: today when date is empty, else a past day. It starts
+  // from a clean board, then restores any game saved for that day.
+  const loadDay = async (date: string) => {
+    setLoading(true);
+    setSelectedCard(null);
+    setSearchQuery("");
+    setSearchResults([]);
+    setFlippedIndexes(new Set());
+    setGlobalStats(null);
+
+    try {
+      const query = date ? `?date=${encodeURIComponent(date)}` : "";
+      const response = await api.get(`/api/decks/public/daily_card/${query}`);
+      const serverDate: string = response.data.date;
+
+      setToday(response.data.today || serverDate);
+      setFirstDay(response.data.first_day || FIRST_DAY);
+      setGameState({
+        date: serverDate,
+        targetCard: response.data.card,
+        guesses: [],
+        gameWon: false,
+        gameFinished: false,
+      });
+
+      loadGameState(serverDate);
+      await fetchGlobalStats(serverDate);
+    } catch (error) {
+      // A bad or future date: fall back to today.
+      console.error("Error fetching the day's card:", error);
+      if (date) {
+        await loadDay("");
+      } else {
+        setLoading(false);
+      }
+    }
+  };
+
+  // goToDay moves to a day and records it in the URL, so the back button and a
+  // shared link both work. Today has no date in the URL.
+  const goToDay = (date: string) => {
+    const url = new URL(window.location.href);
+    if (!date || date === today) {
+      url.searchParams.delete("date");
+    } else {
+      url.searchParams.set("date", date);
+    }
+    window.history.pushState(null, "", url);
+    void loadDay(date === today ? "" : date);
+  };
+
+  // Load the day the URL names, and follow the back and forward buttons. An
+  // effect event always sees the latest loadDay without re-running the effect.
+  // Both functions catch their own errors, so the promises are not awaited.
+  const loadDayFromURL = useEffectEvent(() => {
+    void loadDay(new URLSearchParams(window.location.search).get("date") || "");
+  });
+  const loadPopularDays = useEffectEvent(() => {
+    void fetchPopularDays();
+  });
   useEffect(() => {
-    const initializeGame = async () => {
-      await fetchDailyCardAndDate();
-      await fetchGlobalStats();
-    };
-    void initializeGame();
+    loadDayFromURL();
+    loadPopularDays();
+
+    window.addEventListener("popstate", loadDayFromURL);
+    return () => window.removeEventListener("popstate", loadDayFromURL);
   }, []);
 
   const searchCards = async (query: string) => {
@@ -301,7 +363,12 @@ const KeyFordle = () => {
         if (!localStorage.getItem(completedKey)) {
           localStorage.setItem(completedKey, "true");
           // recordGameCompletion catches its own errors, so the promise is not awaited.
-          void recordGameCompletion(newState.targetCard?.name || "", gameWon, newGuesses.length);
+          void recordGameCompletion(
+            newState.targetCard?.name || "",
+            gameWon,
+            newGuesses.length,
+            serverDate,
+          );
         }
       }
     } catch (error) {
@@ -511,9 +578,72 @@ const KeyFordle = () => {
             Guess the KeyForge card of the day! You have {MAX_GUESSES} tries.
           </p>
           {gameState.date && (
-            <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-sm">
+              <button
+                onClick={() => goToDay(addDays(gameState.date, -1))}
+                disabled={gameState.date <= firstDay}
+                aria-label="Previous day"
+                className="p-1.5 rounded-lg border border-gray-600 text-white hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+              <input
+                type="date"
+                value={gameState.date}
+                min={firstDay}
+                max={today || undefined}
+                onChange={(e) => {
+                  if (e.target.value) goToDay(e.target.value);
+                }}
+                aria-label="Pick a day"
+                className="px-2 py-1 rounded-lg border border-gray-600 bg-gray-800 text-white [color-scheme:dark]"
+              />
+              <button
+                onClick={() => goToDay(addDays(gameState.date, 1))}
+                disabled={!today || gameState.date >= today}
+                aria-label="Next day"
+                className="p-1.5 rounded-lg border border-gray-600 text-white hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+              {today && gameState.date !== today && (
+                <button
+                  onClick={() => goToDay(today)}
+                  className="px-3 py-1 rounded-lg bg-primary hover:bg-primary-dark text-gray-900 font-medium"
+                >
+                  Today
+                </button>
+              )}
+            </div>
+          )}
+          {gameState.date && (
+            <p className="text-sm text-gray-500 mt-2">
               {formatDateFromString(gameState.date)}
+              {today && gameState.date !== today && " (a past day)"}
             </p>
+          )}
+          {popularDays.length > 0 && (
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5 text-xs">
+              <span className="text-gray-400">Most played:</span>
+              {popularDays.slice(0, 5).map((day) => (
+                <button
+                  key={day.date}
+                  onClick={() => goToDay(day.date)}
+                  className={`px-2 py-0.5 rounded-full border transition-colors ${
+                    day.date === gameState.date
+                      ? "border-primary text-primary"
+                      : "border-gray-600 text-gray-300 hover:bg-gray-700"
+                  }`}
+                >
+                  {formatDateFromString(day.date, {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}{" "}
+                  · {day.games_played}
+                </button>
+              ))}
+            </div>
           )}
         </div>
 
@@ -521,7 +651,7 @@ const KeyFordle = () => {
         {globalStats && globalStats.games_played > 0 && (
           <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
             <h3 className="text-lg font-semibold mb-3 text-center text-gray-900 dark:text-white">
-              Today's Statistics
+              {today && gameState.date !== today ? "Statistics for this day" : "Today's Statistics"}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
               <div>

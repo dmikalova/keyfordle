@@ -106,3 +106,48 @@ func TestRecordFinishCountsEveryGame(t *testing.T) {
 		t.Fatalf("Day on an unclaimed day = %v, want ErrNoDay", err)
 	}
 }
+
+func TestPopularDaysOrdersByPlays(t *testing.T) {
+	s := open(t)
+	ctx := context.Background()
+
+	// The test database is reused, so each run adds plays: 3 on the first day
+	// and 5 on the second keep the second ahead whatever ran before.
+	for date, plays := range map[string]int{"1998-02-01": 3, "1998-02-02": 5} {
+		if _, err := s.ClaimDay(ctx, date, "Card"); err != nil {
+			t.Fatal(err)
+		}
+
+		for range plays {
+			if _, err := s.RecordFinish(ctx, date, true, 2); err != nil {
+				t.Fatal(err)
+			}
+		}
+	}
+
+	days, err := s.PopularDays(ctx, 1000)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	rank := map[string]int{}
+
+	for i, d := range days {
+		if d.GamesPlayed <= 0 {
+			t.Fatalf("PopularDays returned %s with no games", d.Date.Format("2006-01-02"))
+		}
+
+		if i > 0 && d.GamesPlayed > days[i-1].GamesPlayed {
+			t.Fatalf("PopularDays is not most played first: %+v", days)
+		}
+
+		rank[d.Date.Format("2006-01-02")] = i
+	}
+
+	first, ok1 := rank["1998-02-01"]
+	second, ok2 := rank["1998-02-02"]
+
+	if !ok1 || !ok2 || second > first {
+		t.Fatalf("ranks: 1998-02-01=%d (%v), 1998-02-02=%d (%v)", first, ok1, second, ok2)
+	}
+}

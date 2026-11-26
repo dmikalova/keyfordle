@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { type Card, compareCards, formatRank, EXPANSIONS } from "./keyFordleLogic";
+import { type Card, addDays, compareCards, formatRank, EXPANSIONS } from "./keyFordleLogic";
 
 const card = (over: Partial<Card>): Card => ({
   name: "Ancient Bear",
@@ -96,5 +96,14 @@ describe("EXPANSIONS", () => {
     for (const id of [341, 435, 452, 479, 496, 600, 700, 800, 855, 874, 886, 892, 918, 928]) {
       expect(EXPANSIONS[id]).toBeTruthy();
     }
+  });
+});
+
+describe("addDays", () => {
+  it("moves across months, years and leap days", () => {
+    expect(addDays("2018-11-15", -1)).toBe("2018-11-14");
+    expect(addDays("2018-12-31", 1)).toBe("2019-01-01");
+    expect(addDays("2020-02-28", 1)).toBe("2020-02-29");
+    expect(addDays("2020-03-01", -1)).toBe("2020-02-29");
   });
 });
