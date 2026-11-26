@@ -19,6 +19,14 @@ lifts its game page as is and serves it from a Go backend. See [NOTICE](NOTICE).
 The card pool is `internal/cards/cards.json`, embedded in the binary. Card
 images come from the public keyforge.cards image bucket.
 
+## Cards left out
+
+The pool holds the actions, artifacts, creatures and upgrades of player decks.
+`mage cards` records every other card in
+[docs/excluded-cards.json](docs/excluded-cards.json), with the reason.
+[docs/excluded-cards.md](docs/excluded-cards.md) gives each reason, its card
+count, and what it takes to add those cards.
+
 ## Routes
 
 | Route                                                 | Purpose                  |

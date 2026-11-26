@@ -36,8 +36,13 @@ Run both gates before calling work done:
   that does nothing on conflict, then read back. A finished game is one
   `UPDATE ... RETURNING`. Do not replace either with a read followed by a write.
 - **`/health` never touches the database.**
-- **Never hand-edit `internal/cards/cards.json`.** Run `mage cards`. It writes
-  the pool from vex's catalogs and formats it with `vp fmt`.
+- **Never hand-edit `internal/cards/cards.json` or `docs/excluded-cards.*`.**
+  Run `mage cards`. It writes the pool and the excluded list from vex's
+  catalogs and formats them with `vp fmt`. Every catalog entry lands in
+  exactly one of the two; a new kind of card to leave out gets a `Reason`, a
+  section in `internal/catalog/doc.go`, and a case in the catalog tests.
+  Run `mage ci:fix` after `mage cards`: its spell fixer corrects a Master Vault
+  typo in one excluded archon power's name (Controlling Expertise).
 - **Image paths follow vex's importer:** `<set-slug>/<number>.png`, or
   `<number>-<name-slug>.png` when two cards in one set share a number.
 

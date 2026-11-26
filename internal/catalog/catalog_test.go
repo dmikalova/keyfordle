@@ -1,6 +1,8 @@
 package catalog_test
 
 import (
+	"encoding/json"
+	"slices"
 	"strings"
 	"testing"
 	"testing/fstest"
@@ -25,37 +27,191 @@ func vex(catalogs map[string]string) fstest.MapFS {
 	return fsys
 }
 
-func TestBuildConvertsAndDedupes(t *testing.T) {
-	fsys := vex(map[string]string{
-		"callofthearchons": `[
-			{"number": "001", "name": "Zed", "house": "staralliance", "type": "creature", "rarity": "Rare", "power": 3},
-			{"number": "002", "name": "Alaka's Brew", "printed": "Alaka’s Brew", "house": "brobnar", "type": "action", "rarity": "Common", "amber": 1}
-		]`,
-		"darktidings": `[
-			{"number": "001", "name": "Zed", "house": "logos", "type": "evil twin creature", "rarity": "Evil Twin"},
-			{"number": "002", "name": "Token", "house": "logos", "type": "token creature", "rarity": "Token"}
-		]`,
-		"vaultmasters2026": `[
-			{"number": "100", "name": "Zed", "house": "dis", "type": "creature", "rarity": "Common", "power": 9}
-		]`,
-		"menagerie": `[
-			{"number": "200", "name": "Keyraken Tentacle", "house": "keyraken", "type": "creature", "rarity": "Rare"}
-		]`,
-	})
+// every is a checkout with a card of every kind the generator meets: pool
+// cards and their reprints, a shared collector number, and every exclusion,
+// reprinted where a reprint can happen.
+var every = map[string]string{
+	"callofthearchons": `[
+		{"number": "001", "name": "Zed", "house": "staralliance", "type": "creature", "rarity": "Rare", "power": 3},
+		{"number": "002", "name": "Alaka's Brew", "printed": "Alaka’s Brew", "house": "brobnar", "type": "action", "rarity": "Common", "amber": 1},
+		{"number": "003", "name": "Gauntlet", "house": "brobnar", "type": "upgrade", "rarity": "Common"},
+		{"number": "004", "name": "Lamp", "house": "logos", "type": "artifact", "rarity": "Uncommon"}
+	]`,
+	"massmutation": `[
+		{"number": "125", "name": "Ultra Gravitron", "house": "logos", "type": "gigantic creature base", "rarity": "Rare", "power": 15},
+		{"number": "126", "name": "Ultra Gravitron", "house": "logos", "type": "gigantic creature art", "rarity": "Rare"}
+	]`,
+	"darktidings": `[
+		{"number": "001", "name": "Zed", "house": "logos", "type": "evil twin creature", "rarity": "Evil Twin"},
+		{"number": "002", "name": "Grumpus", "house": "dis", "type": "token creature", "rarity": "Token"},
+		{"number": "003", "name": "The Tide", "house": "thetide", "type": "the tide", "rarity": "The Tide"}
+	]`,
+	"menagerie": `[
+		{"number": "200", "name": "Keyraken Tentacle", "house": "keyraken", "type": "creature", "rarity": "Rare"},
+		{"number": "305", "name": "Veylan Analyst", "house": "logos", "type": "creature", "rarity": "Common"},
+		{"number": "305", "name": "It's Coming...", "printed": "It’s Coming...", "house": "saurian", "type": "action", "rarity": "Rare"},
+		{"number": "323", "name": "Ultra Gravitron", "house": "logos", "type": "gigantic creature base", "rarity": "Rare", "power": 15}
+	]`,
+	"tokensofchange": `[
+		{"number": "010", "name": "Grumpus", "house": "dis", "type": "token creature", "rarity": "Token"}
+	]`,
+	"aemberskies": `[
+		{"number": "S01", "name": "Archon Power", "house": "archonpower", "type": "archon power", "rarity": "Special"}
+	]`,
+	"propheticvisions": `[
+		{"number": "P01", "name": "Prophecy", "house": "prophecy", "type": "prophecy", "rarity": "Special"}
+	]`,
+	"vaultmasters2026": `[
+		{"number": "100", "name": "Zed", "house": "dis", "type": "creature", "rarity": "Common", "power": 9}
+	]`,
+}
 
-	entries, err := catalog.Build(fsys)
+// printings lists every catalog entry in a checkout as <set-slug>/<number>.
+func printings(t *testing.T, catalogs map[string]string) []string {
+	t.Helper()
+
+	var out []string
+
+	for slug, body := range catalogs {
+		var srcs []struct {
+			Number string `json:"number"`
+		}
+
+		if err := json.Unmarshal([]byte(body), &srcs); err != nil {
+			t.Fatal(err)
+		}
+
+		for _, s := range srcs {
+			out = append(out, slug+"/"+s.Number)
+		}
+	}
+
+	slices.Sort(out)
+
+	return out
+}
+
+func TestBuildCoversEveryCatalogEntryOnce(t *testing.T) {
+	res, err := catalog.Build(vex(every))
 	if err != nil {
 		t.Fatalf("Build: %v", err)
 	}
 
-	if len(entries) != 2 {
-		t.Fatalf("Build returned %d entries, want 2: %+v", len(entries), entries)
+	var covered []string
+
+	for _, e := range res.Pool {
+		ps, ok := res.PoolPrintings[e.Name]
+		if !ok || len(ps) == 0 {
+			t.Errorf("pool card %q covers no catalog entry", e.Name)
+		}
+
+		covered = append(covered, ps...)
 	}
 
-	brew, zed := entries[0], entries[1]
+	if len(res.PoolPrintings) != len(res.Pool) {
+		t.Errorf("PoolPrintings has %d cards, the pool %d", len(res.PoolPrintings), len(res.Pool))
+	}
 
-	if brew.Name != "Alaka’s Brew" || brew.Folded != "Alaka's Brew" {
-		t.Errorf("brew name = %q folded %q", brew.Name, brew.Folded)
+	for _, e := range res.Excluded {
+		if len(e.Printings) == 0 {
+			t.Errorf("excluded card %q covers no catalog entry", e.Name)
+		}
+
+		covered = append(covered, e.Printings...)
+	}
+
+	slices.Sort(covered)
+
+	if want := printings(t, every); !slices.Equal(covered, want) {
+		t.Fatalf("covered entries\n%v\nwant each catalog entry once\n%v", covered, want)
+	}
+
+	if res.Count() != len(covered) {
+		t.Errorf("Count = %d, want %d", res.Count(), len(covered))
+	}
+}
+
+func TestBuildPoolHoldsDeckCardTypesOnly(t *testing.T) {
+	res, err := catalog.Build(vex(every))
+	if err != nil {
+		t.Fatalf("Build: %v", err)
+	}
+
+	var names []string
+
+	for _, e := range res.Pool {
+		names = append(names, e.Name+" "+e.CardType)
+	}
+
+	want := []string{
+		"Alaka’s Brew Action",
+		"Gauntlet Upgrade",
+		"It’s Coming... Action",
+		"Lamp Artifact",
+		"Veylan Analyst Creature",
+		"Zed Creature",
+	}
+
+	if !slices.Equal(names, want) {
+		t.Fatalf("pool = %v, want %v", names, want)
+	}
+}
+
+func TestBuildRecordsEveryExclusion(t *testing.T) {
+	res, err := catalog.Build(vex(every))
+	if err != nil {
+		t.Fatalf("Build: %v", err)
+	}
+
+	var got []string
+
+	for _, e := range res.Excluded {
+		got = append(got, strings.Join(
+			[]string{
+				string(e.Reason),
+				e.Name,
+				e.Set,
+				e.Number,
+				e.Type,
+				e.House,
+				strings.Join(e.Printings, ","),
+			},
+			" | ",
+		))
+	}
+
+	// Sorted by reason in document order, then name. A gigantic's halves and
+	// reprints are one card; so are a token's reprints.
+	want := []string{
+		"gigantic | Ultra Gravitron | massmutation | 125 | gigantic creature base | logos | massmutation/125,massmutation/126,menagerie/323",
+		"evil-twin | Zed | darktidings | 001 | evil twin creature | logos | darktidings/001",
+		"token-creature | Grumpus | darktidings | 002 | token creature | dis | darktidings/002,tokensofchange/010",
+		"archon-power | Archon Power | aemberskies | S01 | archon power | archonpower | aemberskies/S01",
+		"prophecy | Prophecy | propheticvisions | P01 | prophecy | prophecy | propheticvisions/P01",
+		"the-tide | The Tide | darktidings | 003 | the tide | thetide | darktidings/003",
+		"keyraken | Keyraken Tentacle | menagerie | 200 | creature | keyraken | menagerie/200",
+	}
+
+	if !slices.Equal(got, want) {
+		t.Fatalf("excluded\n%s\nwant\n%s", strings.Join(got, "\n"), strings.Join(want, "\n"))
+	}
+}
+
+func TestBuildConvertsAndDedupes(t *testing.T) {
+	res, err := catalog.Build(vex(every))
+	if err != nil {
+		t.Fatalf("Build: %v", err)
+	}
+
+	byName := map[string]int{}
+	for i, e := range res.Pool {
+		byName[e.Name] = i
+	}
+
+	brew, zed := res.Pool[byName["Alaka’s Brew"]], res.Pool[byName["Zed"]]
+
+	if brew.Folded != "Alaka's Brew" {
+		t.Errorf("brew folded name = %q", brew.Folded)
 	}
 
 	if brew.Power != nil || brew.Armor != nil {
@@ -75,32 +231,17 @@ func TestBuildConvertsAndDedupes(t *testing.T) {
 		t.Errorf("zed type %q power %v armor %v", zed.CardType, zed.Power, zed.Armor)
 	}
 
-	if !strings.HasSuffix(zed.Image, "/cards/callofthearchons/001.png") {
-		t.Errorf("zed image = %q", zed.Image)
-	}
-}
-
-func TestBuildShowsAGiganticBaseAsACreature(t *testing.T) {
-	fsys := vex(map[string]string{
-		"draconianmeasures": `[
-			{"number": "047", "name": "Gigantor", "house": "geistoid", "type": "gigantic creature base", "rarity": "Special", "power": 8},
-			{"number": "048", "name": "Gigantor Art", "house": "geistoid", "type": "gigantic creature art", "rarity": "Special"}
-		]`,
-	})
-
-	entries, err := catalog.Build(fsys)
-	if err != nil {
-		t.Fatalf("Build: %v", err)
-	}
-
-	if len(entries) != 1 || entries[0].CardType != "Creature" || *entries[0].Power != "8" {
-		t.Fatalf("entries = %+v", entries)
+	if got := res.PoolPrintings["Zed"]; !slices.Equal(
+		got,
+		[]string{"callofthearchons/001", "vaultmasters2026/100"},
+	) {
+		t.Errorf("zed printings = %v", got)
 	}
 }
 
 func TestBuildNamesImagesOnASharedNumber(t *testing.T) {
-	// Menagerie #305 is two cards. The token on #306 shares its number with an
-	// art card, so a skipped card still counts toward a shared number.
+	// Menagerie #305 is two cards. The token on #306 shares its number with a
+	// pool card, so an excluded card still counts toward a shared number.
 	fsys := vex(map[string]string{
 		"menagerie": `[
 			{"number": "304", "name": "Lone Card", "house": "dis", "type": "action", "rarity": "Common"},
@@ -111,7 +252,7 @@ func TestBuildNamesImagesOnASharedNumber(t *testing.T) {
 		]`,
 	})
 
-	entries, err := catalog.Build(fsys)
+	res, err := catalog.Build(fsys)
 	if err != nil {
 		t.Fatalf("Build: %v", err)
 	}
@@ -123,11 +264,11 @@ func TestBuildNamesImagesOnASharedNumber(t *testing.T) {
 		"\"Big\" Bot 2.0": "menagerie/306-big-bot-2-0.png",
 	}
 
-	if len(entries) != len(want) {
-		t.Fatalf("Build returned %d entries, want %d", len(entries), len(want))
+	if len(res.Pool) != len(want) {
+		t.Fatalf("Build returned %d pool cards, want %d", len(res.Pool), len(want))
 	}
 
-	for _, e := range entries {
+	for _, e := range res.Pool {
 		if got := strings.TrimPrefix(e.Image, catalog.ImageBaseURL); got != want[e.Name] {
 			t.Errorf("%s image = %q, want %q", e.Name, got, want[e.Name])
 		}
@@ -140,7 +281,7 @@ func TestBuildFailsLoudly(t *testing.T) {
 		"unknown house":  `[{"number": "1", "name": "X", "house": "mystery", "type": "action", "rarity": "Rare"}]`,
 		"unknown rarity": `[{"number": "1", "name": "X", "house": "dis", "type": "action", "rarity": "Mythic"}]`,
 		"bad json":       `{`,
-		"no deck cards":  `[]`,
+		"no pool cards":  `[]`,
 	}
 
 	for name, body := range tests {
@@ -158,6 +299,25 @@ func TestBuildFailsLoudly(t *testing.T) {
 			t.Fatal("Build accepted a checkout with no catalogs")
 		}
 	})
+}
+
+func TestExcludedDocCountsEveryReason(t *testing.T) {
+	res, err := catalog.Build(vex(every))
+	if err != nil {
+		t.Fatalf("Build: %v", err)
+	}
+
+	doc := string(catalog.ExcludedDoc(res, "excluded-cards.json"))
+
+	for _, r := range catalog.Reasons {
+		if !strings.Contains(doc, "| `"+string(r)+"` | 1 |") {
+			t.Errorf("the page does not count reason %s:\n%s", r, doc)
+		}
+
+		if !strings.Contains(doc, "Reason: `"+string(r)+"`. Cards: 1.") {
+			t.Errorf("the page has no section for reason %s", r)
+		}
+	}
 }
 
 func TestSetsAreInExpansionOrder(t *testing.T) {

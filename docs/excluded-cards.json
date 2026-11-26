@@ -1,0 +1,1847 @@
+[
+  {
+    "name": "Ascendant Hester",
+    "set": "moremutation",
+    "number": "134",
+    "type": "gigantic creature base",
+    "house": "sanctum",
+    "reason": "gigantic",
+    "printings": ["moremutation/134"]
+  },
+  {
+    "name": "Bawretchadontius",
+    "set": "moremutation",
+    "number": "194",
+    "type": "gigantic creature base",
+    "house": "saurian",
+    "reason": "gigantic",
+    "printings": ["moremutation/194"]
+  },
+  {
+    "name": "Boosted B4-RRY",
+    "set": "moremutation",
+    "number": "257",
+    "type": "gigantic creature base",
+    "house": "shadows",
+    "reason": "gigantic",
+    "printings": ["moremutation/257", "draconianmeasures/160"]
+  },
+  {
+    "name": "Cadet Allison",
+    "set": "moremutation",
+    "number": "318",
+    "type": "gigantic creature base",
+    "house": "staralliance",
+    "reason": "gigantic",
+    "printings": ["moremutation/318"]
+  },
+  {
+    "name": "Deusillus",
+    "set": "massmutation",
+    "number": "244",
+    "type": "gigantic creature base",
+    "house": "saurian",
+    "reason": "gigantic",
+    "printings": ["massmutation/244", "menagerie/523", "moremutation/197"]
+  },
+  {
+    "name": "Dodger’s 10",
+    "set": "moremutation",
+    "number": "258",
+    "type": "gigantic creature base",
+    "house": "shadows",
+    "reason": "gigantic",
+    "printings": ["moremutation/258"]
+  },
+  {
+    "name": "Gigantor",
+    "set": "draconianmeasures",
+    "number": "047",
+    "type": "gigantic creature base",
+    "house": "geistoid",
+    "reason": "gigantic",
+    "printings": ["draconianmeasures/047"]
+  },
+  {
+    "name": "Horizon Saber",
+    "set": "moremutation",
+    "number": "078",
+    "type": "gigantic creature base",
+    "house": "logos",
+    "reason": "gigantic",
+    "printings": ["moremutation/078"]
+  },
+  {
+    "name": "Hydrogan",
+    "set": "draconianmeasures",
+    "number": "244",
+    "type": "gigantic creature base",
+    "house": "unfathomable",
+    "reason": "gigantic",
+    "printings": ["draconianmeasures/244"]
+  },
+  {
+    "name": "J43G3R V",
+    "set": "moremutation",
+    "number": "331",
+    "type": "gigantic creature base",
+    "house": "staralliance",
+    "reason": "gigantic",
+    "printings": ["moremutation/331"]
+  },
+  {
+    "name": "Kulsha",
+    "set": "draconianmeasures",
+    "number": "128",
+    "type": "gigantic creature base",
+    "house": "ouboros",
+    "reason": "gigantic",
+    "printings": ["draconianmeasures/128"]
+  },
+  {
+    "name": "Monster Zero",
+    "set": "draconianmeasures",
+    "number": "091",
+    "type": "gigantic creature base",
+    "house": "mars",
+    "reason": "gigantic",
+    "printings": ["draconianmeasures/091"]
+  },
+  {
+    "name": "Niffle Kong",
+    "set": "massmutation",
+    "number": "422",
+    "type": "gigantic creature base",
+    "house": "untamed",
+    "reason": "gigantic",
+    "printings": ["massmutation/422", "menagerie/779", "moremutation/389"]
+  },
+  {
+    "name": "Sirs Colossus",
+    "set": "moremutation",
+    "number": "152",
+    "type": "gigantic creature base",
+    "house": "sanctum",
+    "reason": "gigantic",
+    "printings": ["moremutation/152"]
+  },
+  {
+    "name": "The Golden Queen",
+    "set": "draconianmeasures",
+    "number": "015",
+    "type": "gigantic creature base",
+    "house": "ekwidon",
+    "reason": "gigantic",
+    "printings": ["draconianmeasures/015"]
+  },
+  {
+    "name": "Titanic Bumblebird",
+    "set": "moremutation",
+    "number": "395",
+    "type": "gigantic creature base",
+    "house": "untamed",
+    "reason": "gigantic",
+    "printings": ["moremutation/395"]
+  },
+  {
+    "name": "Tormax",
+    "set": "moremutation",
+    "number": "020",
+    "type": "gigantic creature base",
+    "house": "dis",
+    "reason": "gigantic",
+    "printings": ["moremutation/020"]
+  },
+  {
+    "name": "Ultra Gravitron",
+    "set": "massmutation",
+    "number": "125",
+    "type": "gigantic creature base",
+    "house": "logos",
+    "reason": "gigantic",
+    "printings": ["massmutation/125", "menagerie/323", "moremutation/089"]
+  },
+  {
+    "name": "Wretched Anathema",
+    "set": "moremutation",
+    "number": "023",
+    "type": "gigantic creature base",
+    "house": "dis",
+    "reason": "gigantic",
+    "printings": ["moremutation/023"]
+  },
+  {
+    "name": "Zomok",
+    "set": "draconianmeasures",
+    "number": "213",
+    "type": "gigantic creature base",
+    "house": "skyborn",
+    "reason": "gigantic",
+    "printings": ["draconianmeasures/213"]
+  },
+  {
+    "name": "5C077",
+    "set": "darktidings",
+    "number": "243",
+    "type": "evil twin creature",
+    "house": "staralliance",
+    "reason": "evil-twin",
+    "printings": ["darktidings/243"]
+  },
+  {
+    "name": "Almsmaster",
+    "set": "darktidings",
+    "number": "064",
+    "type": "evil twin creature",
+    "house": "sanctum",
+    "reason": "evil-twin",
+    "printings": ["darktidings/064"]
+  },
+  {
+    "name": "Armadrone",
+    "set": "darktidings",
+    "number": "001",
+    "type": "evil twin creature",
+    "house": "logos",
+    "reason": "evil-twin",
+    "printings": ["darktidings/001"]
+  },
+  {
+    "name": "Bestiarii Urso",
+    "set": "darktidings",
+    "number": "124",
+    "type": "evil twin creature",
+    "house": "saurian",
+    "reason": "evil-twin",
+    "printings": ["darktidings/124"]
+  },
+  {
+    "name": "Binary Moray",
+    "set": "darktidings",
+    "number": "002",
+    "type": "evil twin creature",
+    "house": "logos",
+    "reason": "evil-twin",
+    "printings": ["darktidings/002"]
+  },
+  {
+    "name": "C.R. Officer Hawkins",
+    "set": "darktidings",
+    "number": "244",
+    "type": "evil twin creature",
+    "house": "staralliance",
+    "reason": "evil-twin",
+    "printings": ["darktidings/244"]
+  },
+  {
+    "name": "CH-337A",
+    "set": "darktidings",
+    "number": "245",
+    "type": "evil twin creature",
+    "house": "staralliance",
+    "reason": "evil-twin",
+    "printings": ["darktidings/245"]
+  },
+  {
+    "name": "Captain Kresage",
+    "set": "darktidings",
+    "number": "003",
+    "type": "evil twin creature",
+    "house": "logos",
+    "reason": "evil-twin",
+    "printings": ["darktidings/003"]
+  },
+  {
+    "name": "Captain No-Beard",
+    "set": "darktidings",
+    "number": "184",
+    "type": "evil twin creature",
+    "house": "shadows",
+    "reason": "evil-twin",
+    "printings": ["darktidings/184"]
+  },
+  {
+    "name": "Censor Philo",
+    "set": "darktidings",
+    "number": "125",
+    "type": "evil twin creature",
+    "house": "saurian",
+    "reason": "evil-twin",
+    "printings": ["darktidings/125"]
+  },
+  {
+    "name": "Chelonia",
+    "set": "darktidings",
+    "number": "369",
+    "type": "evil twin creature",
+    "house": "untamed",
+    "reason": "evil-twin",
+    "printings": ["darktidings/369"]
+  },
+  {
+    "name": "Colonist Chapman",
+    "set": "darktidings",
+    "number": "246",
+    "type": "evil twin creature",
+    "house": "staralliance",
+    "reason": "evil-twin",
+    "printings": ["darktidings/246"]
+  },
+  {
+    "name": "Eclectic Ambrosius",
+    "set": "darktidings",
+    "number": "126",
+    "type": "evil twin creature",
+    "house": "saurian",
+    "reason": "evil-twin",
+    "printings": ["darktidings/126"]
+  },
+  {
+    "name": "Flamegill Enforcer",
+    "set": "darktidings",
+    "number": "306",
+    "type": "evil twin creature",
+    "house": "unfathomable",
+    "reason": "evil-twin",
+    "printings": ["darktidings/306"]
+  },
+  {
+    "name": "Freebooter Faye",
+    "set": "darktidings",
+    "number": "185",
+    "type": "evil twin creature",
+    "house": "shadows",
+    "reason": "evil-twin",
+    "printings": ["darktidings/185"]
+  },
+  {
+    "name": "Giltspine Netcaster",
+    "set": "darktidings",
+    "number": "307",
+    "type": "evil twin creature",
+    "house": "unfathomable",
+    "reason": "evil-twin",
+    "printings": ["darktidings/307"]
+  },
+  {
+    "name": "Grey Augur",
+    "set": "darktidings",
+    "number": "065",
+    "type": "evil twin creature",
+    "house": "sanctum",
+    "reason": "evil-twin",
+    "printings": ["darktidings/065"]
+  },
+  {
+    "name": "Hard Simpson",
+    "set": "darktidings",
+    "number": "186",
+    "type": "evil twin creature",
+    "house": "shadows",
+    "reason": "evil-twin",
+    "printings": ["darktidings/186"]
+  },
+  {
+    "name": "Hobnobber",
+    "set": "darktidings",
+    "number": "187",
+    "type": "evil twin creature",
+    "house": "shadows",
+    "reason": "evil-twin",
+    "printings": ["darktidings/187"]
+  },
+  {
+    "name": "Horrid Synan",
+    "set": "darktidings",
+    "number": "308",
+    "type": "evil twin creature",
+    "house": "unfathomable",
+    "reason": "evil-twin",
+    "printings": ["darktidings/308"]
+  },
+  {
+    "name": "Kaupe",
+    "set": "darktidings",
+    "number": "309",
+    "type": "evil twin creature",
+    "house": "unfathomable",
+    "reason": "evil-twin",
+    "printings": ["darktidings/309"]
+  },
+  {
+    "name": "Lapisaurus",
+    "set": "darktidings",
+    "number": "127",
+    "type": "evil twin creature",
+    "house": "saurian",
+    "reason": "evil-twin",
+    "printings": ["darktidings/127"]
+  },
+  {
+    "name": "Lightsmith Clariel",
+    "set": "darktidings",
+    "number": "067",
+    "type": "evil twin creature",
+    "house": "sanctum",
+    "reason": "evil-twin",
+    "printings": ["darktidings/067"]
+  },
+  {
+    "name": "Lærie of the Lake",
+    "set": "darktidings",
+    "number": "066",
+    "type": "evil twin creature",
+    "house": "sanctum",
+    "reason": "evil-twin",
+    "printings": ["darktidings/066"]
+  },
+  {
+    "name": "Magistra Vita",
+    "set": "darktidings",
+    "number": "128",
+    "type": "evil twin creature",
+    "house": "saurian",
+    "reason": "evil-twin",
+    "printings": ["darktidings/128"]
+  },
+  {
+    "name": "Monty Bank",
+    "set": "darktidings",
+    "number": "188",
+    "type": "evil twin creature",
+    "house": "shadows",
+    "reason": "evil-twin",
+    "printings": ["darktidings/188"]
+  },
+  {
+    "name": "Mookling",
+    "set": "darktidings",
+    "number": "370",
+    "type": "evil twin creature",
+    "house": "untamed",
+    "reason": "evil-twin",
+    "printings": ["darktidings/370"]
+  },
+  {
+    "name": "Old Egad",
+    "set": "darktidings",
+    "number": "004",
+    "type": "evil twin creature",
+    "house": "logos",
+    "reason": "evil-twin",
+    "printings": ["darktidings/004"]
+  },
+  {
+    "name": "Ol’ Paddy",
+    "set": "darktidings",
+    "number": "371",
+    "type": "evil twin creature",
+    "house": "untamed",
+    "reason": "evil-twin",
+    "printings": ["darktidings/371"]
+  },
+  {
+    "name": "One-Eyed Willa",
+    "set": "darktidings",
+    "number": "189",
+    "type": "evil twin creature",
+    "house": "shadows",
+    "reason": "evil-twin",
+    "printings": ["darktidings/189"]
+  },
+  {
+    "name": "Operative Espion",
+    "set": "darktidings",
+    "number": "247",
+    "type": "evil twin creature",
+    "house": "staralliance",
+    "reason": "evil-twin",
+    "printings": ["darktidings/247"]
+  },
+  {
+    "name": "PI Sweven",
+    "set": "darktidings",
+    "number": "005",
+    "type": "evil twin creature",
+    "house": "logos",
+    "reason": "evil-twin",
+    "printings": ["darktidings/005"]
+  },
+  {
+    "name": "Physicus Felix",
+    "set": "darktidings",
+    "number": "129",
+    "type": "evil twin creature",
+    "house": "saurian",
+    "reason": "evil-twin",
+    "printings": ["darktidings/129"]
+  },
+  {
+    "name": "Prof. Garwynne",
+    "set": "darktidings",
+    "number": "006",
+    "type": "evil twin creature",
+    "house": "logos",
+    "reason": "evil-twin",
+    "printings": ["darktidings/006"]
+  },
+  {
+    "name": "Rocketeer Tryska",
+    "set": "darktidings",
+    "number": "248",
+    "type": "evil twin creature",
+    "house": "staralliance",
+    "reason": "evil-twin",
+    "printings": ["darktidings/248"]
+  },
+  {
+    "name": "Sea Urchin",
+    "set": "darktidings",
+    "number": "190",
+    "type": "evil twin creature",
+    "house": "shadows",
+    "reason": "evil-twin",
+    "printings": ["darktidings/190"]
+  },
+  {
+    "name": "Seneschal Sargassa",
+    "set": "darktidings",
+    "number": "068",
+    "type": "evil twin creature",
+    "house": "sanctum",
+    "reason": "evil-twin",
+    "printings": ["darktidings/068"]
+  },
+  {
+    "name": "Shield-U-Later",
+    "set": "darktidings",
+    "number": "249",
+    "type": "evil twin creature",
+    "house": "staralliance",
+    "reason": "evil-twin",
+    "printings": ["darktidings/249"]
+  },
+  {
+    "name": "Sir Bevor",
+    "set": "darktidings",
+    "number": "069",
+    "type": "evil twin creature",
+    "house": "sanctum",
+    "reason": "evil-twin",
+    "printings": ["darktidings/069"]
+  },
+  {
+    "name": "Sporegorger",
+    "set": "darktidings",
+    "number": "372",
+    "type": "evil twin creature",
+    "house": "untamed",
+    "reason": "evil-twin",
+    "printings": ["darktidings/372"]
+  },
+  {
+    "name": "Talmage Steelheart",
+    "set": "darktidings",
+    "number": "007",
+    "type": "evil twin creature",
+    "house": "logos",
+    "reason": "evil-twin",
+    "printings": ["darktidings/007"]
+  },
+  {
+    "name": "Taniwha",
+    "set": "darktidings",
+    "number": "310",
+    "type": "evil twin creature",
+    "house": "unfathomable",
+    "reason": "evil-twin",
+    "printings": ["darktidings/310"]
+  },
+  {
+    "name": "Tomwa of the Glow",
+    "set": "darktidings",
+    "number": "311",
+    "type": "evil twin creature",
+    "house": "unfathomable",
+    "reason": "evil-twin",
+    "printings": ["darktidings/311"]
+  },
+  {
+    "name": "Undagnathus",
+    "set": "darktidings",
+    "number": "130",
+    "type": "evil twin creature",
+    "house": "saurian",
+    "reason": "evil-twin",
+    "printings": ["darktidings/130"]
+  },
+  {
+    "name": "Urien the Circumspect",
+    "set": "darktidings",
+    "number": "070",
+    "type": "evil twin creature",
+    "house": "sanctum",
+    "reason": "evil-twin",
+    "printings": ["darktidings/070"]
+  },
+  {
+    "name": "Wikolia",
+    "set": "darktidings",
+    "number": "312",
+    "type": "evil twin creature",
+    "house": "unfathomable",
+    "reason": "evil-twin",
+    "printings": ["darktidings/312"]
+  },
+  {
+    "name": "Witch of the Dawn",
+    "set": "darktidings",
+    "number": "373",
+    "type": "evil twin creature",
+    "house": "untamed",
+    "reason": "evil-twin",
+    "printings": ["darktidings/373"]
+  },
+  {
+    "name": "Youngest Bear",
+    "set": "darktidings",
+    "number": "374",
+    "type": "evil twin creature",
+    "house": "untamed",
+    "reason": "evil-twin",
+    "printings": ["darktidings/374"]
+  },
+  {
+    "name": "Æmberfin Shark",
+    "set": "darktidings",
+    "number": "368",
+    "type": "evil twin creature",
+    "house": "untamed",
+    "reason": "evil-twin",
+    "printings": ["darktidings/368"]
+  },
+  {
+    "name": "Aerialist",
+    "set": "tokensofchange",
+    "number": "276",
+    "type": "token creature",
+    "house": "skyborn",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/276"]
+  },
+  {
+    "name": "Alpha-Gamma",
+    "set": "tokensofchange",
+    "number": "132",
+    "type": "token creature",
+    "house": "logos",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/132"]
+  },
+  {
+    "name": "B0-T",
+    "set": "windsofexchange",
+    "number": "345",
+    "type": "token creature",
+    "house": "staralliance",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/345", "menagerie/591"]
+  },
+  {
+    "name": "Bellatoran Warrior",
+    "set": "windsofexchange",
+    "number": "286",
+    "type": "token creature",
+    "house": "saurian",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/286", "menagerie/466"]
+  },
+  {
+    "name": "Berserker",
+    "set": "windsofexchange",
+    "number": "053",
+    "type": "token creature",
+    "house": "brobnar",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/053", "menagerie/002"]
+  },
+  {
+    "name": "Blorb",
+    "set": "windsofexchange",
+    "number": "167",
+    "type": "token creature",
+    "house": "mars",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/167", "menagerie/336"]
+  },
+  {
+    "name": "Briar Instar",
+    "set": "tokensofchange",
+    "number": "319",
+    "type": "token creature",
+    "house": "untamed",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/319"]
+  },
+  {
+    "name": "Cadet",
+    "set": "windsofexchange",
+    "number": "343",
+    "type": "token creature",
+    "house": "staralliance",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/343", "menagerie/592"]
+  },
+  {
+    "name": "Catena Fiend",
+    "set": "tokensofchange",
+    "number": "040",
+    "type": "token creature",
+    "house": "dis",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/040"]
+  },
+  {
+    "name": "Chronicler",
+    "set": "tokensofchange",
+    "number": "133",
+    "type": "token creature",
+    "house": "logos",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/133"]
+  },
+  {
+    "name": "Cleaner",
+    "set": "tokensofchange",
+    "number": "227",
+    "type": "token creature",
+    "house": "shadows",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/227"]
+  },
+  {
+    "name": "Cleric",
+    "set": "windsofexchange",
+    "number": "228",
+    "type": "token creature",
+    "house": "sanctum",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/228", "menagerie/396"]
+  },
+  {
+    "name": "Corsair",
+    "set": "tokensofchange",
+    "number": "277",
+    "type": "token creature",
+    "house": "skyborn",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/277"]
+  },
+  {
+    "name": "Cultist",
+    "set": "windsofexchange",
+    "number": "399",
+    "type": "token creature",
+    "house": "unfathomable",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/399", "menagerie/666"]
+  },
+  {
+    "name": "Defender",
+    "set": "windsofexchange",
+    "number": "229",
+    "type": "token creature",
+    "house": "sanctum",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/229", "menagerie/397"]
+  },
+  {
+    "name": "Diplomat",
+    "set": "windsofexchange",
+    "number": "111",
+    "type": "token creature",
+    "house": "ekwidon",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/111", "menagerie/126"]
+  },
+  {
+    "name": "Disciple",
+    "set": "windsofexchange",
+    "number": "227",
+    "type": "token creature",
+    "house": "sanctum",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/227", "menagerie/398"]
+  },
+  {
+    "name": "Explorer",
+    "set": "windsofexchange",
+    "number": "344",
+    "type": "token creature",
+    "house": "staralliance",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/344", "menagerie/593"]
+  },
+  {
+    "name": "Facet",
+    "set": "tokensofchange",
+    "number": "041",
+    "type": "token creature",
+    "house": "dis",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/041"]
+  },
+  {
+    "name": "Fish",
+    "set": "windsofexchange",
+    "number": "401",
+    "type": "token creature",
+    "house": "unfathomable",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/401", "menagerie/667"]
+  },
+  {
+    "name": "Grumpus",
+    "set": "windsofexchange",
+    "number": "056",
+    "type": "token creature",
+    "house": "brobnar",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/056", "menagerie/003"]
+  },
+  {
+    "name": "Grunt",
+    "set": "windsofexchange",
+    "number": "172",
+    "type": "token creature",
+    "house": "mars",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/172", "menagerie/337"]
+  },
+  {
+    "name": "Guardian",
+    "set": "tokensofchange",
+    "number": "184",
+    "type": "token creature",
+    "house": "redemption",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/184"]
+  },
+  {
+    "name": "Marketeer",
+    "set": "tokensofchange",
+    "number": "278",
+    "type": "token creature",
+    "house": "skyborn",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/278"]
+  },
+  {
+    "name": "Minion",
+    "set": "tokensofchange",
+    "number": "085",
+    "type": "token creature",
+    "house": "geistoid",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/085"]
+  },
+  {
+    "name": "Minutemartian",
+    "set": "martiancivilwar",
+    "number": "086",
+    "type": "token creature",
+    "house": "ironyxrebels",
+    "reason": "token-creature",
+    "printings": ["martiancivilwar/086"]
+  },
+  {
+    "name": "Niffle Brute",
+    "set": "tokensofchange",
+    "number": "318",
+    "type": "token creature",
+    "house": "untamed",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/318"]
+  },
+  {
+    "name": "Paragon",
+    "set": "tokensofchange",
+    "number": "185",
+    "type": "token creature",
+    "house": "redemption",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/185"]
+  },
+  {
+    "name": "Phantasm",
+    "set": "tokensofchange",
+    "number": "086",
+    "type": "token creature",
+    "house": "geistoid",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/086"]
+  },
+  {
+    "name": "Priest",
+    "set": "windsofexchange",
+    "number": "402",
+    "type": "token creature",
+    "house": "unfathomable",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/402", "menagerie/668"]
+  },
+  {
+    "name": "Prospector",
+    "set": "windsofexchange",
+    "number": "113",
+    "type": "token creature",
+    "house": "ekwidon",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/113", "menagerie/127"]
+  },
+  {
+    "name": "Prowler",
+    "set": "tokensofchange",
+    "number": "228",
+    "type": "token creature",
+    "house": "shadows",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/228"]
+  },
+  {
+    "name": "Raider",
+    "set": "windsofexchange",
+    "number": "403",
+    "type": "token creature",
+    "house": "unfathomable",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/403", "menagerie/669"]
+  },
+  {
+    "name": "Rebel",
+    "set": "windsofexchange",
+    "number": "173",
+    "type": "token creature",
+    "house": "mars",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/173", "menagerie/338", "martiancivilwar/087"]
+  },
+  {
+    "name": "Researcher",
+    "set": "windsofexchange",
+    "number": "174",
+    "type": "token creature",
+    "house": "mars",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/174", "menagerie/339", "martiancivilwar/041"]
+  },
+  {
+    "name": "Savant",
+    "set": "tokensofchange",
+    "number": "134",
+    "type": "token creature",
+    "house": "logos",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/134"]
+  },
+  {
+    "name": "Scholar",
+    "set": "windsofexchange",
+    "number": "287",
+    "type": "token creature",
+    "house": "saurian",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/287", "menagerie/467"]
+  },
+  {
+    "name": "Senator",
+    "set": "windsofexchange",
+    "number": "288",
+    "type": "token creature",
+    "house": "saurian",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/288", "menagerie/468"]
+  },
+  {
+    "name": "Sentinel",
+    "set": "tokensofchange",
+    "number": "186",
+    "type": "token creature",
+    "house": "redemption",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/186"]
+  },
+  {
+    "name": "Skirmisher",
+    "set": "windsofexchange",
+    "number": "055",
+    "type": "token creature",
+    "house": "brobnar",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/055", "menagerie/004"]
+  },
+  {
+    "name": "Snare",
+    "set": "tokensofchange",
+    "number": "042",
+    "type": "token creature",
+    "house": "dis",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/042"]
+  },
+  {
+    "name": "Spydrone",
+    "set": "tokensofchange",
+    "number": "135",
+    "type": "token creature",
+    "house": "logos",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/135"]
+  },
+  {
+    "name": "Squire",
+    "set": "windsofexchange",
+    "number": "230",
+    "type": "token creature",
+    "house": "sanctum",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/230", "menagerie/399"]
+  },
+  {
+    "name": "Steppe Wolf",
+    "set": "tokensofchange",
+    "number": "320",
+    "type": "token creature",
+    "house": "untamed",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/320"]
+  },
+  {
+    "name": "Stooge",
+    "set": "tokensofchange",
+    "number": "226",
+    "type": "token creature",
+    "house": "shadows",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/226"]
+  },
+  {
+    "name": "Strange Shell",
+    "set": "windsofexchange",
+    "number": "110",
+    "type": "token creature",
+    "house": "ekwidon",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/110", "menagerie/128"]
+  },
+  {
+    "name": "Thrall",
+    "set": "tokensofchange",
+    "number": "043",
+    "type": "token creature",
+    "house": "dis",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/043"]
+  },
+  {
+    "name": "Trader",
+    "set": "windsofexchange",
+    "number": "112",
+    "type": "token creature",
+    "house": "ekwidon",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/112", "menagerie/129"]
+  },
+  {
+    "name": "Trooper",
+    "set": "windsofexchange",
+    "number": "289",
+    "type": "token creature",
+    "house": "saurian",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/289", "menagerie/469"]
+  },
+  {
+    "name": "Twilight Pixie",
+    "set": "tokensofchange",
+    "number": "321",
+    "type": "token creature",
+    "house": "untamed",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/321"]
+  },
+  {
+    "name": "Warrior",
+    "set": "windsofexchange",
+    "number": "054",
+    "type": "token creature",
+    "house": "brobnar",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/054", "menagerie/005"]
+  },
+  {
+    "name": "Wrangler",
+    "set": "tokensofchange",
+    "number": "275",
+    "type": "token creature",
+    "house": "skyborn",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/275"]
+  },
+  {
+    "name": "Wrecker",
+    "set": "tokensofchange",
+    "number": "087",
+    "type": "token creature",
+    "house": "geistoid",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/087"]
+  },
+  {
+    "name": "Yardbird",
+    "set": "tokensofchange",
+    "number": "229",
+    "type": "token creature",
+    "house": "shadows",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/229"]
+  },
+  {
+    "name": "Zealot",
+    "set": "tokensofchange",
+    "number": "183",
+    "type": "token creature",
+    "house": "redemption",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/183"]
+  },
+  {
+    "name": "Æmber Munch",
+    "set": "martiancivilwar",
+    "number": "042",
+    "type": "token creature",
+    "house": "elders",
+    "reason": "token-creature",
+    "printings": ["martiancivilwar/042"]
+  },
+  {
+    "name": "Æmberling",
+    "set": "windsofexchange",
+    "number": "342",
+    "type": "token creature",
+    "house": "staralliance",
+    "reason": "token-creature",
+    "printings": ["windsofexchange/342", "menagerie/594"]
+  },
+  {
+    "name": "Æmberologist",
+    "set": "tokensofchange",
+    "number": "088",
+    "type": "token creature",
+    "house": "geistoid",
+    "reason": "token-creature",
+    "printings": ["tokensofchange/088"]
+  },
+  {
+    "name": "Artificer",
+    "set": "crucibleclash",
+    "number": "300",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/300"]
+  },
+  {
+    "name": "Charismatic Inspiration",
+    "set": "crucibleclash",
+    "number": "301",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/301"]
+  },
+  {
+    "name": "Commanding Presence",
+    "set": "crucibleclash",
+    "number": "302",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/302"]
+  },
+  {
+    "name": "Control",
+    "set": "crucibleclash",
+    "number": "303",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/303"]
+  },
+  {
+    "name": "Controlling Expertise",
+    "set": "crucibleclash",
+    "number": "304",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/304"]
+  },
+  {
+    "name": "Deluge of Power",
+    "set": "crucibleclash",
+    "number": "305",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/305"]
+  },
+  {
+    "name": "Demonic Wrath",
+    "set": "crucibleclash",
+    "number": "306",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/306"]
+  },
+  {
+    "name": "Divine Spark",
+    "set": "crucibleclash",
+    "number": "307",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/307"]
+  },
+  {
+    "name": "Fighting Expertise",
+    "set": "crucibleclash",
+    "number": "308",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/308"]
+  },
+  {
+    "name": "Forgemaster",
+    "set": "crucibleclash",
+    "number": "309",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/309"]
+  },
+  {
+    "name": "Librarian",
+    "set": "crucibleclash",
+    "number": "310",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/310"]
+  },
+  {
+    "name": "Master Planner",
+    "set": "crucibleclash",
+    "number": "311",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/311"]
+  },
+  {
+    "name": "Master Strategist",
+    "set": "crucibleclash",
+    "number": "312",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/312"]
+  },
+  {
+    "name": "Nature's Guardian",
+    "set": "crucibleclash",
+    "number": "313",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/313"]
+  },
+  {
+    "name": "Nature's Strength",
+    "set": "crucibleclash",
+    "number": "314",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/314"]
+  },
+  {
+    "name": "Noble Blood",
+    "set": "crucibleclash",
+    "number": "315",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/315"]
+  },
+  {
+    "name": "Optimizer",
+    "set": "crucibleclash",
+    "number": "316",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/316"]
+  },
+  {
+    "name": "Overcharged",
+    "set": "crucibleclash",
+    "number": "317",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/317"]
+  },
+  {
+    "name": "Progenitor of Giants",
+    "set": "crucibleclash",
+    "number": "318",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/318"]
+  },
+  {
+    "name": "Rage",
+    "set": "crucibleclash",
+    "number": "319",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/319"]
+  },
+  {
+    "name": "Redeemer",
+    "set": "crucibleclash",
+    "number": "320",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/320"]
+  },
+  {
+    "name": "Schemer",
+    "set": "crucibleclash",
+    "number": "321",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/321"]
+  },
+  {
+    "name": "Scheming Expertise",
+    "set": "crucibleclash",
+    "number": "322",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/322"]
+  },
+  {
+    "name": "Signature Move",
+    "set": "crucibleclash",
+    "number": "323",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/323"]
+  },
+  {
+    "name": "Stasis Field",
+    "set": "crucibleclash",
+    "number": "324",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/324"]
+  },
+  {
+    "name": "Thievery",
+    "set": "crucibleclash",
+    "number": "325",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/325"]
+  },
+  {
+    "name": "Tinkerer",
+    "set": "crucibleclash",
+    "number": "326",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/326"]
+  },
+  {
+    "name": "Warden of the Crucible",
+    "set": "crucibleclash",
+    "number": "327",
+    "type": "archon power",
+    "house": "archonpower",
+    "reason": "archon-power",
+    "printings": ["crucibleclash/327"]
+  },
+  {
+    "name": "Ask Again Later",
+    "set": "propheticvisions",
+    "number": "P01",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P01"]
+  },
+  {
+    "name": "Bad Omen",
+    "set": "propheticvisions",
+    "number": "P02",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P02"]
+  },
+  {
+    "name": "Expect the Unexpected",
+    "set": "propheticvisions",
+    "number": "P03",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P03"]
+  },
+  {
+    "name": "Fate Laughs at Your Plans",
+    "set": "propheticvisions",
+    "number": "P04",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P04"]
+  },
+  {
+    "name": "Forge Ahead With Confidence",
+    "set": "propheticvisions",
+    "number": "P05",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P05"]
+  },
+  {
+    "name": "Go Forth and Conquer",
+    "set": "propheticvisions",
+    "number": "P06",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P06"]
+  },
+  {
+    "name": "Heads, I Win",
+    "set": "propheticvisions",
+    "number": "P07",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P07"]
+  },
+  {
+    "name": "It Only Gets Worse",
+    "set": "propheticvisions",
+    "number": "P08",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P08"]
+  },
+  {
+    "name": "Look How Far You’ve Come",
+    "set": "propheticvisions",
+    "number": "P09",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P09"]
+  },
+  {
+    "name": "Outlook Not So Good",
+    "set": "propheticvisions",
+    "number": "P10",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P10"]
+  },
+  {
+    "name": "Overreach",
+    "set": "propheticvisions",
+    "number": "P11",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P11"]
+  },
+  {
+    "name": "Signs Point to Yes",
+    "set": "propheticvisions",
+    "number": "P12",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P12"]
+  },
+  {
+    "name": "Stars Aligned",
+    "set": "propheticvisions",
+    "number": "P13",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P13"]
+  },
+  {
+    "name": "Tails, You Lose",
+    "set": "propheticvisions",
+    "number": "P14",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P14"]
+  },
+  {
+    "name": "The Cards Will Tell",
+    "set": "propheticvisions",
+    "number": "P15",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P15"]
+  },
+  {
+    "name": "The Early Bird",
+    "set": "propheticvisions",
+    "number": "P16",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P16"]
+  },
+  {
+    "name": "The End is Nigh",
+    "set": "propheticvisions",
+    "number": "P17",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P17"]
+  },
+  {
+    "name": "The Second Mouse",
+    "set": "propheticvisions",
+    "number": "P18",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P18"]
+  },
+  {
+    "name": "Treat Each Action as Your Last",
+    "set": "propheticvisions",
+    "number": "P19",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P19"]
+  },
+  {
+    "name": "Trust Your Feelings",
+    "set": "propheticvisions",
+    "number": "P20",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P20"]
+  },
+  {
+    "name": "Wasteful Regret",
+    "set": "propheticvisions",
+    "number": "P21",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P21"]
+  },
+  {
+    "name": "Wounds Into Wisdom",
+    "set": "propheticvisions",
+    "number": "P22",
+    "type": "prophecy",
+    "house": "prophecy",
+    "reason": "prophecy",
+    "printings": ["propheticvisions/P22"]
+  },
+  {
+    "name": "The Tide",
+    "set": "darktidings",
+    "number": "000",
+    "type": "the tide",
+    "house": "thetide",
+    "reason": "the-tide",
+    "printings": ["darktidings/000"]
+  },
+  {
+    "name": "Ascending Jet",
+    "set": "menagerie",
+    "number": "259",
+    "type": "artifact",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/259"]
+  },
+  {
+    "name": "Beast of Dark Legend",
+    "set": "menagerie",
+    "number": "245",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/245"]
+  },
+  {
+    "name": "Behold Its Grandeur",
+    "set": "menagerie",
+    "number": "249",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/249"]
+  },
+  {
+    "name": "Crimson Churning",
+    "set": "menagerie",
+    "number": "260",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/260"]
+  },
+  {
+    "name": "Crushing Tentacle",
+    "set": "menagerie",
+    "number": "261",
+    "type": "creature",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/261"]
+  },
+  {
+    "name": "Defend the Keyraken!",
+    "set": "menagerie",
+    "number": "262",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/262"]
+  },
+  {
+    "name": "Devour Whole",
+    "set": "menagerie",
+    "number": "250",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/250"]
+  },
+  {
+    "name": "Drag to Your Doom",
+    "set": "menagerie",
+    "number": "251",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/251"]
+  },
+  {
+    "name": "Emergence",
+    "set": "menagerie",
+    "number": "263",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/263"]
+  },
+  {
+    "name": "Grappling Tentacle",
+    "set": "menagerie",
+    "number": "264",
+    "type": "creature",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/264"]
+  },
+  {
+    "name": "Into the Abyss",
+    "set": "menagerie",
+    "number": "252",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/252"]
+  },
+  {
+    "name": "Lashing Tentacle",
+    "set": "menagerie",
+    "number": "265",
+    "type": "creature",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/265"]
+  },
+  {
+    "name": "Left in Its Wake",
+    "set": "menagerie",
+    "number": "253",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/253"]
+  },
+  {
+    "name": "Legendary Keyraken",
+    "set": "menagerie",
+    "number": "244",
+    "type": "creature",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/244"]
+  },
+  {
+    "name": "Preternatural Will",
+    "set": "menagerie",
+    "number": "266",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/266"]
+  },
+  {
+    "name": "Primordial",
+    "set": "menagerie",
+    "number": "254",
+    "type": "upgrade",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/254"]
+  },
+  {
+    "name": "Race to the Surface",
+    "set": "menagerie",
+    "number": "267",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/267"]
+  },
+  {
+    "name": "Shield Tentacle",
+    "set": "menagerie",
+    "number": "268",
+    "type": "creature",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/268"]
+  },
+  {
+    "name": "Slippery Tentacle",
+    "set": "menagerie",
+    "number": "269",
+    "type": "creature",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/269"]
+  },
+  {
+    "name": "Swift Current",
+    "set": "menagerie",
+    "number": "246",
+    "type": "artifact",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/246"]
+  },
+  {
+    "name": "Tenacious Tentacle",
+    "set": "menagerie",
+    "number": "270",
+    "type": "creature",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/270"]
+  },
+  {
+    "name": "The Evil in the Ranks",
+    "set": "menagerie",
+    "number": "255",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/255"]
+  },
+  {
+    "name": "Tidal Trouble",
+    "set": "menagerie",
+    "number": "256",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/256"]
+  },
+  {
+    "name": "Tide Down",
+    "set": "menagerie",
+    "number": "247",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/247"]
+  },
+  {
+    "name": "Titanic Maw",
+    "set": "menagerie",
+    "number": "248",
+    "type": "upgrade",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/248"]
+  },
+  {
+    "name": "Whirpool Eddy",
+    "set": "menagerie",
+    "number": "257",
+    "type": "artifact",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/257"]
+  },
+  {
+    "name": "Zealot’s Revelation",
+    "set": "menagerie",
+    "number": "258",
+    "type": "action",
+    "house": "keyraken",
+    "reason": "keyraken",
+    "printings": ["menagerie/258"]
+  }
+]

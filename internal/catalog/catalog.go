@@ -3,10 +3,12 @@
 // vex keeps one JSON catalog per set at internal/cards/provenance/<slug>.json,
 // built from the Master Vault decks feed. Build folds them into the pool that
 // internal/cards embeds: one card per name, from the first set in release order
-// that printed it, in the value formats the lifted React page compares.
+// that printed it, in the value formats the lifted React page compares. Every
+// card it leaves out is recorded, with the reason, so it can be added later.
 package catalog
 
 import (
+	"cmp"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -82,36 +84,58 @@ var houses = map[string]string{
 	"untamed":      "Untamed",
 }
 
-// skippedHouses are houses no player deck holds. The Keyraken cards make up the
-// adventure's boss deck.
-var skippedHouses = map[string]bool{
-	"keyraken": true,
-}
-
-// cardTypes maps vex's deck card types to the type the page shows. A gigantic
-// creature's base half is the half that carries its stats, and it is a
-// creature, so it shows as one.
+// cardTypes maps the card types the pool holds to the type the page shows.
 var cardTypes = map[string]string{
-	"action":                 "Action",
-	"artifact":               "Artifact",
-	"creature":               "Creature",
-	"gigantic creature base": "Creature",
-	"upgrade":                "Upgrade",
+	"action":   "Action",
+	"artifact": "Artifact",
+	"creature": "Creature",
+	"upgrade":  "Upgrade",
 }
 
-// skippedTypes are the card types that are not deck cards a player can guess.
-// An evil twin shares its name with a regular creature that stays in the pool,
-// and vex records no power or armor for it.
-var skippedTypes = map[string]bool{
-	"archon power":          true,
-	"evil twin creature":    true,
-	"gigantic creature art": true,
-	"prophecy":              true,
-	"the tide":              true,
-	"token creature":        true,
+// Reason is why a card is left out of the pool.
+type Reason string
+
+// The reasons, one per kind of card the pool leaves out. Reasons lists them in
+// the order the excluded list and its document use.
+const (
+	ReasonGigantic    Reason = "gigantic"
+	ReasonEvilTwin    Reason = "evil-twin"
+	ReasonToken       Reason = "token-creature"
+	ReasonArchonPower Reason = "archon-power"
+	ReasonProphecy    Reason = "prophecy"
+	ReasonTheTide     Reason = "the-tide"
+	ReasonKeyraken    Reason = "keyraken"
+)
+
+// Reasons lists every reason in document order.
+var Reasons = []Reason{
+	ReasonGigantic,
+	ReasonEvilTwin,
+	ReasonToken,
+	ReasonArchonPower,
+	ReasonProphecy,
+	ReasonTheTide,
+	ReasonKeyraken,
 }
 
-// rarities are the rarities the page orders. Any other rarity on a deck card is
+// excludedHouses are houses no player deck holds. The house is checked before
+// the type, so a Keyraken token is recorded as a Keyraken card.
+var excludedHouses = map[string]Reason{
+	"keyraken": ReasonKeyraken,
+}
+
+// excludedTypes are the card types the pool leaves out.
+var excludedTypes = map[string]Reason{
+	"archon power":           ReasonArchonPower,
+	"evil twin creature":     ReasonEvilTwin,
+	"gigantic creature art":  ReasonGigantic,
+	"gigantic creature base": ReasonGigantic,
+	"prophecy":               ReasonProphecy,
+	"the tide":               ReasonTheTide,
+	"token creature":         ReasonToken,
+}
+
+// rarities are the rarities the page orders. Any other rarity on a pool card is
 // an error, so a new one is noticed rather than compared as unknown.
 var rarities = map[string]bool{
 	"Common":   true,
@@ -136,23 +160,71 @@ type source struct {
 	Text    string   `json:"text"`
 }
 
-// Build reads every set's catalog from fsys, which is rooted at a vex checkout,
-// and returns the pool entries sorted by name.
-func Build(fsys fs.FS) ([]cards.Entry, error) {
-	seen := map[string]bool{}
+// printedName is the name as the card prints it.
+func (s source) printedName() string {
+	if s.Printed != "" {
+		return s.Printed
+	}
 
-	var out []cards.Entry
+	return s.Name
+}
+
+// Excluded is one card the pool leaves out. Set, Number, Type and House are its
+// first printing, in vex's spelling. Printings lists every catalog entry the
+// card covers as <set-slug>/<number>, reprints and the art half of a gigantic
+// included.
+type Excluded struct {
+	Name      string   `json:"name"`
+	Set       string   `json:"set"`
+	Number    string   `json:"number"`
+	Type      string   `json:"type"`
+	House     string   `json:"house"`
+	Reason    Reason   `json:"reason"`
+	Printings []string `json:"printings"`
+}
+
+// Result is what Build makes of the catalogs. Every catalog entry is covered
+// exactly once: by a pool card, listed in PoolPrintings, or by an excluded
+// card, listed in its Printings.
+type Result struct {
+	// Pool is the guessable cards, sorted by name.
+	Pool []cards.Entry
+	// PoolPrintings maps each pool card's name to the catalog entries it
+	// covers, as <set-slug>/<number>: its first printing, then its reprints.
+	PoolPrintings map[string][]string
+	// Excluded is every card left out, sorted by reason, then name.
+	Excluded []Excluded
+}
+
+// Count is the number of catalog entries the result covers.
+func (r Result) Count() int {
+	n := 0
+	for _, ps := range r.PoolPrintings {
+		n += len(ps)
+	}
+
+	for _, e := range r.Excluded {
+		n += len(e.Printings)
+	}
+
+	return n
+}
+
+// Build reads every set's catalog from fsys, which is rooted at a vex checkout,
+// and sorts each catalog entry into the pool or the excluded list.
+func Build(fsys fs.FS) (Result, error) {
+	res := Result{PoolPrintings: map[string][]string{}}
+	poolIndex := map[string]string{}  // folded name -> pool name
+	excludedIndex := map[string]int{} // reason + folded name -> index in res.Excluded
+	read := 0
 
 	for _, set := range Sets {
-		raw, err := fs.ReadFile(fsys, path.Join(CatalogDir, set.Slug+".json"))
+		srcs, err := readCatalog(fsys, set)
 		if err != nil {
-			return nil, fmt.Errorf("read the %s catalog: %w", set.Slug, err)
+			return Result{}, err
 		}
 
-		var srcs []source
-		if err := json.Unmarshal(raw, &srcs); err != nil {
-			return nil, fmt.Errorf("parse the %s catalog: %w", set.Slug, err)
-		}
+		read += len(srcs)
 
 		perNumber := map[string]int{}
 		for _, src := range srcs {
@@ -160,58 +232,118 @@ func Build(fsys fs.FS) ([]cards.Entry, error) {
 		}
 
 		for _, src := range srcs {
-			entry, keep, err := convert(set, src, perNumber[src.Number] > 1)
+			printing := set.Slug + "/" + src.Number
+
+			if reason, ok := exclusion(src); ok {
+				key := string(reason) + "\n" + strings.ToLower(src.Name)
+				if i, seen := excludedIndex[key]; seen {
+					res.Excluded[i].Printings = append(res.Excluded[i].Printings, printing)
+
+					continue
+				}
+
+				excludedIndex[key] = len(res.Excluded)
+				res.Excluded = append(res.Excluded, Excluded{
+					Name:      src.printedName(),
+					Set:       set.Slug,
+					Number:    src.Number,
+					Type:      src.Type,
+					House:     src.House,
+					Reason:    reason,
+					Printings: []string{printing},
+				})
+
+				continue
+			}
+
+			// Every printing is converted, reprints included, so a bad value
+			// anywhere in a catalog is reported.
+			entry, err := convert(set, src, perNumber[src.Number] > 1)
 			if err != nil {
-				return nil, fmt.Errorf("%s %s: %w", set.Slug, src.Number, err)
+				return Result{}, fmt.Errorf("%s %s: %w", set.Slug, src.Number, err)
 			}
 
 			// A reprint keeps the set that first printed the card.
 			key := strings.ToLower(src.Name)
-			if !keep || seen[key] {
+			if name, seen := poolIndex[key]; seen {
+				res.PoolPrintings[name] = append(res.PoolPrintings[name], printing)
+
 				continue
 			}
 
-			seen[key] = true
-
-			out = append(out, entry)
+			poolIndex[key] = entry.Name
+			res.PoolPrintings[entry.Name] = []string{printing}
+			res.Pool = append(res.Pool, entry)
 		}
 	}
 
-	if len(out) == 0 {
-		return nil, errors.New("the catalogs hold no deck cards")
+	if len(res.Pool) == 0 {
+		return Result{}, errors.New("the catalogs hold no pool cards")
 	}
 
-	slices.SortFunc(out, func(a, b cards.Entry) int { return strings.Compare(a.Name, b.Name) })
+	if len(res.PoolPrintings) != len(res.Pool) {
+		return Result{}, errors.New("two pool cards print the same name")
+	}
 
-	return out, nil
+	if got := res.Count(); got != read {
+		return Result{}, fmt.Errorf("the result covers %d catalog entries, want %d", got, read)
+	}
+
+	slices.SortFunc(res.Pool, func(a, b cards.Entry) int { return strings.Compare(a.Name, b.Name) })
+	slices.SortFunc(res.Excluded, func(a, b Excluded) int {
+		return cmp.Or(
+			cmp.Compare(slices.Index(Reasons, a.Reason), slices.Index(Reasons, b.Reason)),
+			strings.Compare(a.Name, b.Name),
+		)
+	})
+
+	return res, nil
 }
 
-// convert folds one catalog card into a pool entry. keep is false for a card
-// no player deck holds. sharedNumber is true when another card in the set's
-// catalog has the same collector number.
-func convert(set Set, src source, sharedNumber bool) (entry cards.Entry, keep bool, err error) {
-	if skippedTypes[src.Type] || skippedHouses[src.House] {
-		return cards.Entry{}, false, nil
+// readCatalog reads one set's catalog.
+func readCatalog(fsys fs.FS, set Set) ([]source, error) {
+	raw, err := fs.ReadFile(fsys, path.Join(CatalogDir, set.Slug+".json"))
+	if err != nil {
+		return nil, fmt.Errorf("read the %s catalog: %w", set.Slug, err)
 	}
 
+	var srcs []source
+	if err := json.Unmarshal(raw, &srcs); err != nil {
+		return nil, fmt.Errorf("parse the %s catalog: %w", set.Slug, err)
+	}
+
+	return srcs, nil
+}
+
+// exclusion returns why the pool leaves src out, if it does.
+func exclusion(src source) (Reason, bool) {
+	if reason, ok := excludedHouses[src.House]; ok {
+		return reason, true
+	}
+
+	reason, ok := excludedTypes[src.Type]
+
+	return reason, ok
+}
+
+// convert folds one catalog card into a pool entry. sharedNumber is true when
+// another card in the set's catalog has the same collector number.
+func convert(set Set, src source, sharedNumber bool) (cards.Entry, error) {
 	cardType, ok := cardTypes[src.Type]
 	if !ok {
-		return cards.Entry{}, false, fmt.Errorf("unknown card type %q", src.Type)
+		return cards.Entry{}, fmt.Errorf("unknown card type %q", src.Type)
 	}
 
 	house, ok := houses[src.House]
 	if !ok {
-		return cards.Entry{}, false, fmt.Errorf("unknown house %q", src.House)
+		return cards.Entry{}, fmt.Errorf("unknown house %q", src.House)
 	}
 
 	if !rarities[src.Rarity] {
-		return cards.Entry{}, false, fmt.Errorf("unknown rarity %q", src.Rarity)
+		return cards.Entry{}, fmt.Errorf("unknown rarity %q", src.Rarity)
 	}
 
-	name := src.Name
-	if src.Printed != "" {
-		name = src.Printed
-	}
+	name := src.printedName()
 
 	c := cards.Card{
 		Name:       name,
@@ -235,12 +367,12 @@ func convert(set Set, src source, sharedNumber bool) (entry cards.Entry, keep bo
 		c.Armor = &armor
 	}
 
-	entry = cards.Entry{Card: c}
+	entry := cards.Entry{Card: c}
 	if src.Name != name {
 		entry.Folded = src.Name
 	}
 
-	return entry, true, nil
+	return entry, nil
 }
 
 // imageName is the card's file name in the image bucket, as vex's importer

@@ -4,9 +4,14 @@ The vocabulary of this repository.
 
 ## Card pool
 
-The cards a player can guess and the day can pick: every deck card in vex's
-set catalogs, one per name. Tokens, archon powers, prophecies, the tide,
-gigantic art halves, evil twins and the Keyraken adventure deck are left out.
+The cards a player can guess and the day can pick: every action, artifact,
+creature and upgrade of a player deck in vex's set catalogs, one per name.
+
+## Excluded card
+
+A catalog card the pool leaves out, with its reason: gigantic creatures (both
+halves), evil twins, token creatures, archon powers, prophecies, the tide and
+the Keyraken adventure deck. `docs/excluded-cards.json` lists them.
 
 ## First printing
 
