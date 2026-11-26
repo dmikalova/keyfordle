@@ -509,13 +509,21 @@ func TestPopularDays(t *testing.T) {
 		t.Fatalf("keyfordle_days = %d %v", code, body)
 	}
 
-	days := body["days"].([]any)
+	days, ok := body["days"].([]any)
+	if !ok {
+		t.Fatalf("keyfordle_days body has no days list: %v", body)
+	}
 
 	var got []string
 
 	for _, d := range days {
-		day := d.(map[string]any)
-		got = append(got, day["date"].(string))
+		day, ok := d.(map[string]any)
+		if !ok {
+			t.Fatalf("popular day is not an object: %v", d)
+		}
+
+		date, _ := day["date"].(string)
+		got = append(got, date)
 
 		if day["card_of_the_day"] != nil {
 			t.Errorf("popular day %v names its card", day["date"])
