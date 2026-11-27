@@ -34,6 +34,15 @@ var referenceGroups = map[string]string{
 	"thetide":     "The Tide",
 }
 
+// EvilTwinSuffix ends the pool name of an evil twin: "Troll (Evil Twin)".
+const EvilTwinSuffix = " (Evil Twin)"
+
+// EvilTwinName returns the pool name of the evil twin of the card named
+// name.
+func EvilTwinName(name string) string {
+	return name + EvilTwinSuffix
+}
+
 // tideIcon is the dataset's token for the tide icon in card text.
 const tideIcon = "{tide}"
 
@@ -44,8 +53,8 @@ const tideIcon = "{tide}"
 //
 // From the dataset, the pool takes the deck cards, the reference cards, the
 // token creatures as creatures, and each gigantic creature as one card with
-// its joined image. It leaves out the evil twins, because each has the name
-// of a regular creature.
+// its joined image. Each evil twin is a card of its own, named with
+// EvilTwinSuffix, with its own house, stats, text and image.
 func BuildWithDataset(ds *card.Dataset, fsys fs.FS) (Result, error) {
 	expansions := map[string]int{}
 	for _, s := range ds.Sets {
@@ -120,18 +129,16 @@ func addDatasetCard(
 		printings[i] = pr.Set + "/" + pr.Number
 	}
 
-	if c.HasFlag("eviltwin") {
-		res.Excluded = append(res.Excluded, Excluded{
-			Name: c.Title, Set: p.Set, Number: p.Number, Type: c.Type, House: c.House,
-			Reason: ReasonEvilTwin, Printings: printings,
-		})
-
-		return nil
-	}
-
 	entry, err := datasetEntry(c, p, expansions)
 	if err != nil {
 		return err
+	}
+
+	// An evil twin has the name of a regular creature, so the pool names it
+	// with EvilTwinSuffix.
+	if c.HasFlag("eviltwin") {
+		entry.Name = EvilTwinName(c.Title)
+		entry.Folded = EvilTwinName(cmp.Or(entry.Folded, c.Folded))
 	}
 
 	key := strings.ToLower(entry.Name)
@@ -248,10 +255,14 @@ func mergeVex(res *Result, seen, anomalyOnly map[string]bool, vexRes Result) {
 	}
 
 	// A vex exclusion of a card that the pool has from the dataset, such as a
-	// reprinted gigantic creature, is dropped. An evil twin keeps its
-	// exclusion, because it has the name of a pool card.
+	// reprinted gigantic creature or an evil twin, is dropped.
 	for _, e := range vexRes.Excluded {
-		if e.Reason != ReasonEvilTwin && seen[strings.ToLower(e.Name)] {
+		name := e.Name
+		if e.Reason == ReasonEvilTwin {
+			name = EvilTwinName(name)
+		}
+
+		if seen[strings.ToLower(name)] {
 			continue
 		}
 

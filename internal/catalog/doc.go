@@ -19,9 +19,9 @@ var reasonDocs = map[Reason]struct {
 	},
 	ReasonEvilTwin: {
 		"Evil twins",
-		"Each evil twin has the name of a regular creature that is in the pool. " +
-			"keyforge-data has their stats. To add them, give the pool a rule for two " +
-			"cards with one name, so that a guess can tell them apart.",
+		"The pool takes each evil twin of the sets that keyforge-data has, as a card " +
+			"named \"<name> (Evil Twin)\". The evil twins listed here are in sets that " +
+			"keyforge-data does not have yet. They join the pool when it does.",
 	},
 	ReasonToken: {
 		"Token creatures",

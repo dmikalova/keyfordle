@@ -2,12 +2,12 @@
 
 # Cards left out of the pool
 
-The pool holds 2605 cards: the actions, artifacts, creatures and upgrades of every deck, the Keyraken adventure's included, and the archon powers, prophecies and tide that sit beside a deck. `mage cards` leaves 96 cards out. [excluded-cards.json](excluded-cards.json) lists each one. An entry is one card. Its `set` and `number` are its first printing, and `printings` lists every catalog entry that it covers.
+The pool holds 2654 cards: the actions, artifacts, creatures and upgrades of every deck, the Keyraken adventure's included, and the archon powers, prophecies and tide that sit beside a deck. `mage cards` leaves 47 cards out. [excluded-cards.json](excluded-cards.json) lists each one. An entry is one card. Its `set` and `number` are its first printing, and `printings` lists every catalog entry that it covers.
 
 | Reason           | Cards |
 | ---------------- | ----- |
 | `gigantic`       | 17    |
-| `evil-twin`      | 49    |
+| `evil-twin`      | 0     |
 | `token-creature` | 30    |
 
 ## Gigantic creatures
@@ -18,9 +18,9 @@ The pool takes each gigantic creature of the sets that keyforge-data has, as one
 
 ## Evil twins
 
-Reason: `evil-twin`. Cards: 49.
+Reason: `evil-twin`. Cards: 0.
 
-Each evil twin has the name of a regular creature that is in the pool. keyforge-data has their stats. To add them, give the pool a rule for two cards with one name, so that a guess can tell them apart.
+The pool takes each evil twin of the sets that keyforge-data has, as a card named "<name> (Evil Twin)". The evil twins listed here are in sets that keyforge-data does not have yet. They join the pool when it does.
 
 ## Token creatures
 

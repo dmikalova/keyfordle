@@ -57,6 +57,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/256.webp?v=1795667763906937"
   },
   {
+    "name": "5C077 (Evil Twin)",
+    "house": "Star Alliance",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "2",
+    "armor": "0",
+    "traits": ["robot"],
+    "card_text": "Reap: Destroy another creature with the same power as 5C077. You may give 5C077 a +1 power counter or remove a +1 power counter from 5C077.",
+    "card_number": "243",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/243.webp?v=1795667764312508",
+    "folded": "5c077 (Evil Twin)"
+  },
+  {
     "name": "A Fair Game",
     "house": "Dis",
     "card_type": "Action",
@@ -690,6 +705,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/093.webp?v=1795667763492945"
   },
   {
+    "name": "Almsmaster (Evil Twin)",
+    "house": "Sanctum",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "4",
+    "armor": "1",
+    "traits": ["human", "knight"],
+    "card_text": "Deploy.\nEach of Almsmaster's neighbors gains, \"Destroyed: Steal 1 Æmber.\"",
+    "card_number": "064",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/064.webp?v=1795667762583798",
+    "folded": "almsmaster (Evil Twin)"
+  },
+  {
     "name": "Altruist’s Rostrum",
     "house": "Saurian",
     "card_type": "Artifact",
@@ -1197,6 +1227,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/048.webp?v=1795667768086161"
   },
   {
+    "name": "Armadrone (Evil Twin)",
+    "house": "Logos",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["robot"],
+    "card_text": "Fight: Steal 2 Æmber.",
+    "card_number": "001",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/001.webp?v=1795667762499921",
+    "folded": "armadrone (Evil Twin)"
+  },
+  {
     "name": "Armageddon Cloak",
     "house": "Sanctum",
     "card_type": "Upgrade",
@@ -1627,7 +1672,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: Ward a creature. Destroy each creature with no A on it. Gain 2 chains.﻿﻿",
+    "card_text": "Play: Ward a creature. Destroy each creature with no Æmber on it. Gain 2 chains.﻿﻿",
     "card_number": "182",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/182.webp?v=1795663747529548"
@@ -2419,6 +2464,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/153.webp?v=1795667763078424"
   },
   {
+    "name": "Bestiarii Urso (Evil Twin)",
+    "house": "Saurian",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "5",
+    "armor": "1",
+    "traits": ["dinosaur"],
+    "card_text": "Play/Fight: Stun a creature.",
+    "card_number": "124",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/124.webp?v=1795667762549410",
+    "folded": "bestiarii urso (Evil Twin)"
+  },
+  {
     "name": "Beta-Forge",
     "house": "Logos",
     "card_type": "Artifact",
@@ -2557,6 +2617,21 @@
     "card_number": "034",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/034.webp?v=1795667768360468"
+  },
+  {
+    "name": "Binary Moray (Evil Twin)",
+    "house": "Logos",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "5",
+    "armor": "0",
+    "traits": ["ai", "beast"],
+    "card_text": "Skirmish.\nTide: After you raise the tide, ready Binary Moray.\nTide: After your opponent raises the tide, exhaust Binary Moray.",
+    "card_number": "002",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/002.webp?v=1795667762447546",
+    "folded": "binary moray (Evil Twin)"
   },
   {
     "name": "Binate Rupture",
@@ -3073,7 +3148,7 @@
     "power": null,
     "armor": null,
     "traits": ["item", "law"],
-    "card_text": "After your A is stolen, put a warrant counter on Book of Malefaction for each A stolen.\nOmni: Remove a warrant counter from Book of Malefaction. If you do, purge a creature.",
+    "card_text": "After your Æmber is stolen, put a warrant counter on Book of Malefaction for each Æmber stolen.\nOmni: Remove a warrant counter from Book of Malefaction. If you do, purge a creature.",
     "card_number": "159",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/159.webp?v=1795665838291762"
@@ -3186,7 +3261,7 @@
     "power": "3",
     "armor": "0",
     "traits": ["mutant", "thief"],
-    "card_text": "Enhance PTPTPT. (These icons have already been added to cards in your deck.)\nEach friendly creature with A on it gains elusive.﻿﻿",
+    "card_text": "Enhance PTPTPT. (These icons have already been added to cards in your deck.)\nEach friendly creature with Æmber on it gains elusive.﻿﻿",
     "card_number": "264",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/264.webp?v=1795665840328348"
@@ -3948,6 +4023,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/292.webp?v=1795667764323271"
   },
   {
+    "name": "C.R. Officer Hawkins (Evil Twin)",
+    "house": "Star Alliance",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "2",
+    "armor": "0",
+    "traits": ["human"],
+    "card_text": "Deploy. (This creature can enter play anywhere in your battleline.)\nPlay: Your opponent loses 1 Æmber for each of C.R. Officer Hawkins's non-Star Alliance neighbors.",
+    "card_number": "244",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/244.webp?v=1795667763807262",
+    "folded": "c.r. officer hawkins (Evil Twin)"
+  },
+  {
     "name": "C.Æ.N.D.L.E. Unit",
     "house": "Logos",
     "card_type": "Creature",
@@ -3989,6 +4079,21 @@
     "card_number": "276",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/276.webp?v=1795667764455453"
+  },
+  {
+    "name": "CH-337A (Evil Twin)",
+    "house": "Star Alliance",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["robot"],
+    "card_text": "Skirmish. (When you use this creature to fight, it is dealt no damage in return.)\nTide: While the tide is high, each of CH-337 Æmber's neighbors gains skirmish.",
+    "card_number": "245",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/245.webp?v=1795667763843475",
+    "folded": "ch-337a (Evil Twin)"
   },
   {
     "name": "CPO Zytar",
@@ -4215,6 +4320,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/016.webp?v=1795667762493003"
   },
   {
+    "name": "Captain Kresage (Evil Twin)",
+    "house": "Logos",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "6",
+    "armor": "0",
+    "traits": ["cyborg"],
+    "card_text": "Each creature loses elusive, taunt, poison, and skirmish.",
+    "card_number": "003",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/003.webp?v=1795667768385714",
+    "folded": "captain kresage (Evil Twin)"
+  },
+  {
     "name": "Captain Nemo",
     "house": "Logos",
     "card_type": "Creature",
@@ -4241,6 +4361,21 @@
     "card_number": "192",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/192.webp?v=1795667763490154"
+  },
+  {
+    "name": "Captain No-Beard (Evil Twin)",
+    "house": "Shadows",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "6",
+    "armor": "0",
+    "traits": ["elf", "thief"],
+    "card_text": "Taunt. (This creature’s neighbors cannot be attacked unless they have taunt.)\nDestroyed: Each of Captain No-Beard's neighbors captures 1 Æmber.",
+    "card_number": "184",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/184.webp?v=1795667763475656",
+    "folded": "captain no-beard (Evil Twin)"
   },
   {
     "name": "Captain Pella",
@@ -4481,6 +4616,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/170.webp?v=1795667763318628"
   },
   {
+    "name": "Censor Philo (Evil Twin)",
+    "house": "Saurian",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "5",
+    "armor": "0",
+    "traits": ["dinosaur", "politician"],
+    "card_text": "Play: Deal 5 damage to a creature with Æmber on it.",
+    "card_number": "125",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/125.webp?v=1795667762472608",
+    "folded": "censor philo (Evil Twin)"
+  },
+  {
     "name": "Centurion Stenopius",
     "house": "Saurian",
     "card_type": "Creature",
@@ -4489,7 +4639,7 @@
     "power": "3",
     "armor": "2",
     "traits": ["dinosaur", "soldier"],
-    "card_text": "Centurion Stenopius gets +3 power for each A on it.\nPlay/Fight/Reap: You may exalt Centurion Stenopius.",
+    "card_text": "Centurion Stenopius gets +3 power for each Æmber on it.\nPlay/Fight/Reap: You may exalt Centurion Stenopius.",
     "card_number": "199",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/199.webp?v=1795663748032777"
@@ -4832,6 +4982,21 @@
     "card_number": "415",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/415.webp?v=1795667765561991"
+  },
+  {
+    "name": "Chelonia (Evil Twin)",
+    "house": "Untamed",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "2",
+    "armor": "0",
+    "traits": ["beast", "witch"],
+    "card_text": "Elusive. (The first time this creature is attacked each turn, no damage is dealt.)\nTide: After you play another creature, if the tide is high, your opponent loses 1 Æmber.",
+    "card_number": "369",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/369.webp?v=1795667764836895",
+    "folded": "chelonia (Evil Twin)"
   },
   {
     "name": "Chenille",
@@ -5533,6 +5698,21 @@
     "card_number": "277",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/277.webp?v=1795667764456878"
+  },
+  {
+    "name": "Colonist Chapman (Evil Twin)",
+    "house": "Star Alliance",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["human"],
+    "card_text": "Elusive. (The first time this creature is attacked each turn, no damage is dealt.)\nPlay: Capture all Æmber from each player.",
+    "card_number": "246",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/246.webp?v=1795667763981643",
+    "folded": "colonist chapman (Evil Twin)"
   },
   {
     "name": "Colossipede",
@@ -6573,7 +6753,7 @@
     "power": null,
     "armor": null,
     "traits": ["location"],
-    "card_text": "Each creature with A on it gains, “Destroyed: Move 1 Æmber from this creature to the most powerful enemy creature.”",
+    "card_text": "Each creature with Æmber on it gains, “Destroyed: Move 1 Æmber from this creature to the most powerful enemy creature.”",
     "card_number": "202",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/202.webp?v=1795665839084862"
@@ -7615,7 +7795,7 @@
     "power": "20",
     "armor": "0",
     "traits": ["mutant"],
-    "card_text": "(Play only with the other half of Deusillus.)\nPlay: Capture all of your opponent’s A. Deal 5 damage to an enemy creature.\nFight/Reap: Move 1 Æmber from Deusillus to the common supply. Deal 2 damage to each enemy creature.﻿﻿",
+    "card_text": "(Play only with the other half of Deusillus.)\nPlay: Capture all of your opponent’s Æmber. Deal 5 damage to an enemy creature.\nFight/Reap: Move 1 Æmber from Deusillus to the common supply. Deal 2 damage to each enemy creature.﻿﻿",
     "card_number": "244",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/244-gigantic.webp?v=1795716709278124"
@@ -7784,7 +7964,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: For the remainder of the turn, any A you would gain from reaping is stolen from your opponent instead.",
+    "card_text": "Play: For the remainder of the turn, any Æmber you would gain from reaping is stolen from your opponent instead.",
     "card_number": "108",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/108.webp?v=1795663744495902"
@@ -8037,7 +8217,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "This creature gains, “Your A cannot be stolen.”",
+    "card_text": "This creature gains, “Your Æmber cannot be stolen.”",
     "card_number": "149",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/149.webp?v=1795663747322537"
@@ -8474,7 +8654,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: Destroy a creature with no A on it.",
+    "card_text": "Play: Destroy a creature with no Æmber on it.",
     "card_number": "072",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/072.webp?v=1795663746828980"
@@ -8741,7 +8921,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: If your opponent has more A than you, draw a card. If you have more A than your opponent, archive a card.",
+    "card_text": "Play: If your opponent has more Æmber than you, draw a card. If you have more Æmber than your opponent, archive a card.",
     "card_number": "268",
     "expansion": 435,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/268.webp?v=1795663742893018"
@@ -9088,6 +9268,21 @@
     "card_number": "137",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/137.webp?v=1795667762914948"
+  },
+  {
+    "name": "Eclectic Ambrosius (Evil Twin)",
+    "house": "Saurian",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "4",
+    "armor": "0",
+    "traits": ["dinosaur"],
+    "card_text": "Reap: Put an ignorance counter on an enemy creature. As long as that creature has an ignorance counter, its text box is considered blank (except for traits).",
+    "card_number": "126",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/126.webp?v=1795667762560370",
+    "folded": "eclectic ambrosius (Evil Twin)"
   },
   {
     "name": "Eclectic Inquiry",
@@ -9675,7 +9870,7 @@
     "power": "3",
     "armor": "0",
     "traits": ["demon", "sin"],
-    "card_text": "Elusive.\nReap: If there are 2 or more friendly Sin creatures, capture all of your opponent’s A.",
+    "card_text": "Elusive.\nReap: If there are 2 or more friendly Sin creatures, capture all of your opponent’s Æmber.",
     "card_number": "056",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/056.webp?v=1795665841149111"
@@ -9731,7 +9926,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: Redistribute the A on friendly creatures among friendly creatures. Redistribute the A on enemy creatures among enemy creatures.",
+    "card_text": "Play: Redistribute the Æmber on friendly creatures among friendly creatures. Redistribute the Æmber on enemy creatures among enemy creatures.",
     "card_number": "232",
     "expansion": 435,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/232.webp?v=1795663742580062"
@@ -9914,7 +10109,7 @@
     "power": "4",
     "armor": "0",
     "traits": ["mutant", "scientist"],
-    "card_text": "Action: If your opponent has an even amount of A, steal 1 Æmber.",
+    "card_text": "Action: If your opponent has an even amount of Æmber, steal 1 Æmber.",
     "card_number": "073",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/073.webp?v=1795665839346910"
@@ -10863,6 +11058,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/355.webp?v=1795667764965080"
   },
   {
+    "name": "Flamegill Enforcer (Evil Twin)",
+    "house": "Unfathomable",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "6",
+    "armor": "0",
+    "traits": ["aquan"],
+    "card_text": "Tide: After your opponent raises the tide, enrage Flamegill Enforcer.\nAction: Steal 1 Æmber.",
+    "card_number": "306",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/306.webp?v=1795667764390639",
+    "folded": "flamegill enforcer (Evil Twin)"
+  },
+  {
     "name": "Flamethrower",
     "house": "Brobnar",
     "card_type": "Artifact",
@@ -11395,7 +11605,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "This creature gains, “Fight/Reap: You may deal 2 damage to a creature, or attach Frane’s Blaster to First Officer Frane.”\nAfter you attach Frane’s Blaster to First Officer Frane, move each A from First Officer Frane to your pool.",
+    "card_text": "This creature gains, “Fight/Reap: You may deal 2 damage to a creature, or attach Frane’s Blaster to First Officer Frane.”\nAfter you attach Frane’s Blaster to First Officer Frane, move each Æmber from First Officer Frane to your pool.",
     "card_number": "346",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/346.webp?v=1795663748726904",
@@ -11428,6 +11638,21 @@
     "card_number": "215",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/215.webp?v=1795667763718816"
+  },
+  {
+    "name": "Freebooter Faye (Evil Twin)",
+    "house": "Shadows",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "4",
+    "armor": "0",
+    "traits": ["elf", "thief"],
+    "card_text": "Tide: Play: Raise the tide.\nTide: Before Fight: If the tide is high, steal 1 Æmber.",
+    "card_number": "185",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/185.webp?v=1795667763902417",
+    "folded": "freebooter faye (Evil Twin)"
   },
   {
     "name": "Freedom to Be",
@@ -11592,7 +11817,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: If your opponent has more A than you, gain 1 Æmber for each key your opponent has forged.",
+    "card_text": "Play: If your opponent has more Æmber than you, gain 1 Æmber for each key your opponent has forged.",
     "card_number": "269",
     "expansion": 435,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/269.webp?v=1795663742958665"
@@ -11760,7 +11985,7 @@
     "power": "2",
     "armor": "0",
     "traits": ["elf", "thief"],
-    "card_text": "Elusive. (The first time this creature is attacked each turn, no damage is dealt.)\nReap: If your opponent has more A than you, steal 1 Æmber.﻿﻿",
+    "card_text": "Elusive. (The first time this creature is attacked each turn, no damage is dealt.)\nReap: If your opponent has more Æmber than you, steal 1 Æmber.﻿﻿",
     "card_number": "270",
     "expansion": 435,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/270.webp?v=1795663742928387"
@@ -12360,6 +12585,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/357.webp?v=1795667764877716"
   },
   {
+    "name": "Giltspine Netcaster (Evil Twin)",
+    "house": "Unfathomable",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "2",
+    "armor": "0",
+    "traits": ["aquan"],
+    "card_text": "Enhance (capture capture). (These icons have already been added to cards in your deck.)\nReap: Ready and use a friendly non-Aquan creature.",
+    "card_number": "307",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/307.webp?v=1795667764390882",
+    "folded": "giltspine netcaster (Evil Twin)"
+  },
+  {
     "name": "Giltspine School",
     "house": "Unfathomable",
     "card_type": "Creature",
@@ -12382,7 +12622,7 @@
     "power": null,
     "armor": null,
     "traits": ["item"],
-    "card_text": "Each friendly creature with A on it gets +1 armor.\nPlay: Exalt a friendly creature.",
+    "card_text": "Each friendly creature with Æmber on it gets +1 armor.\nPlay: Exalt a friendly creature.",
     "card_number": "150",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/150.webp?v=1795665838526297",
@@ -12554,7 +12794,7 @@
     "power": "6",
     "armor": "0",
     "traits": ["demon", "sin"],
-    "card_text": "Play: Exalt Gluttony once for each friendly Sin creature.\nReap: Move each A from friendly creatures to your pool.",
+    "card_text": "Play: Exalt Gluttony once for each friendly Sin creature.\nReap: Move each Æmber from friendly creatures to your pool.",
     "card_number": "057",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/057.webp?v=1795665841141150"
@@ -13063,6 +13303,21 @@
     "card_number": "100",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/100.webp?v=1795667763140493"
+  },
+  {
+    "name": "Grey Augur (Evil Twin)",
+    "house": "Sanctum",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "1",
+    "traits": ["human", "monk"],
+    "card_text": "Each of Grey Augur's neighbors gains, \"Reap: Gain 1 Æmber and exalt this creature.\"",
+    "card_number": "065",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/065.webp?v=1795667762667610",
+    "folded": "grey augur (Evil Twin)"
   },
   {
     "name": "Grey Monk",
@@ -13784,6 +14039,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/230.webp?v=1795667763731361"
   },
   {
+    "name": "Hard Simpson (Evil Twin)",
+    "house": "Shadows",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "4",
+    "armor": "0",
+    "traits": ["elf", "thief"],
+    "card_text": "Tide: Reap: If the tide is high, a damaged creature captures 1 Æmber from its own side.",
+    "card_number": "186",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/186.webp?v=1795667763932721",
+    "folded": "hard simpson (Evil Twin)"
+  },
+  {
     "name": "Harland Mindlock",
     "house": "Logos",
     "card_type": "Creature",
@@ -14457,6 +14727,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/231.webp?v=1795667763870673"
   },
   {
+    "name": "Hobnobber (Evil Twin)",
+    "house": "Shadows",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["elf", "thief"],
+    "card_text": "Omni: If your opponent has exactly 1 Æmber, steal it.",
+    "card_number": "187",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/187.webp?v=1795667763887853",
+    "folded": "hobnobber (Evil Twin)"
+  },
+  {
     "name": "Hock",
     "house": "Shadows",
     "card_type": "Action",
@@ -14694,6 +14979,21 @@
     "card_number": "359",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/359.webp?v=1795667764907797"
+  },
+  {
+    "name": "Horrid Synan (Evil Twin)",
+    "house": "Unfathomable",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "2",
+    "armor": "0",
+    "traits": ["beast"],
+    "card_text": "Poison. (Any damage dealt by this creature’s power during a fight destroys the damaged creature.)\nTaunt. (This creature’s neighbors cannot be attacked unless they have taunt.)",
+    "card_number": "308",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/308.webp?v=1795667764588534",
+    "folded": "horrid synan (Evil Twin)"
   },
   {
     "name": "Horseman of Death",
@@ -15224,7 +15524,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "This creature gets +2 armor and gains, “Destroyed: Move each A on this creature to the common supply.”",
+    "card_text": "This creature gets +2 armor and gains, “Destroyed: Move each Æmber on this creature to the common supply.”",
     "card_number": "185",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/185.webp?v=1795663747635839"
@@ -15547,7 +15847,7 @@
     "power": "4",
     "armor": "0",
     "traits": ["demon"],
-    "card_text": "Play: Purge up to 2 cards from a discard pile. Your opponent loses A equal to the number of A bonus icons on the purged cards.",
+    "card_text": "Play: Purge up to 2 cards from a discard pile. Your opponent loses Æmber equal to the number of Æmber bonus icons on the purged cards.",
     "card_number": "078",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/078.webp?v=1795663746766334"
@@ -16453,6 +16753,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/341.webp?v=1795667764813102"
   },
   {
+    "name": "Kaupe (Evil Twin)",
+    "house": "Unfathomable",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "7",
+    "armor": "0",
+    "traits": ["aquan"],
+    "card_text": "You cannot play more than 1 card of each type each turn.\nFight/Reap: Discard any number of cards from your hand. For each card discarded this way, deal 2 damage to an enemy creature.",
+    "card_number": "309",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/309.webp?v=1795667764518306",
+    "folded": "kaupe (Evil Twin)"
+  },
+  {
     "name": "Keenu",
     "house": "Unfathomable",
     "card_type": "Creature",
@@ -16601,7 +16916,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: Forge a key at +6 Æmber current cost. If your opponent has no A, forge a key at +2 Æmber current cost instead.",
+    "card_text": "Play: Forge a key at +6 Æmber current cost. If your opponent has no Æmber, forge a key at +2 Æmber current cost instead.",
     "card_number": "273",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/273.webp?v=1795663745580817"
@@ -16629,7 +16944,7 @@
     "power": null,
     "armor": null,
     "traits": ["item"],
-    "card_text": "When your opponent would forge a key, that player names a house. Reveal a random card from your hand. If that card is not of the named house, destroy Keyforgery and they do not forge that key (no A is spent).",
+    "card_text": "When your opponent would forge a key, that player names a house. Reveal a random card from your hand. If that card is not of the named house, destroy Keyforgery and they do not forge that key (no Æmber is spent).",
     "card_number": "271",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/271.webp?v=1795663748233802"
@@ -17098,6 +17413,21 @@
     "card_number": "176",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/176.webp?v=1795667764245547"
+  },
+  {
+    "name": "Lapisaurus (Evil Twin)",
+    "house": "Saurian",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["beast"],
+    "card_text": "Skirmish. (When you use this creature to fight, it is dealt no damage in return.)\nFight: Exalt the creature Lapisaurus fights.",
+    "card_number": "127",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/127.webp?v=1795667762557408",
+    "folded": "lapisaurus (Evil Twin)"
   },
   {
     "name": "Lash Out",
@@ -17718,6 +18048,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/080.webp?v=1795667763505508"
   },
   {
+    "name": "Lightsmith Clariel (Evil Twin)",
+    "house": "Sanctum",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "5",
+    "armor": "0",
+    "traits": ["angel"],
+    "card_text": "Action: Switch a creature's power and armor for the remainder of the turn.",
+    "card_number": "067",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/067.webp?v=1795667762654116",
+    "folded": "lightsmith clariel (Evil Twin)"
+  },
+  {
     "name": "Lilithal",
     "house": "Dis",
     "card_type": "Creature",
@@ -18310,6 +18655,21 @@
     "folded": "laerie of the lake"
   },
   {
+    "name": "Lærie of the Lake (Evil Twin)",
+    "house": "Sanctum",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["human", "knight"],
+    "card_text": "Tide: While the tide is high, Lærie of the Lake gets +5 armor.",
+    "card_number": "066",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/066.webp?v=1795667762651601",
+    "folded": "laerie of the lake (Evil Twin)"
+  },
+  {
     "name": "Mab the Mad",
     "house": "Untamed",
     "card_type": "Creature",
@@ -18392,6 +18752,21 @@
     "card_number": "177",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/177.webp?v=1795667763434039"
+  },
+  {
+    "name": "Magistra Vita (Evil Twin)",
+    "house": "Saurian",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "5",
+    "armor": "0",
+    "traits": ["dinosaur"],
+    "card_text": "Play/Fight: You may exalt a friendly non-Saurian creature. If you do, fight with it.",
+    "card_number": "128",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/128.webp?v=1795667762621268",
+    "folded": "magistra vita (Evil Twin)"
   },
   {
     "name": "Magistrate Crispus",
@@ -18612,7 +18987,7 @@
     "power": "2",
     "armor": "0",
     "traits": ["beast"],
-    "card_text": "Marmo Swarm gets +1 power for each A in your pool.",
+    "card_text": "Marmo Swarm gets +1 power for each Æmber in your pool.",
     "card_number": "327",
     "expansion": 435,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/327.webp?v=1795663743309021"
@@ -18683,7 +19058,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: Lose all of your A. Draw 2 cards for each A lost.",
+    "card_text": "Play: Lose all of your Æmber. Draw 2 cards for each Æmber lost.",
     "card_number": "202",
     "expansion": 435,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/202.webp?v=1795663742242705"
@@ -19781,7 +20156,7 @@
     "power": "3",
     "armor": "0",
     "traits": ["beast"],
-    "card_text": "Hazardous 3. (Before this creature is attacked, deal 3 damage to the attacking enemy.)\nAfter A is stolen from you, deal 1 damage to each enemy creature for each A stolen.",
+    "card_text": "Hazardous 3. (Before this creature is attacked, deal 3 damage to the attacking enemy.)\nAfter A is stolen from you, deal 1 damage to each enemy creature for each Æmber stolen.",
     "card_number": "360",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/360.webp?v=1795663749115648"
@@ -19856,6 +20231,21 @@
     "card_number": "219",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/219.webp?v=1795667763772678"
+  },
+  {
+    "name": "Monty Bank (Evil Twin)",
+    "house": "Shadows",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "1",
+    "armor": "0",
+    "traits": ["elf", "thief"],
+    "card_text": "Elusive.\nPlay: Exalt Monty Bank 2 times.\nAction: Steal 1 Æmber for each Æmber on Monty Bank.",
+    "card_number": "188",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/188.webp?v=1795667764684599",
+    "folded": "monty bank (Evil Twin)"
   },
   {
     "name": "Monument to Faust",
@@ -19940,6 +20330,21 @@
     "card_number": "421",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/421.webp?v=1795667765253868"
+  },
+  {
+    "name": "Mookling (Evil Twin)",
+    "house": "Untamed",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "2",
+    "armor": "0",
+    "traits": ["beast"],
+    "card_text": "After your opponent forges a key, give Mookling a +1 power counter for each Æmber spent to forge that key.",
+    "card_number": "370",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/370.webp?v=1795667764840602",
+    "folded": "mookling (Evil Twin)"
   },
   {
     "name": "Moon Light Special",
@@ -20698,7 +21103,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: If your opponent has more A than you, steal 1 Æmber and draw a card.",
+    "card_text": "Play: If your opponent has more Æmber than you, steal 1 Æmber and draw a card.",
     "card_number": "116",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/116.webp?v=1795663744505360"
@@ -21260,7 +21665,7 @@
     "power": "5",
     "armor": "0",
     "traits": ["mutant", "scientist"],
-    "card_text": "Action: If your opponent has an odd amount of A, steal 1 Æmber.",
+    "card_text": "Action: If your opponent has an odd amount of Æmber, steal 1 Æmber.",
     "card_number": "121",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/121.webp?v=1795665838038344"
@@ -21394,6 +21799,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/056.webp?v=1795667768286825"
   },
   {
+    "name": "Old Egad (Evil Twin)",
+    "house": "Logos",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["cyborg"],
+    "card_text": "Destroyed: Enrage each enemy creature.",
+    "card_number": "004",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/004.webp?v=1795667762490632",
+    "folded": "old egad (Evil Twin)"
+  },
+  {
     "name": "Old Yurk",
     "house": "Dis",
     "card_type": "Creature",
@@ -21421,6 +21841,21 @@
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/408.webp?v=1795667765174058",
     "folded": "ol' paddy"
+  },
+  {
+    "name": "Ol’ Paddy (Evil Twin)",
+    "house": "Untamed",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "5",
+    "armor": "0",
+    "traits": ["beast", "fisher"],
+    "card_text": "Tide: Reap: Discard the bottom card of your opponent's deck, or the bottom 3 cards instead if the tide is high. Destroy a creature that shares a house with 1 of the discarded cards.",
+    "card_number": "371",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/371.webp?v=1795667764897402",
+    "folded": "ol' paddy (Evil Twin)"
   },
   {
     "name": "Ol’ Switcheroo",
@@ -21522,6 +21957,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/237.webp?v=1795667763844847"
   },
   {
+    "name": "One-Eyed Willa (Evil Twin)",
+    "house": "Shadows",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "2",
+    "armor": "0",
+    "traits": ["elf", "thief"],
+    "card_text": "Elusive. Skirmish.\nTide: Fight: If the tide is high, your opponent loses 2 Æmber.",
+    "card_number": "189",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/189.webp?v=1795667763475822",
+    "folded": "one-eyed willa (Evil Twin)"
+  },
+  {
     "name": "Onyx Knight",
     "house": "Dis",
     "card_type": "Creature",
@@ -21590,6 +22040,21 @@
     "card_number": "299",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/299.webp?v=1795667764343036"
+  },
+  {
+    "name": "Operative Espion (Evil Twin)",
+    "house": "Star Alliance",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "4",
+    "armor": "0",
+    "traits": ["alien"],
+    "card_text": "Elusive. (The first time this creature is attacked each turn, no damage is dealt.)\nTide: After a player raises the tide during their turn, they may deal 3 damage to a creature.",
+    "card_number": "247",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/247.webp?v=1795667763858772",
+    "folded": "operative espion (Evil Twin)"
   },
   {
     "name": "Operator Olluyyg",
@@ -22076,6 +22541,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/058.webp?v=1795667768004881"
   },
   {
+    "name": "PI Sweven (Evil Twin)",
+    "house": "Logos",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "2",
+    "armor": "0",
+    "traits": ["human", "scientist"],
+    "card_text": "Tide: Reap: If the tide is high, your opponent discards a random card from their hand.",
+    "card_number": "005",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/005.webp?v=1795667768359616",
+    "folded": "pi sweven (Evil Twin)"
+  },
+  {
     "name": "PYR*0",
     "house": "Star Alliance",
     "card_type": "Creature",
@@ -22533,7 +23013,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: If you have more A than your opponent, they discard a random card from their hand and you draw a card.﻿﻿",
+    "card_text": "Play: If you have more Æmber than your opponent, they discard a random card from their hand and you draw a card.﻿﻿",
     "card_number": "293",
     "expansion": 435,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/293.webp?v=1795663743536610"
@@ -22860,6 +23340,21 @@
     "card_number": "161",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/161.webp?v=1795667763025919"
+  },
+  {
+    "name": "Physicus Felix (Evil Twin)",
+    "house": "Saurian",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "5",
+    "armor": "0",
+    "traits": ["dinosaur", "philosopher"],
+    "card_text": "Tide: Play/Fight: If the tide is low, you may exalt a creature.",
+    "card_number": "129",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/129.webp?v=1795667762812699",
+    "folded": "physicus felix (Evil Twin)"
   },
   {
     "name": "Picaroon",
@@ -23207,7 +23702,7 @@
     "power": null,
     "armor": null,
     "traits": ["item"],
-    "card_text": "You may spend A on Pocket Universe when forging keys.\nAction: Move 1 Æmber from your pool to Pocket Universe.",
+    "card_text": "You may spend Æmber on Pocket Universe when forging keys.\nAction: Move 1 Æmber from your pool to Pocket Universe.",
     "card_number": "131",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/131.webp?v=1795663744552536"
@@ -23772,6 +24267,21 @@
     "card_number": "046",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/046.webp?v=1795667768429911"
+  },
+  {
+    "name": "Prof. Garwynne (Evil Twin)",
+    "house": "Logos",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "2",
+    "armor": "0",
+    "traits": ["human", "scientist"],
+    "card_text": "Skirmish.\nFight: You may choose a card in your archives and put it into your hand.",
+    "card_number": "006",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/006.webp?v=1795667768354119",
+    "folded": "prof. garwynne (Evil Twin)"
   },
   {
     "name": "Professor Scruples",
@@ -26039,6 +26549,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/300.webp?v=1795667764365502"
   },
   {
+    "name": "Rocketeer Tryska (Evil Twin)",
+    "house": "Star Alliance",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "4",
+    "armor": "0",
+    "traits": ["human"],
+    "card_text": "Skirmish.\nTide: While the tide is high, Rocketeer Tryska enters play ready.",
+    "card_number": "248",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/248.webp?v=1795667763973483",
+    "folded": "rocketeer tryska (Evil Twin)"
+  },
+  {
     "name": "Rogue Ogre",
     "house": "Brobnar",
     "card_type": "Creature",
@@ -26593,7 +27118,7 @@
     "power": null,
     "armor": null,
     "traits": ["location"],
-    "card_text": "You may spend A on Safe Place as if it were in your pool.\nAction: Move 1 Æmber from your pool to Safe Place.﻿﻿",
+    "card_text": "You may spend Æmber on Safe Place as if it were in your pool.\nAction: Move 1 Æmber from your pool to Safe Place.﻿﻿",
     "card_number": "289",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/289.webp?v=1795663745637074"
@@ -27261,6 +27786,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/239.webp?v=1795667764051877"
   },
   {
+    "name": "Sea Urchin (Evil Twin)",
+    "house": "Shadows",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "1",
+    "armor": "0",
+    "traits": ["aquan", "thief"],
+    "card_text": "Tide: Play: Capture 2 Æmber. If the tide is high, steal 2 Æmber instead.",
+    "card_number": "190",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/190.webp?v=1795667763961823",
+    "folded": "sea urchin (Evil Twin)"
+  },
+  {
     "name": "Seabringer Kekoa",
     "house": "Unfathomable",
     "card_type": "Creature",
@@ -27493,7 +28033,7 @@
     "power": "4",
     "armor": "1",
     "traits": ["dinosaur", "politician"],
-    "card_text": "You may spend A on Senator Shrix as if it were in your pool.\nPlay/Reap: You may exalt Senator Shrix.",
+    "card_text": "You may spend Æmber on Senator Shrix as if it were in your pool.\nPlay/Reap: You may exalt Senator Shrix.",
     "card_number": "193",
     "expansion": 452,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/worldscollide/193.webp?v=1795663747776032"
@@ -27511,6 +28051,21 @@
     "card_number": "117",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/117.webp?v=1795667762490616"
+  },
+  {
+    "name": "Seneschal Sargassa (Evil Twin)",
+    "house": "Sanctum",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "6",
+    "armor": "0",
+    "traits": ["spirit", "knight"],
+    "card_text": "Tide: After a player raises the tide, Seneschal Sargassa captures 2 Æmber from your opponent.",
+    "card_number": "068",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/068.webp?v=1795667762646758",
+    "folded": "seneschal sargassa (Evil Twin)"
   },
   {
     "name": "Sensor Chief Garcia",
@@ -27647,7 +28202,7 @@
     "power": "5",
     "armor": "1",
     "traits": ["dinosaur", "thief"],
-    "card_text": "Action: Move each A from an enemy creature to your opponent’s pool. If there was at least 1 Æmber on that creature, take control of it. While under your control, it belongs to house Shadows.﻿﻿",
+    "card_text": "Action: Move each Æmber from an enemy creature to your opponent’s pool. If there was at least 1 Æmber on that creature, take control of it. While under your control, it belongs to house Shadows.﻿﻿",
     "card_number": "292",
     "expansion": 479,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/massmutation/292.webp?v=1795665840838978"
@@ -27946,6 +28501,21 @@
     "card_number": "302",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/302.webp?v=1795667764249097"
+  },
+  {
+    "name": "Shield-U-Later (Evil Twin)",
+    "house": "Star Alliance",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "5",
+    "armor": "0",
+    "traits": ["robot"],
+    "card_text": "Shield-U-Later may be played as an upgrade instead of a creature, with the text: “This creature loses all armor and gets –2 power.”",
+    "card_number": "249",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/249.webp?v=1795667763898119",
+    "folded": "shield-u-later (Evil Twin)"
   },
   {
     "name": "Shifting Battlefield",
@@ -28445,6 +29015,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/119.webp?v=1795667762489385"
   },
   {
+    "name": "Sir Bevor (Evil Twin)",
+    "house": "Sanctum",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "1",
+    "armor": "5",
+    "traits": ["alien", "knight"],
+    "card_text": "Poison. (Any damage dealt by this creature’s power during a fight destroys the damaged creature.)",
+    "card_number": "069",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/069.webp?v=1795667762632402",
+    "folded": "sir bevor (Evil Twin)"
+  },
+  {
     "name": "Sir Jaune",
     "house": "Sanctum",
     "card_type": "Creature",
@@ -28481,7 +29066,7 @@
     "power": "4",
     "armor": "2",
     "traits": ["human", "knight"],
-    "card_text": "After your opponent gains A by reaping, Sir Marrows captures it.",
+    "card_text": "After your opponent gains Æmber by reaping, Sir Marrows captures it.",
     "card_number": "223",
     "expansion": 435,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/223.webp?v=1795663742490327"
@@ -29683,6 +30268,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/410.webp?v=1795667765177738"
   },
   {
+    "name": "Sporegorger (Evil Twin)",
+    "house": "Untamed",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "4",
+    "armor": "0",
+    "traits": ["beast", "fungus"],
+    "card_text": "Play: Move each +1 power counter in play to Sporegorger.\nReap: You may remove each +1 power counter from Sporegorger. For each counter removed this way, deal 1 damage to each other creature.",
+    "card_number": "372",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/372.webp?v=1795667764852635",
+    "folded": "sporegorger (Evil Twin)"
+  },
+  {
     "name": "Spyyyder",
     "house": "Dis",
     "card_type": "Creature",
@@ -30865,6 +31465,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/062.webp?v=1795667762796136"
   },
   {
+    "name": "Talmage Steelheart (Evil Twin)",
+    "house": "Logos",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["human"],
+    "card_text": "Play: Deal damage to an enemy creature equal to the number of cards you have played this turn (including this one).",
+    "card_number": "007",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/007.webp?v=1795667768362860",
+    "folded": "talmage steelheart (Evil Twin)"
+  },
+  {
     "name": "Talon of Invidius",
     "house": "Dis",
     "card_type": "Creature",
@@ -30947,6 +31562,21 @@
     "card_number": "329",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/329.webp?v=1795667764422975"
+  },
+  {
+    "name": "Taniwha (Evil Twin)",
+    "house": "Unfathomable",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "4",
+    "armor": "1",
+    "traits": ["beast"],
+    "card_text": "Fight/Reap: Put a creature from your discard pile on top of your deck.",
+    "card_number": "310",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/310.webp?v=1795667764526485",
+    "folded": "taniwha (Evil Twin)"
   },
   {
     "name": "Tantadlin",
@@ -31702,7 +32332,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: Choose a ready friendly Brobnar creature. Exhaust it and gain A equal to half its power (rounding down the gain).",
+    "card_text": "Play: Choose a ready friendly Brobnar creature. Exhaust it and gain Æmber equal to half its power (rounding down the gain).",
     "card_number": "031",
     "expansion": 435,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/ageofascension/031.webp?v=1795663749278041"
@@ -32027,7 +32657,7 @@
     "power": null,
     "armor": null,
     "traits": ["vehicle"],
-    "card_text": "Skip your “forge a key” step.\nYou get all A spent by your opponent when forging keys.\nAction: Destroy The Sting.﻿﻿",
+    "card_text": "Skip your “forge a key” step.\nYou get all Æmber spent by your opponent when forging keys.\nAction: Destroy The Sting.﻿﻿",
     "card_number": "295",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/295.webp?v=1795663745911976"
@@ -32879,6 +33509,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/348.webp?v=1795667764924240"
   },
   {
+    "name": "Tomwa of the Glow (Evil Twin)",
+    "house": "Unfathomable",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["aquan"],
+    "card_text": "Tide: Reap: If the tide is high, exhaust an enemy creature and your opponent discards a random card from their hand.",
+    "card_number": "311",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/311.webp?v=1795667764437833",
+    "folded": "tomwa of the glow (Evil Twin)"
+  },
+  {
     "name": "Too Low",
     "house": "Saurian",
     "card_type": "Action",
@@ -32901,7 +33546,7 @@
     "power": null,
     "armor": null,
     "traits": [],
-    "card_text": "Play: Steal all but 6 of your opponent’s A.",
+    "card_text": "Play: Steal all but 6 of your opponent’s Æmber.",
     "card_number": "283",
     "expansion": 341,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/callofthearchons/283.webp?v=1795663745553679"
@@ -33905,6 +34550,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/182.webp?v=1795667763831725"
   },
   {
+    "name": "Undagnathus (Evil Twin)",
+    "house": "Saurian",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "12",
+    "armor": "0",
+    "traits": ["beast"],
+    "card_text": "Tide: While the tide is low, double all damage dealt to Undagnathus.",
+    "card_number": "130",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/130.webp?v=1795667762896488",
+    "folded": "undagnathus (Evil Twin)"
+  },
+  {
     "name": "Under Pressure",
     "house": "Unfathomable",
     "card_type": "Upgrade",
@@ -34212,6 +34872,21 @@
     "card_number": "123",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/123.webp?v=1795667762544638"
+  },
+  {
+    "name": "Urien the Circumspect (Evil Twin)",
+    "house": "Sanctum",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "1",
+    "traits": ["human", "knight"],
+    "card_text": "Reap: Your opponent loses Æmber equal to Urien the Circumspect's armor.",
+    "card_number": "070",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/070.webp?v=1795667762648568",
+    "folded": "urien the circumspect (Evil Twin)"
   },
   {
     "name": "Urxym the “Diplomat”",
@@ -35344,6 +36019,21 @@
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/367.webp?v=1795667764746397"
   },
   {
+    "name": "Wikolia (Evil Twin)",
+    "house": "Unfathomable",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["beast"],
+    "card_text": "Reap: Exalt Wikolia. Keys cost +4 Æmber during your opponent's next turn.",
+    "card_number": "312",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/312.webp?v=1795667764543349",
+    "folded": "wikolia (Evil Twin)"
+  },
+  {
     "name": "Wild Bounty",
     "house": "Untamed",
     "card_type": "Action",
@@ -35482,6 +36172,21 @@
     "card_number": "427",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/427.webp?v=1795667765150188"
+  },
+  {
+    "name": "Witch of the Dawn (Evil Twin)",
+    "house": "Untamed",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["witch"],
+    "card_text": "Play: Destroy another friendly creature. If you do, play a different creature from your discard pile. Ready and use that creature.",
+    "card_number": "373",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/373.webp?v=1795667764844393",
+    "folded": "witch of the dawn (Evil Twin)"
   },
   {
     "name": "Witch of the Eye",
@@ -35961,6 +36666,21 @@
     "card_number": "428",
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/428.webp?v=1795667765356294"
+  },
+  {
+    "name": "Youngest Bear (Evil Twin)",
+    "house": "Untamed",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "2",
+    "armor": "0",
+    "traits": ["beast"],
+    "card_text": "Reap: You may fight with 1 of Youngest Bear's neighbors.",
+    "card_number": "374",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/374.webp?v=1795667764853740",
+    "folded": "youngest bear (Evil Twin)"
   },
   {
     "name": "Yurk",
@@ -36462,6 +37182,21 @@
     "expansion": 496,
     "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/378.webp?v=1795667765030586",
     "folded": "aemberfin shark"
+  },
+  {
+    "name": "Æmberfin Shark (Evil Twin)",
+    "house": "Untamed",
+    "card_type": "Creature",
+    "rarity": "Special",
+    "amber": 0,
+    "power": "3",
+    "armor": "0",
+    "traits": ["beast"],
+    "card_text": "At the end of your turn, each player loses 1 Æmber. Give Æmberfin Shark a +1 power counter for each Æmber lost this way.",
+    "card_number": "368",
+    "expansion": 496,
+    "image": "https://storage.googleapis.com/mklv-keyforge-cards-public/images/cards/darktidings/368.webp?v=1795667765282441",
+    "folded": "aemberfin shark (Evil Twin)"
   },
   {
     "name": "Æmberfly",
