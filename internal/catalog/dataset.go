@@ -15,8 +15,9 @@ import (
 	"github.com/dmikalova/keyfordle/internal/cards"
 )
 
-// DatasetURL is the keyforge-data dataset in the public bucket.
-const DatasetURL = "https://storage.googleapis.com/mklv-keyforge-cards-public/data/cards.json"
+// LatestURL is the pointer file of the keyforge-data dataset in the public
+// bucket. It names the URL of the current dataset version.
+const LatestURL = "https://storage.googleapis.com/mklv-keyforge-cards-public/" + card.LatestPath
 
 // datasetTypes maps the dataset's deck card types to the type the page shows.
 var datasetTypes = map[string]string{

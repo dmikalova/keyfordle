@@ -107,33 +107,52 @@ func writeJSON(path string, v any) error {
 	return nil
 }
 
-// loadDataset downloads the keyforge-data dataset: DATASET_URL, or the
-// published dataset.
+// loadDataset downloads the keyforge-data dataset. It reads the pointer file
+// (catalog.LatestURL) and then the version file that the pointer names.
+// DATASET_URL, when set, is a dataset file to read instead, for local work.
 func loadDataset() (*card.Dataset, error) {
-	url := os.Getenv("DATASET_URL")
-	if url == "" {
-		url = catalog.DatasetURL
-	}
-
 	client := &http.Client{Timeout: time.Minute}
 
-	resp, err := client.Get(url)
-	if err != nil {
-		return nil, fmt.Errorf("get the dataset: %w", err)
-	}
+	url := os.Getenv("DATASET_URL")
+	if url == "" {
+		var latest card.Latest
+		if err := getJSON(client, catalog.LatestURL, &latest); err != nil {
+			return nil, fmt.Errorf("the dataset pointer: %w", err)
+		}
 
-	defer func() { _ = resp.Body.Close() }()
+		if latest.URL == "" {
+			return nil, fmt.Errorf("the dataset pointer %s has no URL", catalog.LatestURL)
+		}
 
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("get the dataset: %s", resp.Status)
+		url = latest.URL
 	}
 
 	var ds card.Dataset
-	if err := json.NewDecoder(resp.Body).Decode(&ds); err != nil {
-		return nil, fmt.Errorf("parse the dataset: %w", err)
+	if err := getJSON(client, url, &ds); err != nil {
+		return nil, fmt.Errorf("the dataset: %w", err)
 	}
 
 	fmt.Printf("dataset %s: %d cards in %d sets\n", ds.Version, len(ds.Cards), len(ds.Sets))
 
 	return &ds, nil
+}
+
+// getJSON reads a JSON file into v.
+func getJSON(client *http.Client, url string, v any) error {
+	resp, err := client.Get(url)
+	if err != nil {
+		return err
+	}
+
+	defer func() { _ = resp.Body.Close() }()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("get %s: %s", url, resp.Status)
+	}
+
+	if err := json.NewDecoder(resp.Body).Decode(v); err != nil {
+		return fmt.Errorf("parse %s: %w", url, err)
+	}
+
+	return nil
 }

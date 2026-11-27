@@ -5,7 +5,7 @@ go 1.27.2
 toolchain go1.27.4
 
 require (
-	github.com/dmikalova/keyforge-data v1.13.0
+	github.com/dmikalova/keyforge-data v1.20.4
 	github.com/dmikalova/project-standards v1.37.0
 	github.com/jackc/pgx/v5 v5.11.0
 	github.com/magefile/mage v1.17.2

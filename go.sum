@@ -4,8 +4,8 @@ github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ3
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/dmikalova/keyforge-data v1.13.0 h1:0XFPx4az/AGEakJsOEEtDfuTu77R80so7dbzcIO7xa0=
-github.com/dmikalova/keyforge-data v1.13.0/go.mod h1:TME8OeD0HtlEx5CK6IfjDW4dIHcOWc2C0eDxj1QwhNM=
+github.com/dmikalova/keyforge-data v1.20.4 h1:5jzIlL3C0taf5HGisR2yCVYsAYcOkcbbUjibpKSFgfY=
+github.com/dmikalova/keyforge-data v1.20.4/go.mod h1:TME8OeD0HtlEx5CK6IfjDW4dIHcOWc2C0eDxj1QwhNM=
 github.com/dmikalova/project-standards v1.37.0 h1:ChCBRmjVGigh+XEhnrBfmyXOWgdih2ifdxxnvptxC2Q=
 github.com/dmikalova/project-standards v1.37.0/go.mod h1:vMyQZMZJDOLqw0CEPeE9aixdLzWmxB+GxGxPmtr/70s=
 github.com/go-toolsmith/astcopy v1.0.2 h1:YnWf5Rnh1hUudj11kei53kI57quN/VH6Hp1n+erozn0=
